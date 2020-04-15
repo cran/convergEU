@@ -17,13 +17,13 @@
 #'                   convergEU_glb(), for example convergEU_glb()$EU27;
 #'                   if countries = NA, then all available countries are
 #'                   downloaded.
-#' @param rawDump if TRUE raw downloaded data are returned, otherwhise
+#' @param rawDump if TRUE raw downloaded data are returned, otherwise
 #'         filtered values are provided.
 #' @param uniqueIdentif  identifiers of further conditional variables (1,2,...).
 #' @return  a dataset (tibble) years by countries, possibly conditioned
 #'          to gender, within the  list  as  component named res.
 #'          If rawDump is TRUE then bulk data are provided. The list component
-#'          msg may containt auxiliary information on conditioning variables.
+#'          msg may contain auxiliary information on conditioning variables.
 #' @importFrom rlang :=
 #'
 #'

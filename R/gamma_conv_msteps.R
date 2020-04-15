@@ -58,27 +58,26 @@ gamma_conv_msteps <-  function(rawDat,
     }else{ };
     # check time window
     if(# at least one feature wrong
-      !( (endTime %in% unlist(rawDat[,timeName])) &
-         (startTime %in% unlist(rawDat[,timeName]))  &
+      !((endTime %in% rawDat[[timeName]]) &
+         (startTime %in% rawDat[[timeName]])  &
          (nrow(rawDat) >= 2))
     ){
       tmp <- convergEU_glb()$tmpl_out
       tmp$err <- "Error: Time references wrong and/or not enough points."
       return(tmp)
-    }else{  };
+    };
     # sequence of times
-    estrattore <- unlist(rawDat[,timeName]>= startTime)  & unlist(rawDat[,timeName] <= endTime);
-    timeSteps <- rawDat[estrattore, ]
+    estrattore <- (rawDat[[timeName]] >= startTime)  &
+                  (rawDat[[timeName]] <= endTime);
+      timeSteps <- dplyr::filter(rawDat, estrattore)
     outRes <- timeSteps[,timeName]
     outRes$gammaConv <- NA
     for(auxY in 2:nrow(timeSteps)) {
       outRes$gammaConv[auxY] <- gamma_conv(timeSteps,
-                                           last = as.numeric(timeSteps[auxY,timeName]),
-                                           ref = as.numeric(timeSteps[auxY-1,timeName]),
+                                           last = timeSteps[[timeName]][auxY],
+                                           ref =  timeSteps[[timeName]][auxY-1],
                                            timeName = timeName,
                                            printRanks = FALSE)$res;
-
-
     }# end of for
     obj_out$res <-outRes
     return(obj_out)

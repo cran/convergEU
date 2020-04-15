@@ -58,8 +58,8 @@ test_that("Simplest Imputation using option cut", {
   expect_null(resImpu$err)
   expect_equal(dim(resImpu$res),c(7,14) )
   # the only missing in DK
-  imputed <- (as.numeric(myTB2[5,"DK"])+as.numeric(myTB2[7,"DK"]))/2
-  expect_equal(as.numeric(resImpu$res[4,"DK"]), imputed )
+  imputed <- sum(myTB2[["DK"]][c(5,7)])/2
+  expect_equal( resImpu$res[["DK"]][4], imputed )
   })
 
 
@@ -75,12 +75,16 @@ test_that("Imputation using option constant", {
   expect_null(resImpu$err)
   expect_equal(dim(resImpu$res),c(9,14) )
   # the only missing in DK
-  imputed <- (as.numeric(myTB2[5,"DK"])+as.numeric(myTB2[7,"DK"]))/2
-  expect_equal(as.numeric(resImpu$res[6,"DK"]), imputed )
+  #imputed <- (as.numeric(myTB2[5,"DK"])+as.numeric(myTB2[7,"DK"]))/2
+  imputed <- sum(myTB2[["DK"]][c(5,7)])/2
+  expect_equal( resImpu$res[["DK"]][6], imputed )
+
+  expect_equal(resImpu$res[["DK"]][6], imputed )
   # tail BE
-  expect_equal(unlist(resImpu$res[1:2,"BE"]), unlist(myTB2[c(3,3),"BE"]) )
+  expect_equal(resImpu$res[["BE"]][1:2], myTB2[["BE"]][c(3,3)] )
   # head DE
   expect_equal(unlist(resImpu$res[8:9,"DE"]), unlist(myTB2[c(7,7),"DE"]) )
+  expect_equal( resImpu$res[["DE"]][8:9] , myTB2[["DE"]][c(7,7)]  )
 
 })
 
@@ -98,29 +102,28 @@ test_that("Imputation into a chunk of missing", {
   expect_equal(dim(resImpu$res),c(9,14) )
 
   # several missing
-  y1 <- unlist(myTB2[c(2),"IT"])
-  y2 <- unlist(myTB2[c(5),"IT"])
+  y1 <- myTB2[["IT"]][c(2)]
+  y2 <- myTB2[["IT"]][c(5)]
   years <- c(1980,1995)
   beta1 <- (y2-y1)/diff(years)
   beta0 <- as.numeric(y2-beta1*years[2])
   imputedOBS <- beta0+beta1*years
   imputedHand <- beta0+beta1*c(1985,1990)
-  expect_equal(as.numeric(unlist(resImpu$res[3:4,"IT"])), imputedHand)
+  expect_equal(resImpu$res[["IT"]][3:4], imputedHand)
   # other chunk
-  y1 <- unlist(myTB2[c(5),"IT"])
-  y2 <- unlist(myTB2[c(9),"IT"])
+  y1 <-  myTB2[["IT"]][c(5)]
+  y2 <-  myTB2[["IT"]][c(9)]
   years <- c(1995,2015)
   beta1 <- (y2-y1)/diff(years)
   beta0 <- as.numeric(y2-beta1*years[2])
   imputedOBS <- beta0+beta1*years
   imputedHand <- beta0+beta1*c(2000,2005,2010)
-  expect_equal(as.numeric(unlist(resImpu$res[6:8,"IT"])), imputedHand)
+  expect_equal(resImpu$res[["IT"]][6:8], imputedHand)
   # what about a country without missing?
-  expect_equal(as.numeric(unlist(myTB2[c(1,2,5,9),"IT"])),
-               as.numeric(unlist(resImpu$res[c(1,2,5,9),"IT"])))
+  expect_equal( myTB2[["IT"]][c(1,2,5,9)],
+               resImpu$res[["IT"]][c(1,2,5,9)])
   # what about original values near chunks of missing?
-  expect_equal(as.numeric(unlist(myTB2[,"UK"])),
-      as.numeric(unlist(resImpu$res[,"UK"])))
+  expect_equal(myTB2[["UK"]], resImpu$res[["UK"]])
 
 })
 
@@ -140,23 +143,23 @@ test_that("Imputation into a chunk with delta time  equal to 1", {
   expect_equal(dim(resImpu$res),c(9,3) )
 
   # several missing
-  y1 <- unlist(myTB2[c(2),"IT"])
-  y2 <- unlist(myTB2[c(5),"IT"])
+  y1 <-  myTB2[["IT"]][c(2)]
+  y2 <-  myTB2[["IT"]][c(5)]
   years <- c(2001,2004)
   beta1 <- (y2-y1)/diff(years)
   beta0 <- as.numeric(y2-beta1*years[2])
   imputedOBS <- beta0+beta1*years
   imputedHand <- beta0+beta1*c(2002,2003)
-  expect_equal(as.numeric(unlist(resImpu$res[3:4,"IT"])), imputedHand)
+  expect_equal(resImpu$res[["IT"]][3:4], imputedHand)
   # other chunk
-  y1 <- unlist(myTB2[c(5),"IT"])
-  y2 <- unlist(myTB2[c(9),"IT"])
+  y1 <-  myTB2[["IT"]][c(5)]
+  y2 <-  myTB2[["IT"]][c(9)]
   years <- c(2004,2008)
   beta1 <- (y2-y1)/diff(years)
   beta0 <- as.numeric(y2-beta1*years[2])
   imputedOBS <- beta0+beta1*years
   imputedHand <- beta0+beta1*c(2005:2007)
-  expect_equal(as.numeric(unlist(resImpu$res[6:8,"IT"])), imputedHand)
+  expect_equal(resImpu$res[["IT"]][6:8], imputedHand)
 
 })
 
@@ -190,8 +193,7 @@ test_that("Imputation into chunk  missing, timeName not standard", {
   dimensioni <-  dim(myres1)
   for(auxR in 1:dimensioni[1]){
     for(auxC in 1:dimensioni[2]){
-      expect_equal(as.numeric(unlist( myres1[auxR,auxC])),
-                   as.numeric(unlist( myres2[auxR,auxC])) )
+      expect_equal(myres1[[auxC]][auxR],  myres2[[auxC]][auxR] )
     }
   }
 

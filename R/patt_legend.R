@@ -96,12 +96,12 @@ patt_legend <- function(indiType = "highBest"){
     oneTB <- oneTB[selez_HB,]
     oneTB <- dplyr::mutate(oneTB,pattern = pattern_HB )
     oneTB$pattern <- factor(oneTB$pattern,
-                            levels=unique(oneTB$pattern_HB))
+                            levels=unique(oneTB[["pattern_HB"]]))
   }else if(indiType == "lowBest"){
     oneTB <- oneTB[selez_LB,]
     oneTB <- dplyr::mutate(oneTB,pattern = pattern_LB )
     oneTB$pattern <- factor(oneTB$pattern,
-                    levels=unique(oneTB$pattern))
+                    levels=unique(oneTB[["pattern"]]))
   }else{
      stop("Error: wrong type of indicator selected!")
   }
@@ -111,8 +111,8 @@ patt_legend <- function(indiType = "highBest"){
                                y = measureEU)) +
               ggplot2::facet_wrap(~pattern,ncol=4) +#ncol=1,nrow=1)+
               ggplot2::geom_line() +
-              ggplot2::geom_line(ggplot2::aes(x = oneTB$time,
-                                              y = oneTB$measureM),
+              ggplot2::geom_line(ggplot2::aes(x = time,
+                                              y = measureM),
                                  colour = "blue",linetype = "3313") +
               ggplot2::scale_y_continuous(
                 breaks = 19:26) +
@@ -125,3 +125,4 @@ patt_legend <- function(indiType = "highBest"){
   return( myGGout )
 }
 
+utils::globalVariables(c("measureM","time","measureEU"))

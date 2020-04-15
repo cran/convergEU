@@ -9,7 +9,7 @@
 #' @param countries selection of countries to display; NA means all countries
 #' @param displace graphical displacement
 #' @param axis_name_y  name of the axis
-#' @param val_alpha  trasparency value in (0,1].
+#' @param val_alpha  transparency value in (0,1].
 #' @param debug  a flag to get debug information as msg component
 #' @return a list with ggplot2 graphical object within res component
 #'
@@ -96,9 +96,9 @@ if(length(setdiff(countries,allCountries)) > 0  & !is.na(countries[1])){
                             negaSum = cumulaDifVector[nameMS],
                             posi = 1:length(nameMS));
 
-  miniX <- min(resDiffe[,"negaSum"])
+  miniX <- min(resDiffe[["negaSum"]])
   miniX <-  miniX + miniX/100
-  maxiX <-  0+ abs(min(resDiffe[,"negaSum"]))/100
+  maxiX <-  0+ abs(min(resDiffe[["negaSum"]]))/100
   etichY  <-  resDiffe$MS
   names(etichY) <-  etichY
 
@@ -114,7 +114,7 @@ if(length(setdiff(countries,allCountries)) > 0  & !is.na(countries[1])){
                    ));
   ## myTBr already filtered
   myGG <- ggplot2::ggplot(myTBr,
-                  ggplot2::aes(x = myTBr$xmin, y = myTBr$posi)) +
+                  ggplot2::aes(x = xmin, y = posi)) +
     ggplot2::scale_y_discrete(
       axis_name_y,
       labels = etichY,
@@ -122,11 +122,11 @@ if(length(setdiff(countries,allCountries)) > 0  & !is.na(countries[1])){
     ) + ggplot2::xlim(c(miniX,maxiX)) +
     ggplot2::geom_rect(data = myTBr,
                        mapping = ggplot2::aes(
-                         xmin = myTBr$xmin,
-                         xmax = myTBr$xmax,
-                         ymin = myTBr$ymin,
-                         ymax = myTBr$ymax,
-                         fill = myTBr$fillCol),
+                         xmin = xmin,
+                         xmax = xmax,
+                         ymin = ymin,
+                         ymax = ymax,
+                         fill = fillCol),
                        color = "grey3", alpha = val_alpha
     ) +
     ggplot2::scale_fill_manual(values = c('#ff0000','#0033cc')) +

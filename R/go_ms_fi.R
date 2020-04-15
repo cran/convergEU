@@ -26,9 +26,9 @@
 #' @param dataNow date of production of this country fiche
 #' @param author  author of this report
 #' @param outFile name of the output file (without path)
-#' @param outDir  output directory, eventualy not existing (only one level allowed)
+#' @param outDir  output directory, eventually not existing (only one level allowed)
 #' @param indiName  name of the considered indicator
-#'
+#' @param workTB  tibble containing data, optional, as alternative to a global object.
 #'
 #' @references{\url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}
 #'
@@ -36,9 +36,9 @@
 #'
 #' \donttest{
 #' go_ms_fi(
-#'      workDF ='myTB',
+#'      workDF ='emp_20_64_MS',
 #'      countryRef ='DE',
-#'      otherCountries = "c('IT','UK','FR','BE','AT')",
+#'      otherCountries = "c('IT','ES','FR','BE','AT')",
 #'      time_0 = 2003,
 #'      time_t = 2014,
 #'      tName = 'time',
@@ -48,30 +48,31 @@
 #'      dataNow=  Sys.time(),
 #'      author = 'A.Student',
 #'      outFile = 'Counfic-DE-2015',
-#'      outDir = 'F:/STORE/tt-fiche',
-#'      indiName= "emp_20_64_MS"
+#'      outDir = tempdir(),
+#'      indiName= "testindi"
 #'      )
 #'
 #' go_ms_fi(
-#'      workDF ='myTB',
+#'      workDF ='emp_20_64_MS',
 #'      countryRef ='IT',
-#'      otherCountries = 'c("DE","UK")',
+#'      otherCountries = 'c("DE","FR")',
 #'      time_0 = 2005,
 #'      time_t = 2015,
 #'      tName = 'time',
+#'      indiType =  "highBest",
 #'      aggregation= 'EU27',
 #'      x_angle=  45,
 #'      dataNow=  Sys.time(),
 #'      author = 'A.Student',
 #'      outFile = 'Counfic-IT-2015',
-#'      outDir = "/tt-fish",
-#'      indiName= "emp_20_64_MS"
+#'      outDir = tempdir(),
+#'      indiName= "testindi"
 #'      )
 #'
 #' go_ms_fi(
-#'      workDF ='myTB',
+#'      workDF ='emp_20_64_MS',
 #'      countryRef ='DE',
-#'      otherCountries = "c('IT','UK','FR','BE','AT')",
+#'      otherCountries = "c('IT','FR','BE','PT')",
 #'      time_0 = 2003,
 #'      time_t = 2014,
 #'      tName = 'time',
@@ -81,16 +82,16 @@
 #'      dataNow=  Sys.time(),
 #'      author = 'A.Student',
 #'      outFile = 'Counfic-DE-2015',
-#'      outDir = '/tt-fish',
-#'      indiName= "emp_20_64_MS"
+#'      outDir = tempdir(),
+#'      indiName= "testindi"
 #'      )
 #'
 #' # artificially created dataset
 #' myTTB <- emp_20_64_MS
-#' names(myTTB)<- c("time",paste("PP",1:28,sep="-"))
+#' names(myTTB) <- c("time",paste("PP",1:28,sep="-"))
 #' go_ms_fi(
 #'        workDF ='myTTB',
-#'        indiName= "lifesatisf",
+#'        indiName= "testindi",
 #'        countryRef ='PP-21',
 #'        otherCountries = "c('PP-1','PP-24','PP-11','PP-28','PP-13')",
 #'        time_0 = 2005,
@@ -102,7 +103,7 @@
 #'        dataNow=  Sys.time(),
 #'        author = 'A.Student',
 #'        outFile = 'country-test-custom',
-#'        outDir = '/tt-fish'
+#'        outDir = tempdir()
 #'      )
 #'}
 #'
@@ -121,7 +122,8 @@ go_ms_fi <-  function(
   author= NA,
   outFile= NA,
   outDir = NA,
-  indiName= NA
+  indiName= NA,
+  workTB = NULL
 ){
    # forcing otherCountries to be  specified
   if(any(is.na(otherCountries))){
@@ -130,7 +132,15 @@ go_ms_fi <-  function(
     return(obj_out)
   }
   # check if missing values are present
-  curTB <- get(workDF)
+  if(is.na(workDF) & (!is.null(workTB))){
+     curTB <-  workTB
+   }else if(!is.na(workDF) & is.null(workTB)){
+     curTB <- get(workDF,envir = .GlobalEnv)
+     workTB <- curTB
+   }else{
+     stop("Error while specifying data.")
+   }
+
   if( any(!stats::complete.cases(curTB))){
     obj_out <- convergEU_glb()$tmpl_out
     obj_out$err <- paste("Error: one or more missing values (NAs) in the dataframe. ",
@@ -194,7 +204,8 @@ go_ms_fi <-  function(
                       dataNow=  dataNow,
                       auth= author,
                       outFile = outFile,
-                      outDir =  outDir
+                      outDir =  outDir,
+                      workTB = workTB
                     ),
                     output_file = outPF)
 }

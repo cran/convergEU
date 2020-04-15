@@ -18,13 +18,13 @@
 #' @param ageInterv if available,
 #'                  a string of character representing the age class to
 #'                  be considered as coded by Eurostat, for example 'Y15-74'.
-#' @param rawDump if TRUE raw downloaded data are returned, otherwhise
+#' @param rawDump if TRUE raw downloaded data are returned, otherwise
 #'         filtered values are provided.
 #' @param uniqueIdentif  identifiers of further conditional variables (1,2,...).
 #' @return  a dataset (tibble) years by countries, possibly conditioned
 #'          to gender, within the  list  as  component named res.
 #'          If rawDump is TRUE then bulk data are provided. The list component
-#'          msg may containt auxiliary information on conditioning variables.
+#'          msg may contain auxiliary information on conditioning variables.
 #' @importFrom rlang :=
 #'
 #'

@@ -28,7 +28,7 @@ c("T","F","M") for Total, Females, Males.}
 a string of character representing the age class to
 be considered as coded by Eurostat, for example 'Y15-74'.}
 
-\item{rawDump}{if TRUE raw downloaded data are returned, otherwhise
+\item{rawDump}{if TRUE raw downloaded data are returned, otherwise
 filtered values are provided.}
 
 \item{uniqueIdentif}{identifiers of further conditional variables (1,2,...).}
@@ -37,7 +37,7 @@ filtered values are provided.}
 a dataset (tibble) years by countries, possibly conditioned
          to gender, within the  list  as  component named res.
          If rawDump is TRUE then bulk data are provided. The list component
-         msg may containt auxiliary information on conditioning variables.
+         msg may contain auxiliary information on conditioning variables.
 }
 \description{
 From the Eurostat web site, a dataset is created whose structure is

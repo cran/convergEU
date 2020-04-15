@@ -7,7 +7,7 @@
 #' @param time_t ending time.
 #' @param aggregation the name of the set of member states for which the sigma-convergence is calculated.
 #' @param x_angle axis orientation for time labels, default 45.
-#' @return  a ggplot object to be displaied of saved using ggsave.
+#' @return  a ggplot object to be displayed of saved using ggsave.
 #'
 #'
 #' @references{\url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}

@@ -18,14 +18,13 @@ test_that("Basic operation", {
 
 testest <- function(){
 
-  system('rm /media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/indica_fi_2.Rmd')
 
-  go_indica_fi(
+  tmp <- go_indica_fi(
+    workDF = NA,#'emp_20_64_MS' ,
     time_0 = 2004,
     time_t = 2018,
     timeName = 'time',
-    workDF = 'myTB' ,
-    indicaT = 'emp_20_64_MS',
+    indicaT = 'emp_20_64',
     indiType = c('highBest','lowBest')[1],
     seleMeasure = 'all',
     seleAggre = 'EU28',
@@ -34,18 +33,18 @@ testest <- function(){
     auth = 'A.Student',
     dataNow =  '2019/01/31',
     outFile = "test_indica-fi-emp_20_64_MS",
-    outDir = "/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish"
+    outDir = tempdir(),
+    workTB = emp_20_64_MS
     )
-
-  browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/test_indica-fi-emp_20_64_MS.html')
-
-
+     
+    # browseURL( file.path(tempdir(),'test_indica-fi-emp_20_64_MS.html'))
 
 
 
-  system('rm /media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/indica_fi_2.Rmd')
-   folder_tmp <- "/media/fred/STOREg7/REPO_GIT/TENDER-EUF/tt-fish"
-   folder_tmp <-"/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish"
+
+
+   
+  folder_tmp <- tempdir()
 
   go_indica_fi(
     time_0 = 2004,
@@ -67,9 +66,7 @@ testest <- function(){
   browseURL(file.path(folder_tmp,'test_indica-fi-emp_20_64_MS.html'))
 
 
-  system('rm /media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/indica_fi_2.Rmd')
-  folder_tmp <- "/media/fred/STOREg7/REPO_GIT/TENDER-EUF/tt-fish"
-  folder_tmp <-"/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish"
+ 
 
   go_indica_fi(
     time_0 = 2002,
@@ -103,7 +100,7 @@ testest <- function(){
 
   ## ISSUE da Chiara Litardi  25 Giugno 2019
 
-system('rm /media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/indica_fi_2.Rmd')
+
 
 go_indica_fi(
     time_0 = 2002,
@@ -120,14 +117,13 @@ go_indica_fi(
     auth = 'A.Student',
     dataNow =  '2019/05/16',
     outFile = "newtest_IT-emp_20_64_MS",
-    outDir = "/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish"
+    outDir = tempdir()
   )
 
-browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/newtest_IT-emp_20_64_MS.html')
+
+browseURL(file.path(folder_tmp,'newtest_IT-emp_20_64_MS.html'))
 
 
-
-  system('rm /media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/indica_fi_2.Rmd')
 
   go_indica_fi(
     time_0 = 2002,
@@ -149,16 +145,15 @@ browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/newte
     auth = 'A.Student',
     dataNow =  '2019/05/16',
     outFile = "newtest_IT",
-    outDir = "/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish"
+    outDir = tempdir
   )
 
-  browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/newtest_IT.html')
+   browseURL(file.path(tempdir(),'newtest_IT.html'))
 
 
 
 
   # custom aggergation
-  system('rm /media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/indica_fi_2.Rmd')
   myTTB <- emp_20_64_MS
   dim(myTTB)
   names(myTTB)<- c("time",paste("PP",1:28,sep="~"))
@@ -183,14 +178,14 @@ browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/newte
     auth = 'A.Student',
     dataNow =  '2019/10/16',
     outFile = "newtest_IT",
-    outDir = "/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish"
+    outDir = tempdir()
   )
 
-  browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/newtest_IT.html')
+  browseURL(file.path(tempdir(),'newtest_IT.html'))
+
 
   # custom aggergation
-  system('rm /media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/indica_fi_2.Rmd')
-  myTTB <-   tibble::tribble(
+   myTTB <-   tibble::tribble(
       ~time, ~UK, ~DE, ~IT,
       2005,   10 , 7  , 6,
       2006,   10 , 7    ,  6, #
@@ -217,11 +212,10 @@ browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/newte
     auth = 'A.Student',
     dataNow =  '2019/12/07',
     outFile = "indica_custom",
-    outDir = "/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish"
+    outDir = tempdir()
   )
 
 
-  browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/indica_custom.html')
 
 
   # strict converg highBest
@@ -260,10 +254,10 @@ browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/newte
     auth = 'A.Student',
     dataNow =  '2019/12/07',
     outFile = "indica_custom",
-    outDir = "/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish"
+    outDir = tempdir()
   )
 
-  browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/indica_custom.html')
+   browseURL(file.path(tempdir(),'indica_custom.html'))
 
 
 
@@ -309,16 +303,15 @@ browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/newte
     auth = 'A.Student',
     dataNow =  '2019/12/07',
     outFile = "indica_custom",
-    outDir = "/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish"
+    outDir = tempdir()
   )
 
-  browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/indica_custom.html')
+
+  browseURL(file.path(tempdir(),'indica_custom.html'))
 
 
 
 
-
-  system('rm /media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/indica_fi_2.Rmd')
 
      negaTB <- emp_20_64_MS
      #negaTB[4,3]<- -5.18
@@ -347,10 +340,12 @@ browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/newte
       auth = 'A.Student',
       dataNow =  '2019/05/16',
       outFile = "negafake",
-      outDir = "/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish"
+      outDir = tempdir()
     )
 
-    browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/negafake.html')
+
+    browseURL(file.path(tempdir(),'negafake.html'))
+
 
 
   TB <-  emp_20_64_MS
@@ -365,10 +360,11 @@ browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/newte
                dataNow = Sys.time(),
                outFile = 'test_EA_indicator fiche',
                #outDir = 'C:/Users/cli/OneDrive - Eurofound/Policy Brief - Pillar of social rights',
-               outDir = "/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish",
+               outDir = tempdir(),
                pdf_out = T)
 
-  browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/test_EA_indicator fiche.html')
+   browseURL(file.path(tempdir(),'test_EA_indicator fiche.html'))
+
 
 
 } # incapsulator

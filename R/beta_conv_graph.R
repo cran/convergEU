@@ -6,7 +6,7 @@
 #' @param time_0 starting time.
 #' @param time_t ending time.
 #' @param indiName name of the  considered indicator as a string.
-#' @return  a ggplot object to be displaied of saved using ggsave.
+#' @return  a ggplot object to be displayed of saved using ggsave.
 #'
 #' @references{ \url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}
 #'

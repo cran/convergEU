@@ -59,12 +59,8 @@ data(emp_20_64_MS)
 myCR<-country_ranking(emp_20_64_MS,timeName = "time", time_0 = 2007, time_t = 2010)
 
 # Visualize the results for the first five countries:
-myCR$res[,c(1:6)]
+myCR$res[1:6]
 
-\donttest{
-# Vizualize the results for all the European members:
-View(myCR$res)
-}
 
 }
 \references{

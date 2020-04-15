@@ -24,7 +24,7 @@ sigma_conv_graph(
 \item{x_angle}{axis orientation for time labels, default 45.}
 }
 \value{
-a ggplot object to be displaied of saved using ggsave.
+a ggplot object to be displayed of saved using ggsave.
 }
 \description{
 A ggplot of the standard deviation and the coefficient of variation based on the results obtained for sigma-convergence

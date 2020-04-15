@@ -1,7 +1,7 @@
 Package: convergEU
 Type: Package
 Title: Monitoring Convergence of EU Countries
-Version: 0.4.1
+Version: 0.4.2
 Depends: R (>= 3.6.0)
 Authors@R: c(
            person("Federico M.", "Stefanini", 
@@ -30,15 +30,15 @@ Imports: dplyr, tibble, tidyverse, knitr, ggplot2, eurostat, tidyr,
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 VignetteBuilder: knitr
 Suggests: rvest, testthat
 NeedsCompilation: no
-Packaged: 2020-03-05 15:43:41 UTC; fred
+Packaged: 2020-04-15 15:36:21 UTC; fred
 Author: Federico M. Stefanini [arc, aut, cre],
   Massimiliano Mascherini [arc],
   Eleonora Peruffo [ctb],
   Nedka Nikiforova [ctb],
   Chiara Litardi [ctb]
 Repository: CRAN
-Date/Publication: 2020-03-13 11:10:05 UTC
+Date/Publication: 2020-04-15 17:00:02 UTC

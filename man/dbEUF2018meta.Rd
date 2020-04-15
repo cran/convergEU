@@ -4,7 +4,9 @@
 \name{dbEUF2018meta}
 \alias{dbEUF2018meta}
 \title{Metainformation on Eurofound dataset}
-\format{A dataset  with 13 rows and 10 columns}
+\format{
+A dataset  with 13 rows and 10 columns
+}
 \source{
 \url{https://www.eurofound.europa.eu/surveys/about-eurofound-surveys/data-availability#datasets}
 }

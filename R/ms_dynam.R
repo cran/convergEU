@@ -73,8 +73,9 @@
 #'
 #' # Plot the departures from the mean for some years only:
 #' # Extract results from sco_level_num" for some years only:
-#' estrattore <- resTB[,"time"] >= 2001 & resTB[,"time"] <= 2004
-#' scobelvl <- resTB[estrattore,]
+#' estrattore <- resTB[["time"]] >= 2001 & resTB[["time"]] <= 2004
+#' scobelvl <- dplyr::filter(resTB, estrattore)
+#'
 #' # Plot the countries dynamics
 #' ms_dynam ( scobelvl,
 #'     timeName = "time",
@@ -97,8 +98,8 @@
 #' sco_lvl <- scoreb_yrs(emp_20_64_MS,timeName = "time")$res$sco_level_num
 #'
 #' # Extract the results from 2009 to 2016
-#' estrattore1 <- sco_lvl[,"time"] >= 2009 & sco_lvl[,"time"] <= 2016
-#' scobelvl1 <- sco_lvl[estrattore1,]
+#' estrattore1 <- sco_lvl[["time"]] >= 2009 & sco_lvl[["time"]] <= 2016
+#' scobelvl1 <- dplyr::filter(sco_lvl, estrattore1)
 #' # Plot the departures from the mean for the EU Member States:
 #' ms_dynam( scobelvl1,
 #'     timeName = "time",
@@ -113,8 +114,8 @@
 #'     indiType = "highBest")
 #'
 #' # Extract the results for Member States from 2007 to 2012:
-#' estrattore2 <- sco_lvl[,"time"] >= 2007 & sco_lvl[,"time"] <= 2012
-#' scobelvl2 <- obe_lvl[estrattore2,]
+#' estrattore2 <- sco_lvl[["time"]] >= 2007 & sco_lvl[["time"]] <= 2012
+#' scobelvl2 <- dplyr::filter(sco_lvl, estrattore2)
 #'
 #' # Plot the departures from the mean:
 #' ms_dynam( scobelvl2,
@@ -174,7 +175,7 @@ myTB2 <- dplyr::mutate(myTB2, position = rep(1:length(etichY),
 
 # make a plot
 myG <- ggplot2::ggplot(myTB2,
-            ggplot2::aes(x = myTB2$time, y = myTB2$position)) +
+            ggplot2::aes(x = `time`,y = `position`)) +
   ggplot2::scale_y_discrete(
     axis_name_y,
     labels = etichY,
@@ -194,11 +195,11 @@ myG <- ggplot2::ggplot(myTB2,
   ggplot2::scale_fill_manual(values = color_rect) +
   ggplot2::geom_rect(data = myTB2,
             mapping = ggplot2::aes(
-                    xmin = myTB2$time - displaceh,
-                    xmax = myTB2$time + displaceh,
-                    ymin = myTB2$position - displace,
-                    ymax = myTB2$position + displace,
-                    fill = factor(myTB2$profile)
+              xmin = `time` - displaceh,
+              xmax = `time` + displaceh,
+              ymin = `position` - displace,
+              ymax = `position` + displace,
+              fill = factor(`profile`)
             ),
             color = "black", alpha=alpha_color
   ) +
@@ -207,12 +208,13 @@ myG <- ggplot2::ggplot(myTB2,
   ggplot2::xlab(axis_name_x) +
   ggplot2::guides(fill = FALSE) +
   ggplot2::geom_text(data=myTB2,
-                     ggplot2::aes(x = myTB2$time,
-                                  y = myTB2$position,
-                                  label = myTB2$profile),
+                     ggplot2::aes(x = `time`,
+                                  y = `position`,
+                                  label = `profile`),
             size = dimeFontNum, colour = "black")
 
 
 return(myG)
 }
 
+utils::globalVariables(c("time","position","profile"))

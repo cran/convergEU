@@ -19,7 +19,8 @@ go_indica_fi(
   dataNow = Sys.time(),
   outFile = NA,
   outDir = NA,
-  pdf_out = NA
+  pdf_out = FALSE,
+  workTB = NULL
 )
 }
 \arguments{
@@ -29,7 +30,7 @@ go_indica_fi(
 
 \item{timeName}{name of the variable containing times (years).}
 
-\item{workDF}{name (string) of the dataset containing
+\item{workDF}{name (string) of the dataset in the global environment containing
 all countries contributing to average.}
 
 \item{indicaT}{name of the  considered indicator.}
@@ -54,9 +55,11 @@ current time.}
 
 \item{outFile}{name of the output file (without path), without extension.}
 
-\item{outDir}{output directory, eventualy not existing (only one level allowed).}
+\item{outDir}{output directory, eventually not existing (only one level allowed).}
 
 \item{pdf_out}{should the output be saved as PDF file? The default is  FALSE.}
+
+\item{workTB}{tibble containing data, optional, as alternative to a global object}
 }
 \description{
 An auxiliary function to compile a rmarkdown file to produce the indicator fiche in
@@ -80,8 +83,8 @@ the browsers Mozilla Firefox and Google Chrome.
      time_0 = 2004,
      time_t = 2014,
      timeName = 'time',
-     workDF = 'myTB' ,
-     indicaT = 'emp_20_64_MS',
+     workDF = 'emp_20_64_MS' ,
+     indicaT = 'emp_20_64',
      indiType = c('highBest','lowBest')[1],
      seleMeasure = 'all',
      seleAggre = 'EU27',
@@ -90,7 +93,7 @@ the browsers Mozilla Firefox and Google Chrome.
      auth = 'A.Student',
      dataNow =  '2019/01/31',
      outFile = "test_indica-fi-emp_20_64_MS",
-     outDir = "/tt-fiche"
+     outDir = tempdir()
      )
 
 # lowBest indicator
@@ -108,7 +111,7 @@ the browsers Mozilla Firefox and Google Chrome.
     auth = 'A.Student',
     dataNow =  '2019/01/31',
     outFile = "test_indica-fi-emp_20_64_MS",
-    outDir = "/tt-fish"
+    outDir = tempdir()
     )
 
 # Select beta and gamma convergence measures only:
@@ -118,8 +121,7 @@ the browsers Mozilla Firefox and Google Chrome.
     timeName = 'time',
     workDF = 'emp_20_64_MS' ,
     indicaT = 'emp_20_64',
-     indiType = 'highBest',
-    indiType = 'lowBest',
+    indiType = 'highBest',
     seleMeasure = c('beta','sigma'),
     seleAggre = 'EU27',
     x_angle =  45,
@@ -127,7 +129,7 @@ the browsers Mozilla Firefox and Google Chrome.
     auth = 'A.Student',
     dataNow =  '2019/05/16',
     outFile = "newtest_IT-emp_20_64_MS",
-    outDir = "/tt-fish"
+    outDir = tempdir()
     )
 }
 

@@ -15,7 +15,7 @@ and tables, cluster of countries are stored with their corresponding labels as w
 and labels.
 }
 \details{
-Note that EU27 refers to Member States after the 1st Februrary 2020, while EU28 is a valid
+Note that EU27 refers to Member States after the 1st February 2020, while EU28 is a valid
 tag up to 31 March 2020. String EU27_2020 and EU27_2007 as defined by Eurofound are also
 available.
 

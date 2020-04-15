@@ -94,10 +94,10 @@ impute_dataset <- function(myTB,
     out_obj$err <- "Error: wrong time variable."
     return(out_obj)
   }else{};
-  #
+  # sort by time
   myTB <- dplyr::arrange(myTB, .data[[timeName]])
   tmpTB <- myTB # destination
-  deltaTime <- diff(unlist(myTB[[timeName]]))
+  deltaTime <- diff(myTB[[timeName]])
   #checking step: tailMiss
   if(!(tailMiss %in% c("cut", "constant"))){
     out_obj$err <- "Error: wrong tailMiss selection."
@@ -110,43 +110,48 @@ impute_dataset <- function(myTB,
   }
   #checking step: countries
   nomiTB <- names(myTB)
-  for(aux in countries){
-    if(!(aux %in% nomiTB)){
-      out_obj$err <- "Error: wrong country label."
-      return(out_obj)
+  if(length(setdiff(countries,names(myTB)))>0){
+    out_obj$err <- "Error: wrong country label."
+    return(out_obj)
     }
-  }
   ## Calculations
   ## first with inner chunks of missing
   for (aux in countries) {
-    sottoTB1 <- myTB[,c(timeName,aux)]
+    sottoTB1 <- myTB[c(timeName,aux)]
     estrattore <- stats::complete.cases(sottoTB1)
     ## we can move this outside this cycle
-    sottoTB1 <- dplyr::mutate(sottoTB1,DeltaT= c(diff(unlist(sottoTB1[,timeName])),NA))
+    sottoTB1 <- dplyr::mutate(sottoTB1,DeltaT= c(diff(sottoTB1[[timeName]]),NA))
     startV <- min(which(estrattore))# posizione
     endV <- max(which(estrattore))# posizione
     # here imputation takes place "within", head and tail cut
     if (any(is.na(sottoTB1[startV:endV,aux]))) {
       sottoTB2 <- sottoTB1[startV:endV,]
-      allTimes <- unlist(sottoTB2[,timeName]) ## all considered times
+      #allTimes <- unlist(sottoTB2[,timeName]) ## all considered times
+      allTimes <-  sottoTB2[[timeName]] ## all considered times
       #
-      sottoTB4 <- sottoTB2[!is.na(sottoTB2[,aux]),]# reduced to full data
+      sottoTB4 <- sottoTB2[!is.na(sottoTB2[[aux]]),]# reduced to full data
       lastRow <- nrow(sottoTB4)
       clusterMiss <- list()
       for(auxSM in 1:(lastRow-1)){
-        timeCur <- unlist(sottoTB4[auxSM,timeName]); #tempo completo corrente
-        timeCurP1 <- unlist(sottoTB4[auxSM + 1,timeName]); #tempo successivo completo
-        estrattoMis <- (sottoTB2[,timeName] > timeCur) &
-                       (sottoTB2[,timeName] < timeCurP1);
+        timeCur <-  sottoTB4[[timeName]][auxSM]  #tempo completo corrente
+        #timeCur <- unlist(sottoTB4[auxSM,timeName]);
+        #timeCurP1 <- unlist(sottoTB4[auxSM + 1,timeName]); #tempo successivo completo
+        timeCurP1 <- sottoTB4[[timeName]][auxSM + 1]; #tempo successivo completo
+
+        estrattoMis <- (sottoTB2[[timeName]] > timeCur) &
+                       (sottoTB2[[timeName]] < timeCurP1);
         if(sum(estrattoMis) > 0){
-          valTimMis <- unlist(sottoTB2[estrattoMis,timeName])
+          #valTimMis <- unlist(sottoTB2[estrattoMis,timeName])
+          valTimMis <- sottoTB2[[timeName]][estrattoMis]
           clusterMiss[[paste(timeCur)]] <- list(
                     t1 = timeCur,
                     t2 = timeCurP1,
                     timeMiss = valTimMis,
-                    indicaT1 = unlist(sottoTB4[auxSM,aux]),
-                    indicaT2 = unlist(sottoTB4[auxSM+1,aux]))
-          # imputa
+                    #indicaT1 = unlist(sottoTB4[auxSM,aux]),
+                    #indicaT2 = unlist(sottoTB4[auxSM+1,aux]))
+          indicaT1 =  sottoTB4[[aux]][auxSM],
+          indicaT2 =  sottoTB4[[aux]][auxSM+1])
+# imputa
           resImpu <- impu_det_lin(clusterMiss[[paste(timeCur)]]$t1,
                        clusterMiss[[paste(timeCur)]]$t2,
                        valTimMis,
@@ -154,14 +159,16 @@ impute_dataset <- function(myTB,
                        clusterMiss[[paste(timeCur)]]$indicaT2)
           for(auxI in 1:length(valTimMis)) {
             #tmpTB[(tmpTB$time == valTimMis[auxI]),aux] <- resImpu$indicator[auxI]
-            tmpTB[(tmpTB[[timeName]] == valTimMis[auxI]),aux] <- resImpu$indicator[auxI]
-          }
-          }else{}
+            #tmpTB[(tmpTB[[timeName]] == valTimMis[auxI]),aux] <- resImpu$indicator[auxI]
+            tmpTB[[aux]][(tmpTB[[timeName]] == valTimMis[auxI])] <- resImpu$indicator[auxI]
+            }
+          }else{};
       }
     # imputa il dato mancante
      for(auxI in 1:length(tmpTB[[timeName]])) {
-        myTB[(myTB[[timeName]] == as.numeric(tmpTB[auxI,timeName])),  aux] <- tmpTB[auxI,aux]
-        }
+       #myTB[(myTB[[timeName]] == as.numeric(tmpTB[auxI,timeName])),  aux] <- tmpTB[auxI,aux]
+       myTB[[aux]][ (myTB[[timeName]] ==  tmpTB[[timeName]][auxI])] <- tmpTB[[aux]][auxI]
+     }
     }}
   ## then handle tail
   if (tailMiss == "cut"){
@@ -181,7 +188,7 @@ impute_dataset <- function(myTB,
   #
   # head miss == cut
   if (headMiss == "cut"){
-    myTBred <- myTB[,countries]
+    myTBred <- myTB[countries]
     mayNA <- is.na(myTBred)
     rowsToCut <- apply(mayNA,1,any)
     # check if deleting first rows at list two time points remain
@@ -198,19 +205,21 @@ impute_dataset <- function(myTB,
   # tail and head  missing imputed by a constant needs of a cycle
   for(aux in countries){
       if (tailMiss == "constant"){
-        firstObserved <- min(which(!is.na(myTB[,aux])))
+        firstObserved <- min(which(!is.na(myTB[[aux]])))
         if(firstObserved>1){
-           myTB[1:(firstObserved-1),aux] <- myTB[firstObserved, aux]
-         }else{}
-       }else{}#end of tailMiss == constant
+          #myTB[1:(firstObserved-1),aux] <- myTB[firstObserved, aux]
+          myTB[[aux]][1:(firstObserved-1)] <- myTB[[aux]][firstObserved]
+        }else{};
+       }else{};#end of tailMiss == constant
        #
        ##  then handle head
       if (headMiss == "constant"){
-        lastObserved <- max(which(!is.na(myTB[,aux])))
+        lastObserved <- max(which(!is.na(myTB[[aux]])))
         if(lastObserved < nrow(myTB)){
-          myTB[(lastObserved+1):nrow(myTB),aux] <- myTB[lastObserved, aux]
-        }else{}
-      }else{}#end of tailMiss == constant
+          #myTB[(lastObserved+1):nrow(myTB),aux] <- myTB[lastObserved, aux]
+          myTB[[aux]][(lastObserved+1):nrow(myTB)] <- myTB[[aux]][lastObserved]
+        }else{};
+      }else{};#end of tailMiss == constant
   }# end for all countries
 
   out_obj$res <- myTB

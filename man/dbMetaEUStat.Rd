@@ -4,7 +4,9 @@
 \name{dbMetaEUStat}
 \alias{dbMetaEUStat}
 \title{Eurostat metainformation}
-\format{A tibble dataset with 56 rows and 10 columns}
+\format{
+A tibble dataset with 56 rows and 10 columns
+}
 \source{
 \url{https://ec.europa.eu/eurostat/data/database}
 }

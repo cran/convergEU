@@ -24,7 +24,10 @@ It can be investigated with the standard deviation or with the coefficient of va
 ##
 
 ##wkDF2 <- filter(wkDF, .data[[timeName]]   <= ptime_t & .data[[timeName]] >= ptime_0)
-sigCores <- sigma_conv(wkDF2, timeName = timeName, time_0 = ptime_0, time_t=ptime_t)
+sigCores <- sigma_conv(wkDF2, 
+                       timeName = timeName, 
+                       time_0 = ptime_0, 
+                       time_t = ptime_t)
 #sigCores
 lastRowAveragesSig <- nrow(sigCores$res)
 

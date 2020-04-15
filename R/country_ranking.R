@@ -41,17 +41,17 @@
 #' myCR<-country_ranking(emp_20_64_MS,timeName = "time", time_0 = 2007, time_t = 2010)
 #'
 #' # Visualize the results for the first five countries:
-#' myCR$res[,c(1:6)]
+#' myCR$res[1:6]
 #'
-#' \donttest{
-#' # Vizualize the results for all the European members:
-#' View(myCR$res)
-#' }
 #'
 #' @export
 #'
 #'
-country_ranking <- function(myTB,timeName="time", time_0=NA,time_t=NA, typeInd="highBest" ){
+country_ranking <- function(myTB,
+                            timeName="time",
+                            time_0=NA,
+                            time_t=NA,
+                            typeInd="highBest" ){
   # Make standard cheks on the dataset
   obj_out <- check_data(myTB)
   if(!is.null(obj_out$err)){
@@ -69,10 +69,10 @@ country_ranking <- function(myTB,timeName="time", time_0=NA,time_t=NA, typeInd="
     # select time window
     if(!is.na(time_0) & !is.na(time_t)) {
       # check
-      tempiCur <- unlist(myTB[,timeName])
+      tempiCur <- myTB[[timeName]]
       if( (time_0 < time_t) && (time_0 %in% tempiCur)   && (time_t %in% tempiCur) ){
-        myDes1 <- myDes1[(tempiCur >= time_0 ) & (tempiCur <= time_t),];
-      }else{# condizione di errore
+        myDes1 <- dplyr::filter(myDes1,(!!tempiCur >= !!time_0 ) &   (!!tempiCur <= !!time_t))
+      }else{# if error
         obj_out <-  convergEU_glb()$tmpl_out
         obj_out$err <- "Error: wrong time window."
         return(obj_out)
@@ -85,19 +85,16 @@ country_ranking <- function(myTB,timeName="time", time_0=NA,time_t=NA, typeInd="
     return(tmp)
   }
   # make calculations
-  posizTime <- which(names(myDes1) == timeName)
   if(typeInd == "lowBest"){
-      ord_MS <-  myDes1
-
+      ord_MS <- dplyr::select(myDes1,-!!timeName)
   }else{# reverse sign
-    ord_MS <-  myDes1
-    ord_MS[ ,-posizTime] <-  -ord_MS[ ,-posizTime]
+    ord_MS <- -1*dplyr::select(myDes1,-!!timeName)
   }
-  for(auxMS in 1:nrow(myDes1)) {
-        ord_MS[auxMS,-posizTime] <-  rank(unlist(ord_MS[auxMS,-posizTime]),ties.method ="min")
-      }
-  ##obj_out <- convergEU_glb()$tmpl_out
-  obj_out$err <- NULL
+  for(auxMS in 1:nrow(ord_MS)) {
+        ord_MS[auxMS,] <-  as.list(rank(unlist(ord_MS[auxMS,]),
+                                        ties.method ="min"))
+  }
+  ord_MS <- dplyr::bind_cols(myDes1[timeName],ord_MS)
   obj_out$res <- ord_MS
   return(obj_out)
 

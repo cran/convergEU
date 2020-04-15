@@ -15,7 +15,7 @@
 #' @param time_0 starting time.
 #' @param time_t ending time.
 #' @param timeName name of the variable containing times (years).
-#' @param workDF name (string) of the dataset containing
+#' @param workDF name (string) of the dataset in the global environment containing
 #'                    all countries contributing to average.
 #' @param indicaT name of the  considered indicator.
 #' @param indiType type of indicator "lowBest" or "highBest" (default).
@@ -30,9 +30,9 @@
 #' @param dataNow date of production of this country fiche, default is
 #'                 current time.
 #' @param outFile name of the output file (without path), without extension.
-#' @param outDir  output directory, eventualy not existing (only one level allowed).
+#' @param outDir  output directory, eventually not existing (only one level allowed).
 #' @param pdf_out should the output be saved as PDF file? The default is  FALSE.
-#'
+#' @param workTB  tibble containing data, optional, as alternative to a global object
 #'
 #' @references{\url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}
 #'
@@ -45,8 +45,8 @@
 #'      time_0 = 2004,
 #'      time_t = 2014,
 #'      timeName = 'time',
-#'      workDF = 'myTB' ,
-#'      indicaT = 'emp_20_64_MS',
+#'      workDF = 'emp_20_64_MS' ,
+#'      indicaT = 'emp_20_64',
 #'      indiType = c('highBest','lowBest')[1],
 #'      seleMeasure = 'all',
 #'      seleAggre = 'EU27',
@@ -55,7 +55,7 @@
 #'      auth = 'A.Student',
 #'      dataNow =  '2019/01/31',
 #'      outFile = "test_indica-fi-emp_20_64_MS",
-#'      outDir = "/tt-fiche"
+#'      outDir = tempdir()
 #'      )
 #'
 #' # lowBest indicator
@@ -73,7 +73,7 @@
 #'     auth = 'A.Student',
 #'     dataNow =  '2019/01/31',
 #'     outFile = "test_indica-fi-emp_20_64_MS",
-#'     outDir = "/tt-fish"
+#'     outDir = tempdir()
 #'     )
 #'
 #' # Select beta and gamma convergence measures only:
@@ -83,8 +83,7 @@
 #'     timeName = 'time',
 #'     workDF = 'emp_20_64_MS' ,
 #'     indicaT = 'emp_20_64',
-#'      indiType = 'highBest',
-#'     indiType = 'lowBest',
+#'     indiType = 'highBest',
 #'     seleMeasure = c('beta','sigma'),
 #'     seleAggre = 'EU27',
 #'     x_angle =  45,
@@ -92,7 +91,7 @@
 #'     auth = 'A.Student',
 #'     dataNow =  '2019/05/16',
 #'     outFile = "newtest_IT-emp_20_64_MS",
-#'     outDir = "/tt-fish"
+#'     outDir = tempdir()
 #'     )
 #'}
 #'
@@ -115,10 +114,18 @@ go_indica_fi <-  function(
   dataNow =  Sys.time(), #'2019/01/31',
   outFile = NA,
   outDir = NA,
-  pdf_out = NA
+  pdf_out = FALSE,
+  workTB = NULL
 ){
+  if(is.na(workDF) & (!is.null(workTB))){
+    curTB <-  workTB
+  }else if(!is.na(workDF) & is.null(workTB)){
+    curTB <- get(workDF,envir = .GlobalEnv)
+    workTB <- curTB
+  }else{
+    stop("Error while specifying data.")
+  }
   # check if missing values are present
-  curTB <- get(workDF)
   if( any(!stats::complete.cases(curTB))){
     obj_out <- convergEU_glb()$tmpl_out
     obj_out$err <- paste("Error: one or more missing values (NAs) in the dataframe. ",
@@ -203,22 +210,26 @@ go_indica_fi <-  function(
   # go with rendering
   rmarkdown::render(sourcePF1,
                     params = list(
+                      dataNow = dataNow,
+                      workingDF = workDF,
                       time_0 = time_0,
                       time_t = time_t,
                       timeName = timeName,
-                      workingDF = workDF ,
-                      indicaT = indicaT,
                       indiType = indiType,
+                      indicaT = indicaT,
                       seleMeasure = seleMeasure,
                       seleAggre = seleAggre,
                       x_angle =  x_angle,
                       data_res_download =  data_res_download,
                       auth = auth,
-                      dataNow = dataNow,
                       outFile = outFile,
-                      outDir = outDir
+                      outDir = outDir,
+                      pdf_out = FALSE,
+                      workTB = workTB
                     ),
                     output_options = list(self_contained = FALSE,
                               mathjax = 'local'),
-                    output_file = outPF)
+                    output_file = outPF,
+                    encoding = "UTF-8")
 }
+

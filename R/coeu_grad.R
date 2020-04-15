@@ -33,7 +33,7 @@ coeu_grad <- function(mEU2,mEU1,mMS2,mMS1,time2,time1){
 #' @param mEU averages at time1 and time 2
 #' @param mMS  indicator for a member country at time1 and time2
 #' @param time the two times considered, sorted in ascending order
-#' @return a list with components time lenghtm, grad of member state,
+#' @return a list with components time length, grad of member state,
 #'          grad of EU average and the delta squared difference at a pair
 #'          of times.
 #'

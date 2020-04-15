@@ -14,7 +14,7 @@ coeu_gradV(mEU, mMS, time)
 \item{time}{the two times considered, sorted in ascending order}
 }
 \value{
-a list with components time lenghtm, grad of member state,
+a list with components time length, grad of member state,
          grad of EU average and the delta squared difference at a pair
          of times.
 }

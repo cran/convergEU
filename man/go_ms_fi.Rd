@@ -18,7 +18,8 @@ go_ms_fi(
   author = NA,
   outFile = NA,
   outDir = NA,
-  indiName = NA
+  indiName = NA,
+  workTB = NULL
 )
 }
 \arguments{
@@ -48,9 +49,11 @@ if not pre-coded)}
 
 \item{outFile}{name of the output file (without path)}
 
-\item{outDir}{output directory, eventualy not existing (only one level allowed)}
+\item{outDir}{output directory, eventually not existing (only one level allowed)}
 
 \item{indiName}{name of the considered indicator}
+
+\item{workTB}{tibble containing data, optional, as alternative to a global object.}
 }
 \description{
 An auxiliary function to compile a rmarkdown file to produce a country fiche in
@@ -69,9 +72,9 @@ function to properly rendering the results in the html file
 
 \donttest{
 go_ms_fi(
-     workDF ='myTB',
+     workDF ='emp_20_64_MS',
      countryRef ='DE',
-     otherCountries = "c('IT','UK','FR','BE','AT')",
+     otherCountries = "c('IT','ES','FR','BE','AT')",
      time_0 = 2003,
      time_t = 2014,
      tName = 'time',
@@ -81,30 +84,31 @@ go_ms_fi(
      dataNow=  Sys.time(),
      author = 'A.Student',
      outFile = 'Counfic-DE-2015',
-     outDir = 'F:/STORE/tt-fiche',
-     indiName= "emp_20_64_MS"
+     outDir = tempdir(),
+     indiName= "testindi"
      )
 
 go_ms_fi(
-     workDF ='myTB',
+     workDF ='emp_20_64_MS',
      countryRef ='IT',
-     otherCountries = 'c("DE","UK")',
+     otherCountries = 'c("DE","FR")',
      time_0 = 2005,
      time_t = 2015,
      tName = 'time',
+     indiType =  "highBest",
      aggregation= 'EU27',
      x_angle=  45,
      dataNow=  Sys.time(),
      author = 'A.Student',
      outFile = 'Counfic-IT-2015',
-     outDir = "/tt-fish",
-     indiName= "emp_20_64_MS"
+     outDir = tempdir(),
+     indiName= "testindi"
      )
 
 go_ms_fi(
-     workDF ='myTB',
+     workDF ='emp_20_64_MS',
      countryRef ='DE',
-     otherCountries = "c('IT','UK','FR','BE','AT')",
+     otherCountries = "c('IT','FR','BE','PT')",
      time_0 = 2003,
      time_t = 2014,
      tName = 'time',
@@ -114,16 +118,16 @@ go_ms_fi(
      dataNow=  Sys.time(),
      author = 'A.Student',
      outFile = 'Counfic-DE-2015',
-     outDir = '/tt-fish',
-     indiName= "emp_20_64_MS"
+     outDir = tempdir(),
+     indiName= "testindi"
      )
 
 # artificially created dataset
 myTTB <- emp_20_64_MS
-names(myTTB)<- c("time",paste("PP",1:28,sep="-"))
+names(myTTB) <- c("time",paste("PP",1:28,sep="-"))
 go_ms_fi(
        workDF ='myTTB',
-       indiName= "lifesatisf",
+       indiName= "testindi",
        countryRef ='PP-21',
        otherCountries = "c('PP-1','PP-24','PP-11','PP-28','PP-13')",
        time_0 = 2005,
@@ -135,7 +139,7 @@ go_ms_fi(
        dataNow=  Sys.time(),
        author = 'A.Student',
        outFile = 'country-test-custom',
-       outDir = '/tt-fish'
+       outDir = tempdir()
      )
 }
 

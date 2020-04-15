@@ -48,13 +48,13 @@ test_that("Simplest test", {
 
 test_that("LowBest and highBest", {
       testTB <- dplyr::tribble(
-      ~time, ~countryA ,  ~countryB,  ~countryC,
-      2000,     0.8,   2.7,    3.9,
-      2001,     1.2,   3.2,    4.2,
-      2002,     0.9,   2.9,    4.1,
-      2003,     1.3,   2.9,    4.0,
-      2004,     1.2,   3.1,    4.1,
-      2005,     1.2,   3.0,    4.0
+          ~time, ~countryA ,  ~countryB,  ~countryC,
+          2000,     0.8,   2.7,    3.9,
+          2001,     1.2,   3.2,    4.2,
+          2002,     0.9,   2.9,    4.1,
+          2003,     1.3,   2.9,    4.0,
+          2004,     1.2,   3.1,    4.1,
+          2005,     1.2,   3.0,    4.0
       )
       mySTB <- sigma_conv(testTB)
       resDM <-  departure_mean(oriTB=testTB, sigmaTB=mySTB$res)
@@ -70,6 +70,9 @@ test_that("LowBest and highBest", {
                              axis_name_y = "Countries",
                              axis_name_x = "Time",
                              alpha_color = 0.9)
+      #
+      expect_null(myG$err)
+
       myG <- graph_departure(resDM$res$departures,
                              timeName = "time",
                              indiType ="lowBest",
@@ -82,7 +85,7 @@ test_that("LowBest and highBest", {
                              axis_name_y = "Countries",
                              axis_name_x = "Time",
                              alpha_color = 0.9)
-  expect_null(myG$err)
+      expect_null(myG$err)
 
 })
 

@@ -101,8 +101,9 @@ ms_dynam ( resTB,
 
 # Plot the departures from the mean for some years only:
 # Extract results from sco_level_num" for some years only:
-estrattore <- resTB[,"time"] >= 2001 & resTB[,"time"] <= 2004
-scobelvl <- resTB[estrattore,]
+estrattore <- resTB[["time"]] >= 2001 & resTB[["time"]] <= 2004
+scobelvl <- dplyr::filter(resTB, estrattore)
+
 # Plot the countries dynamics
 ms_dynam ( scobelvl,
     timeName = "time",
@@ -125,8 +126,8 @@ data(emp_20_64_MS)
 sco_lvl <- scoreb_yrs(emp_20_64_MS,timeName = "time")$res$sco_level_num
 
 # Extract the results from 2009 to 2016
-estrattore1 <- sco_lvl[,"time"] >= 2009 & sco_lvl[,"time"] <= 2016
-scobelvl1 <- sco_lvl[estrattore1,]
+estrattore1 <- sco_lvl[["time"]] >= 2009 & sco_lvl[["time"]] <= 2016
+scobelvl1 <- dplyr::filter(sco_lvl, estrattore1)
 # Plot the departures from the mean for the EU Member States:
 ms_dynam( scobelvl1,
     timeName = "time",
@@ -141,8 +142,8 @@ ms_dynam( scobelvl1,
     indiType = "highBest")
 
 # Extract the results for Member States from 2007 to 2012:
-estrattore2 <- sco_lvl[,"time"] >= 2007 & sco_lvl[,"time"] <= 2012
-scobelvl2 <- obe_lvl[estrattore2,]
+estrattore2 <- sco_lvl[["time"]] >= 2007 & sco_lvl[["time"]] <= 2012
+scobelvl2 <- dplyr::filter(sco_lvl, estrattore2)
 
 # Plot the departures from the mean:
 ms_dynam( scobelvl2,

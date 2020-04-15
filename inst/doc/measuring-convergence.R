@@ -7,7 +7,6 @@ require(eurostat)
 require(purrr)
 require(tibble)
 require(tidyr)
-require(ggplot2)
 require(formattable) 
 require(kableExtra)
 require(caTools)
@@ -19,11 +18,6 @@ knitr::opts_chunk$set(
   fig.height = 5
 )
 
-
-## ----eval=FALSE---------------------------------------------------------------
-#  library(convergEU)
-#  data("emp_20_64")
-#  head(emp_20_64)
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  data("emp_20_64_MS",package = "convergEU")
@@ -113,16 +107,17 @@ sapply(myTB$res,function(vx)sum(is.na(vx)))
 
 ## -----------------------------------------------------------------------------
 myTB2 <- dplyr::bind_rows(myTB,myTB,myTB)
-myTB2$time[1:3] <- c(1975,1980,1985)
-myTB2$time[4:6] <- c(1990,1995,2000)
+myTB2[["time"]][1:3] <- c(1975,1980,1985)
+myTB2[["time"]][4:6] <- c(1990,1995,2000)
 
-myTB2[1:3,3:14] <-  myTB2[1:3,3:14] + matrix(runif(36,-2.5,2.5),nrow=3)
-myTB2[4:6,3:14] <-  myTB2[4:6,3:14] + matrix(runif(36,-2.5,2.5),nrow=3)
+for(aux in 3:14){
+  myTB2[[aux]][c(1:3,4:6)] <-   myTB2[[aux]][c(1:3,4:6)] + runif(6,-2.5,2.5)
+}
 
-myTB2$BE[1:2] <-  NA
-myTB2$DE[8:9] <-  NA
-myTB2$IT[c(3,4, 6,7,8)] <-  NA
-myTB2$DK[6] <-  NA
+myTB2[["BE"]][1:2] <-  NA
+myTB2[["DE"]][8:9] <-  NA
+myTB2[["IT"]][c(3,4, 6,7,8)] <-  NA
+myTB2[["DK"]][6] <-  NA
 myTB2
 
 ## -----------------------------------------------------------------------------
@@ -130,13 +125,11 @@ toBeProcessed <- c( "IT","BE", "DE", "DK","UK")
 # debug(impute_dataset)
 
 impute_dataset(myTB2, countries=toBeProcessed,
-                            #deltaTime=5,
                             timeName = "time",
                             tailMiss = c("cut", "constant")[1],
                             headMiss = c("cut", "constant")[1]) 
 
 impute_dataset(myTB2, countries=toBeProcessed,
-                            #deltaTime=5,
                             timeName = "time",
                             tailMiss = c("cut", "constant")[2],
                             headMiss = c("cut", "constant")[1]) 
@@ -205,7 +198,6 @@ res$res$squaredContrib
 res$res$devianceContrib
 
 ## ----eval=T,fig.width=7,fig.height=9------------------------------------------
-# debug(graph_departure)
 myGG <- graph_departure(res$res$departures,
                 timeName = "time",
                 displace = 0.25,
@@ -223,7 +215,7 @@ myGG
 
 ## ----eval=T-------------------------------------------------------------------
 #myWW1<- warnings()
-myGG <- graph_departure(res$res$departures[,1:10],
+myGG <- graph_departure(res$res$departures[1:10],
                 timeName = "time",
                 displace = 0.25,
                 displaceh = 0.45,
@@ -239,7 +231,6 @@ myGG <- graph_departure(res$res$departures[,1:10],
 myGG
 
 ## -----------------------------------------------------------------------------
-#wwTB
 gamma_conv(emp_20_64_MS,2002,2016)
 
 ## -----------------------------------------------------------------------------
@@ -270,8 +261,10 @@ timeCounTB2
 gamma_conv(timeCounTB2,last=2005,ref=2000, timeName = "time",printRanks = T)
 
 ## -----------------------------------------------------------------------------
-timeCounTB3 <- cbind(timeCounTB[,1],t(apply(timeCounTB,1,
+timeCounTB3 <- cbind(timeCounTB[1],t(apply(timeCounTB,1,
                                         function(vet)vet[sample(2:4,3)])))
+
+
 timeCounTB3
 (gamma_conv(timeCounTB3,last=2005,ref=2000, timeName = "time",printRanks = T))
 
@@ -619,7 +612,7 @@ outSig <- sigma_conv(emp_20_64_MS, timeName = timeName,
            time_0=2002,time_t=2016)
 miniY <- min(emp_20_64_MS[,- which(names(emp_20_64_MS) == timeName )])
 maxiY <-  max(emp_20_64_MS[,- which(names(emp_20_64_MS) == timeName )])
-estrattore<-  emp_20_64_MS[,timeName] >= 2002  &  emp_20_64_MS[,timeName] <= 2016
+estrattore<-  emp_20_64_MS[[timeName]] >= 2002  &  emp_20_64_MS[[timeName]] <= 2016
 ttmp <- cbind(outSig$res, dplyr::select(emp_20_64_MS[estrattore,], -contains(timeName)))
 
 myG2 <- 
@@ -648,7 +641,7 @@ myG2
 ## ----fig.height=11------------------------------------------------------------
 obe_lvl <- scoreb_yrs(emp_20_64_MS,timeName = timeName)$res$sco_level_num
 # select subset of time
-estrattore <- obe_lvl[,timeName] >= 2009 & obe_lvl[,timeName] <= 2016  
+estrattore <- obe_lvl[[timeName]] >= 2009 & obe_lvl[[timeName]] <= 2016  
 scobelvl <- obe_lvl[estrattore,]
 
 my_MSstd <- ms_dynam( scobelvl,

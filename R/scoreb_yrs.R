@@ -15,7 +15,7 @@
 #' @return  list of tibbles containing   departures and integer labels. Integer
 #'          values in the result refers to the partition
 #'          (-Inf, m-1 s, m-0.5 s, m+0.5 s, m+1 s, Inf) where m is the average
-#'          and s the stanbdard deviation at a given time t; in particular
+#'          and s the standard deviation at a given time t; in particular
 #'          the ordinal is 1 if the interval (-Inf, m -1 s) contains the indicator,
 #'          it is 2 if the interval ( m-1 s, m-0.5 s) contains the indicator, and so on
 #'          up to the value 5 that means an indicator value above m + 1 s.

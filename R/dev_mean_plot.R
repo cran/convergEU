@@ -87,6 +87,12 @@ dev_mean_plot <- function(myTB,
     out_obj$err <- "Error: wrong timeName."
     return(out_obj)
   }
+  if(is.na(time_0)) {
+    time_0 <- min(myTB[[timeName]])
+  }
+  if(is.na(time_t)) {
+    time_t <- max(myTB[[timeName]])
+  }
   sigmaRes <- sigma_conv(myTB,
                          timeName = timeName,
                          time_0 = time_0,
@@ -103,13 +109,13 @@ dev_mean_plot <- function(myTB,
                             posiSum=NA,
                             posi= 1:length(nameMS));
 
-
+  myTB <- dplyr::filter(myTB, (.data[[timeName]] >= time_0)  & (.data[[timeName]] <= time_t))
   for(auxN in nameMS){
-    intermedioA <- myTB[,auxN] - sigmaRes$mean
+    intermedioA <- myTB[[auxN]] - sigmaRes$mean
     estrattoreNega <- intermedioA <= 0;
-    posiz <- which(resDiffe$MS == auxN)
-    resDiffe$negaSum[posiz ] <- sum(intermedioA[estrattoreNega,])
-    resDiffe$posiSum[posiz] <- sum(intermedioA[!estrattoreNega,])
+    posiz <- which(resDiffe[['MS']] == auxN)
+    resDiffe$negaSum[posiz ] <- sum(intermedioA[estrattoreNega])
+    resDiffe$posiSum[posiz] <- sum(intermedioA[!estrattoreNega])
   }
   miniX <- min(resDiffe[,"negaSum"])
   miniX <-  miniX + miniX/1000
@@ -132,10 +138,10 @@ dev_mean_plot <- function(myTB,
                    fillCol= factor(
                      rep(c("pos.","neg."), each=length(resDiffe$posi))
                    ));
-    myTBr <-   dplyr::filter(myTBr0,myTBr0$posi <= length(nameMS))
+    myTBr <-   dplyr::filter(myTBr0, myTBr0$posi <= length(nameMS))
 
   myGG <- ggplot2::ggplot(myTBr,
-                  ggplot2::aes(x = myTBr$xmin, y = myTBr$posi)) +
+                  ggplot2::aes(x = xmin, y = posi)) +
     ggplot2::scale_y_discrete(
       axis_name_y,
       labels = etichY,
@@ -143,11 +149,11 @@ dev_mean_plot <- function(myTB,
     ) + ggplot2::xlim(c(miniX,maxiX)) +
     ggplot2::geom_rect(data = myTBr,
                        mapping = ggplot2::aes(
-                         xmin = myTBr$xmin,
-                         xmax = myTBr$xmax,
-                         ymin = myTBr$ymin,
-                         ymax = myTBr$ymax,
-                         fill = myTBr$fillCol),
+                         xmin = xmin,
+                         xmax = xmax,
+                         ymin = ymin,
+                         ymax = ymax,
+                         fill = fillCol),
                        color = "grey3", alpha = val_alpha
     ) +
     ggplot2::scale_fill_manual(values =color_assign ) +
@@ -163,3 +169,4 @@ if(debug){
 return(out_obj)
 }
 
+utils::globalVariables(c("xmin","xmax","ymin","ymax","fillCol","posi"))

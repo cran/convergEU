@@ -4,7 +4,9 @@
 \name{emp_20_64_MS}
 \alias{emp_20_64_MS}
 \title{Dataset emp_20_64_MS}
-\format{A data frame with 17 rows and 29 variables}
+\format{
+A data frame with 17 rows and 29 variables
+}
 \usage{
 data(emp_20_64_MS)
 }

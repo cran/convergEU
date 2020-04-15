@@ -4,7 +4,8 @@
 \name{dbEurofound}
 \alias{dbEurofound}
 \title{Eurofound dataset}
-\format{A tibble dataset  with 17 columns
+\format{
+A tibble dataset  with 17 columns
 \describe{
 \item{time}{ time }
 \item{geo}{ geo }
@@ -23,7 +24,8 @@
 \item{JQIintensity_i}{ JQI_Intensity_index }
 \item{JQItime_i}{ JQI_Working_time_quality_index }
 \item{exposdiscr_p}{ Exposition_to_discrimination }
-}}
+}
+}
 \source{
 \url{https://www.eurofound.europa.eu/surveys/about-eurofound-surveys/data-availability#datasets}
 }

@@ -26,7 +26,7 @@ a call to departure_best()$res$cumulated_dif, with named elements.}
 
 \item{axis_name_y}{name of the axis}
 
-\item{val_alpha}{trasparency value in (0,1].}
+\item{val_alpha}{transparency value in (0,1].}
 
 \item{debug}{a flag to get debug information as msg component}
 }

@@ -50,14 +50,15 @@ mypattempn
 mypattemp
 
 ## -----------------------------------------------------------------------------
-mypattemp$`2006/2007`[12]
+mypattemp[["2006/2007"]][12]
 
 ## ----echo=FALSE,out.width="70%",fig.height=6,fig.width=7----------------------
-matRaw1 <- emp_20_64_MS[,-1]
-EUavemp <- cbind(emp_20_64_MS[,1] ,EUavempp=apply(matRaw1,1,mean))
-EUavemph<-EUavemp[5:6,]
-avehu<-emp_20_64_MS[5:6,c("FR")]
-gFR<-ggplot() + geom_point(aes(x=EUavemph$time,y=EUavemph$EUavempp),color='black') +
+matRaw1 <- dplyr::select(emp_20_64_MS, -time)
+matRawT <- dplyr::select(emp_20_64_MS, time)
+EUavemp <- dplyr::bind_cols(matRawT ,EUavempp=apply(matRaw1,1,mean))
+EUavemph <- EUavemp[5:6,]
+avehu <- emp_20_64_MS[5:6,"FR"]
+gFR <- ggplot() + geom_point(aes(x=EUavemph$time,y=EUavemph$EUavempp),color='black') +
   geom_point(aes(x=EUavemph$time,y=avehu$FR),color='blue') +
   geom_line(aes(x=EUavemph$time,y=EUavemph$EUavempp),color='black') +
   geom_line(aes(x=EUavemph$time,y=avehu$FR),color='blue',linetype = 2) + 
@@ -73,13 +74,14 @@ gFR
 require(readxl)
 file_name <- system.file("vign/une_educ_a.xls", package = "convergEU")
 myxls2<-read_excel(file_name,
-                   sheet="Data",range = "A12:AP22", na=":", col_types = "numeric")
+                   sheet="Data",range = "A12:AP22", na=":")
+myxls2 <- dplyr::mutate(myxls2, `TIME/GEO` = as.numeric(`TIME/GEO`))
 
 ## ---- echo=TRUE---------------------------------------------------------------
 EU27estr<-convergEU_glb()$EU27_2020$memberStates$codeMS
-myxls<- select(myxls2,`TIME/GEO`,EU27estr)
+myxls<- dplyr::select(myxls2,`TIME/GEO`,all_of(EU27estr))
 check_data(myxls)
-myxls3<-myxls %>% rename(time=`TIME/GEO`)
+myxls3<- dplyr::rename(myxls,time=`TIME/GEO`)
 myxlsf <- impute_dataset(myxls3, timeName ="time",
                          countries=convergEU_glb()$EU27_2020$memberStates$codeMS,
                          headMiss = c("cut", "constant")[2],
@@ -99,10 +101,10 @@ mypattl
 mypattl$`2015/2016`[14]
 
 ## ----echo=FALSE,out.width="70%",fig.height=5,fig.width=5----------------------
-matRaw <- myxlsf[,-1]
-EUave <- cbind(myxlsf[,1] ,EUave=apply(matRaw,1,mean))
+matRaw <- select(myxlsf,-time)
+EUave <- cbind( select(myxlsf,time) ,EUave=apply(matRaw,1,mean))
 EUave1<-EUave[7:8,]
-avef<-matRaw[7:8,c("FI")]
+avef<-matRaw[7:8, "FI"]
 
 gfr<-ggplot() + geom_point(aes(x=EUave1$time,y=EUave1$EUave),color='black') + 
   geom_point(aes(x=EUave1$time,y=avef$FI),color='blue') +

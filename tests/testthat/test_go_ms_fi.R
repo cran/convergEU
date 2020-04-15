@@ -16,10 +16,13 @@ test_that("Basic operation", {
 
 
 testest <- function(){
-  system('rm /media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/indica_fi_2.Rmd')
+
+  
+  myOutDir <- tempdir()
+
 
   go_ms_fi(
-    workDF ='myTB',
+    workDF =NA,#'emp_20_64_MS',
     countryRef ='IT',
     otherCountries = 'NA',#c('DE')",
     time_0 = 2005,
@@ -31,17 +34,44 @@ testest <- function(){
     dataNow=  Sys.time(),
     author = 'A.Student',
     outFile = "primoTest",#"test_emp_20_64_MS.html",
-    outDir = "/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish",
-    indiName= 'emp_20_64_MS'
+    outDir = myOutDir,
+    indiName= 'emp_20_64_MS',
+    workTB= emp_20_64_MS
     )
-  browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/primoTest.html')
+  browseURL(paste0(myOutDir,'/primoTest.html'))
 
 
 
 
-  system('rm /media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/indica_fi_2.Rmd')
+
   go_ms_fi(
-    workDF ='myTB',
+    workDF ='emp_20_64_MS',
+    countryRef ='IT',
+    otherCountries = 'NA',#c('DE')",
+    time_0 = 2005,
+    time_t = 2010,
+    tName = 'time',
+    indiType = "highBest",
+    aggregation= 'EU28',
+    x_angle=  45,
+    dataNow=  Sys.time(),
+    author = 'A.Student',
+    outFile = "primoTest",#"test_emp_20_64_MS.html",
+    outDir = myOutDir,
+    indiName= 'emp_20_64_MS',
+    workTB=NULL
+  )
+  browseURL(paste0(myOutDir,'/primoTest.html'))
+
+
+
+
+
+
+
+   
+  go_ms_fi(
+    workDF ='emp_20_64_MS',
     countryRef ='IT',
     otherCountries = 'c("DE","UK")',
     time_0 = 2005,
@@ -53,10 +83,10 @@ testest <- function(){
     indiType = "highBest",
     author = 'A.Student',
     outFile = NA,#"test_emp_20_64_MS.html",
-    outDir = "/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish",
+    outDir = myOutDir,
     indiName= "emp_20_64_MS")
 
-  browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/country-fiche-IT-2005-2015.html')
+    # browseURL(  )
 
 
   go_ms_fi(
@@ -72,16 +102,10 @@ testest <- function(){
     dataNow=  Sys.time(),
     author = 'A.Student',
     outFile = NA,#"test_emp_20_64_MS.html",
-    outDir = '/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish',
+    outDir = myOutDir,
     indiName= 'emp_20_64_MS'
   )
 
-
-#  debug(country_ranking)
-
-browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/country-fiche-IT-2005-2015.html')
-
-system('rm /media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/country_fi_2.Rmd')
 
   go_ms_fi(
         workDF ='myTB',
@@ -102,20 +126,14 @@ system('rm /media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/count
         dataNow=  Sys.time(),
         author = 'A.Student',
         outFile = 'Counfic-DE-2015',#"test_emp_20_64_MS.html",
-        outDir = '/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish',
+        outDir = myOutDir,
         indiName= 'lifeAsRun'
        )
 
-       browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/Counfic-DE-2015.html')
+      
 
 
 
-
-
-        # Nedka 15 July 2019
-
-
-       system('rm /media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/country_fi_2.Rmd')
 
        myTTB <- extract_indicator_EUF(
              indicator_code= "lifesatisf",
@@ -142,15 +160,12 @@ system('rm /media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/count
          dataNow=  Sys.time(),
          author = 'A.Student',
          outFile = 'lifesta-AT-03_16',#"test_emp_20_64_MS.html",
-         outDir = '/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish'
+         outDir = myOutDir
        )
 
-       browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/lifesta-AT-03_16.html')
 
 
 
-        ## custom option 3 october 2019
-       system('rm /media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/country_fi_2.Rmd')
 
        myTTB <- emp_20_64_MS
        dim(myTTB)
@@ -173,14 +188,13 @@ system('rm /media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/count
          dataNow=  Sys.time(),
          author = 'A.Student',
          outFile = 'country-test-custom',
-         outDir = '/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish'
+         outDir = myOutDir
        )
 
-       browseURL('/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish/country-test-custom.html')
+   
 
 
-
-} # incapsulator
+} #
 
   expect_equal(1, 1)
 

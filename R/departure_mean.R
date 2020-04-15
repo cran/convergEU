@@ -64,30 +64,27 @@ departure_mean <- function(oriTB, sigmaTB, timeName = "time"){
   outRes <- convergEU_glb()$tmpl_out
   oriTB <- dplyr::arrange_at(oriTB,timeName)
   sigmaTB <- dplyr::arrange_at(sigmaTB,timeName)
-  if(any(unlist(oriTB[,timeName]) != unlist(sigmaTB[,timeName]))){
-    outRes$err <- "Error: wrong time scale for data in imput."
+  if(any(oriTB[[timeName]] !=  sigmaTB[[timeName]])){
+      outRes$err <- "Error: wrong time scale for data in imput."
     return(outRes);
   }
-  posiz <- which(names(oriTB) == timeName)
-  squaDif <-  oriTB[, -posiz] # output: squared differences
-  perceVaT <-  squaDif # output: percentage variance at time t
-  recodedTB <- oriTB[, -posiz]# output: tagged departures
+  squaDif <-  dplyr::select(oriTB,-!!timeName)
+  perceVaT <-  squaDif
+  recodedTB <- dplyr::select(oriTB,-!!timeName)
   resTB <- dplyr::mutate(sigmaTB,
                   elle1 = sigmaTB$mean -1* sigmaTB$stdDev,
                   elle2 = sigmaTB$mean +1* sigmaTB$stdDev
   )
   # for each country
-  vettoVaria <- (sigmaTB$stdDev^2)
   for( aux in names(recodedTB)){
     # do calculations tag departures
-    infEstra <- recodedTB[,aux] < resTB$elle1
-    supEstra <- recodedTB[,aux] > resTB$elle2
-    recodedTB[ ,aux] <- 0
+    infEstra <- recodedTB[[aux]] < resTB$elle1
+    supEstra <- recodedTB[[aux]] > resTB$elle2
+    recodedTB[[aux]] <- 0
     recodedTB[infEstra,aux] <- -1
     recodedTB[supEstra,aux] <- +1
-    # do calculations sum of squares
-    squaDif[,aux] <- (squaDif[,aux] - sigmaTB$mean)^2
-    perceVaT[,aux] <- 100* squaDif[,aux]/ sigmaTB$devianceT
+    squaDif[[aux]] <- (squaDif[[aux]] - sigmaTB$mean)^2
+    perceVaT[[aux]] <- 100* squaDif[[aux]]/ sigmaTB$devianceT
   }
   outRes$res <- list(
     departures= dplyr::bind_cols(sigmaTB,recodedTB),

@@ -17,6 +17,7 @@ params:
    outFile: NA
    outDir: NA
    indiName: NA
+   workTB: !r emp_20_64_MS
 editor_options: 
   chunk_output_type: console
 ---
@@ -30,6 +31,7 @@ require(knitr)
 require(tibble)
 require(devtools)
 require(tidyverse)
+require(gridExtra)
 require(eurostat)
 require(purrr)
 require(ggplot2)
@@ -110,15 +112,19 @@ ptime_0 <-  as.numeric(params$time_0)
 ptime_t <-  as.numeric(params$time_t)
 indiName <- params$indiName
 indiType <- params$indiType
-
+if(is.na(indiType))stop("Error: indicator type not available.")
 
 out_packed_name <- file.path(params$outDir,
                              paste0(params$outFile,
                                     '-workspace.RData'))
 
-wkDF0 <-  get(params$workingDF)
+
+wkDF0 <-  params$workTB
+
+
+
 # filtering
-wkDF0 <- dplyr::filter(wkDF0, .data[[timeName]]   <= ptime_t & .data[[timeName]] >= ptime_0)
+wkDF0 <- dplyr::filter(wkDF0, (.data[[timeName]]   <= ptime_t) & (.data[[timeName]] >= ptime_0))
 
 otherCountries <-  eval(parse(text= params$otherCountries ))
 if(is.na(otherCountries[1])){
@@ -137,7 +143,7 @@ if(params$aggregation != "custom"){
                convergEU_glb()[[params$aggregation]]$memberStates$codeMS)
     nomiSeleExt <- c(params$timeName,
                convergEU_glb()[[params$aggregation]]$memberStates$MS)
-    wkDF <-  wkDF0[, nomiSele]
+    wkDF <-  dplyr::select(wkDF0,    all_of(nomiSele))
 }else{
    # this is for "custom" selection
    nomiSele <- names(wkDF0)
@@ -183,61 +189,73 @@ outSig <- sigma_conv(wkDF, timeName = timeName,
            time_0 = ptime_0,  time_t = ptime_t) 
 miniY <-  min(wkDF[,- which(names(wkDF) == timeName )])
 maxiY <-  max(wkDF[,- which(names(wkDF) == timeName )])
-estrattore<-  wkDF[,timeName] >= ptime_0  &  wkDF[,timeName] <= ptime_t
+estrattore<-  wkDF[[timeName]] >= ptime_0  &  wkDF[[timeName]] <= ptime_t
 # to guarantee that timeName is "time"
 names(outSig$res)[1]<-"time"
-ttmp <- cbind(outSig$res, dplyr::select(wkDF[estrattore,], -contains(timeName)))
+selettmp <- dplyr::filter(wkDF,estrattore)
+ttmp <- cbind(outSig$res, dplyr::select(selettmp, -contains(timeName)))
 
 
 # minimum and maximum values
-rawDat <- dplyr::select(wkDF[estrattore,], -contains(timeName))
-ttmp$serieMin <- apply(rawDat,1,min)
-ttmp$serieMax <- apply(rawDat,1,max)  
+tmpwkDF <- dplyr::filter(wkDF,estrattore)
+rawDat <- dplyr::select(tmpwkDF, -contains(timeName))
+ttmp <- dplyr::mutate(ttmp,serieMax =apply(rawDat,1,max))
+ttmp <- dplyr::mutate(ttmp,serieMin =apply(rawDat,1,min))
+```
+
+```{r}
 # build labels for minimum and maximum
-ttmp$eticheMin <-sapply(seq(1,length(ttmp$serieMin)),
+ttmpeticheMin <-sapply(seq(1,length(ttmp$serieMin)),
           function(vx){
       estrattore <- ttmp$serieMin[vx] == rawDat[vx,]
       paste(names(rawDat)[estrattore],collapse="/")
 })
-ttmp$eticheMax <- sapply(seq(1,length(ttmp$serieMin)),
+ttmp <- dplyr::mutate(ttmp,eticheMin = ttmpeticheMin)
+
+ttmpeticheMax <- sapply(seq(1,length(ttmp$serieMin)),
           function(vx){
       estrattore <- ttmp$serieMax[vx] == rawDat[vx,]
       paste(names(rawDat)[estrattore],collapse="/")
 })
+ttmp <- dplyr::mutate(ttmp,eticheMax = ttmpeticheMax)
+```
 
 
-
-
+```{r}
 #1# revision with standard names  
 myG2 <-  ggplot(ttmp) +  
-         geom_line(aes(x=ttmp[,timeName], y =ttmp[,"mean"],colour="black" )) +
-          geom_point(aes(x=ttmp[,timeName],y =ttmp[,"mean"],colour="black")) + 
+         geom_line(aes(x= .data[[timeName]], y = .data[["mean"]],colour="black" )) +
+          geom_point(aes(x=.data[[timeName]],y = .data[["mean"]],colour="black")) + 
           # add countries
-          geom_line( aes( x = ttmp[,timeName], y = ttmp[[seleCountry]], 
+          #6 aprile geom_line( aes( x = ttmp[,timeName], y = ttmp[[seleCountry]], 
+          geom_line( aes( x = .data[[timeName]], y = .data[[seleCountry]], 
                           colour="red"),linetype="dotted") + 
-          geom_point( aes(x = ttmp[,timeName], y = ttmp[,seleCountry], colour="red")) +
-          ggplot2::scale_x_continuous(breaks = ttmp[,timeName],
-                                      labels = ttmp[,timeName]) +
+          # 6 aprile geom_point( aes(x = ttmp[,timeName], y = ttmp[,seleCountry], colour="red")) +
+          geom_point( aes(x = .data[[timeName]], y = .data[[seleCountry]], 
+                          colour="red")) +
+          # 6 aprileggplot2::scale_x_continuous(breaks = ttmp[,timeName],labels = ttmp[,timeName]) +
+          ggplot2::scale_x_continuous(breaks = .data[[timeName]],
+                                      labels = .data[[timeName]]) +
           ylim(c(miniY,maxiY)) + 
           xlab("Year") + 
           ylab("Indicator level") +
-        ggplot2::geom_line(aes(x=ttmp[,timeName],
-                               y=ttmp$serieMin,
+        ggplot2::geom_line(aes(x= .data[[timeName]],
+                               y= .data[["serieMin"]],
                                colour = "blue" 
                                ),linetype="dashed") +
-        ggplot2::geom_line(aes(x=ttmp[,timeName],
-                               y=ttmp$serieMax,
+        ggplot2::geom_line(aes(x= .data[[timeName]],
+                               y= .data[["serieMax"]],
                                colour = "blue" 
                                ),linetype="dashed") +
-        ggplot2::annotate("text", 
-                        x = ttmp[["time"]], 
-                        y = ttmp$serieMax , 
-                        label = paste(ttmp$eticheMax,"    "),
+        ggplot2::annotate("text",  
+                        x = .data[["time"]], 
+                        y = .data[["serieMax"]], 
+                        label = paste(.data[[eticheMax]],"    "),
                         color ="navyblue",
                         angle=45) +
         ggplot2::annotate("text", 
-                        x = ttmp[["time"]], 
-                        y=ttmp$serieMin , 
+                        x = .data[["time"]], 
+                        y= .data[["serieMin"]], 
                         label = paste("    ",ttmp$eticheMin),
                         color ="navyblue",
                         angle=45)  +
@@ -353,7 +371,8 @@ idea of the individual development of the countries selected.
         ) +
         ggplot2::geom_point(
                       aes(colour=Country),
-                      shape= tmp3$Country)  +
+                      #6 april2020 #shape= tmp3$Country)  +
+                      shape= 1)  +
         ggplot2::scale_x_continuous(
                      breaks = tmp3[,timeName],
                      labels = tmp3[,timeName]) +
@@ -460,20 +479,21 @@ if(!is.na(otherCountries[1])){
 }
 scobe_lvl <- scoreb_yrs(wkDF,timeName = timeName)$res$sco_level
 # select subset of time
-estrattore <- scobe_lvl[,timeName] >= ptime_0  & scobe_lvl[,timeName] <= ptime_t  
+estrattore <- scobe_lvl[[timeName]] >= ptime_0  & scobe_lvl[[timeName]] <= ptime_t  
 scobelvl <- scobe_lvl[estrattore,c(timeName,curCountries)]
 # conversion
 for(aux in curCountries){
-  scobelvl[,aux] <- c(-1,-0.5,0,0.5,1)[unlist(scobelvl[,aux])]
+  scobelvl[[aux]] <- c(-1,-0.5,0,0.5,1)[scobelvl[[aux]]]
 }
-final_TB <- tidyr::gather(scobelvl, key="Country",value="Level",curCountries)
+final_TB <- tidyr::gather(scobelvl, key="Country",value="Level",all_of(curCountries))
 ```
 
 ```{r,fig.height=altezzaG2}
 if(length(curCountries)>1){
 
-myG_JAF <- ggplot(final_TB,aes(x = unlist(final_TB[,timeName]),
-                    y = Level)) +
+myG_JAF <- ggplot(final_TB,
+                  aes(x =  .data[[timeName]],
+                      y = Level)) +
   ggplot2::facet_wrap(~ Country,ncol=2)+
   ggplot2::geom_line() + 
   ggplot2::geom_point() +
@@ -482,8 +502,8 @@ myG_JAF <- ggplot(final_TB,aes(x = unlist(final_TB[,timeName]),
          angle = myx_angle 
          )) +
    ggplot2::scale_x_continuous(
-     breaks = unlist(final_TB[,timeName]),
-     labels = unlist(final_TB[,timeName]))  +
+     breaks = final_TB[[timeName]],
+     labels = final_TB[[timeName]])  +
    ggplot2::scale_y_continuous(
      breaks =  c(-1,-0.5,0,0.5,1),
      labels = c(-1,-0.5,0,0.5,1), 
@@ -496,7 +516,7 @@ geom_hline(yintercept=0.5,colour="red",linetype="dotted")+
 geom_hline(yintercept= 1,colour="red",linetype="dotted")
 }else{
 
-myG_JAF <- ggplot(final_TB,aes(x = unlist(final_TB[,timeName]),
+myG_JAF <- ggplot(final_TB,aes(x = .data[[timeName]],
                     y = Level)) +
   ggplot2::geom_line() + 
   ggplot2::geom_point() +
@@ -505,8 +525,8 @@ myG_JAF <- ggplot(final_TB,aes(x = unlist(final_TB[,timeName]),
          angle = myx_angle 
          )) +
    ggplot2::scale_x_continuous(
-     breaks = unlist(final_TB[,timeName]),
-     labels = unlist(final_TB[,timeName]))  +
+     breaks = final_TB[[timeName]],
+     labels = final_TB[[timeName]])  +
    ggplot2::scale_y_continuous(
      breaks =  c(-1,-0.5,0,0.5,1),
      labels = c(-1,-0.5,0,0.5,1), 
@@ -576,7 +596,7 @@ if(!is.na(otherCountries[1])){
 
 obe_lvl <- scoreb_yrs(wkDF,timeName = timeName)$res$sco_level_num
 # select subset of time
-estrattore <- obe_lvl[,timeName] >= ptime_0  & obe_lvl[,timeName] <= ptime_t  
+estrattore <- obe_lvl[[timeName]] >= ptime_0  & obe_lvl[[timeName]] <= ptime_t  
 scobelvl <- obe_lvl[estrattore,c(timeName,curCountries)]
 
 
@@ -853,7 +873,7 @@ if(params$indiType == "highBest"){
     refGGpat <- patt_legend(indiType = "lowBest")
 }
 
-grid.arrange(  refGGpat,
+gridExtra::grid.arrange(  refGGpat,
                nrow = 1, ncol=1,
       top= paste0("Patterns legend"),
       bottom = "Time",

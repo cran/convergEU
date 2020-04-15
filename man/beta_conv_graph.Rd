@@ -16,7 +16,7 @@ beta_conv_graph(betaRes, indiName = NA, time_0 = NA, time_t = NA)
 \item{time_t}{ending time.}
 }
 \value{
-a ggplot object to be displaied of saved using ggsave.
+a ggplot object to be displayed of saved using ggsave.
 }
 \description{
 A ggplot of transformed data and a straight line for the results obtained for beta-convergence

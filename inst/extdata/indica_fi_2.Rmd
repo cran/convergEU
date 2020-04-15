@@ -1,25 +1,24 @@
 ---
 output:
-  html_document:
-    css: EUF.css 
+    html_document:
+      css: EUF.css 
 params:
-   dataNow:  '2019/01/31'
-   time_0: NA
-   time_t: NA
-   timeName: NA
-   workingDF: NA 
-   indicaT: NA
-   indiType: 'highBest'
-   seleMeasure: NA
-   seleAggre: NA
-   x_angle:  45
-   data_res_download:  FALSE
-   auth: 'A.Student'
-   outFile: NA
-   outDir: NA
-   pdf_out: FALSE
-editor_options: 
-   chunk_output_type: console
+      dataNow: "3/03/2020"
+      workingDF: NA
+      time_0: NA
+      time_t: NA
+      timeName: NA
+      indiType: 'highBest'
+      indicaT: NA
+      seleMeasure: NA
+      seleAggre: NA
+      x_angle: NA
+      data_res_download: FALSE
+      auth: 'Eurofound'
+      outFile: NA
+      outDir: NA
+      pdf_out: FALSE
+      workTB: !r iris
 ---
 
 
@@ -59,29 +58,6 @@ knitr::opts_chunk$set(
 
  
 
-
-```{r,eval=F}
-
-# input parameters
-params <- list()
-params$dataNow <- Sys.Date()
-params$time_0 <- 2005
-params$time_t <- 2010
-params$timeName  <- 'time'
-params$workingDF  <- 'emp_20_64_MS'
-params$indicaT <- 'emp_20_64_MS'
-params$indiType<- 'lowBest' # highBest
-params$seleMeasure <- 'all'
-params$seleAggre <- 'custom' ##'EU12'
-params$x_angle<- 45
-params$data_res_download <- TRUE
-params$auth <- 'A.P.Student'
-params$outFile <- "test_indica-fi-cust"
-params$outDir <-
-params$outDir <-   "../tt-fish"
-params$pdf_out <- TRUE
-
-```
 
 
 
@@ -123,7 +99,7 @@ Author: *`r params$auth`*
    
     
 
-```{r,echo=F,eval=T}
+```{r chunk2,echo=F,eval=T}
 # to save into a out-file
 out_packed_list <- list()
 out_packed_list$params <- params
@@ -142,7 +118,10 @@ out_packed_name <- file.path(params$outDir,
                              paste0(params$outFile,
                                     '-workspace.RData'))
 
-wkDF <-  get(params$workingDF)
+ 
+
+wkDF <- params$workTB
+ 
 # wkDF
 # filtering
 wkDF1 <- dplyr::filter(wkDF, .data[[timeName]]   <= ptime_t & .data[[timeName]] >= ptime_0)
@@ -216,7 +195,7 @@ lastRowAverages <- nrow(outMed)
   
   
   
-```{r,eval=FALSE}
+```{r chunk3,eval=FALSE}
 print(out_packed_name)
 ```
 
@@ -781,7 +760,7 @@ altezzIG00 <- 3+7*(length(curCountries)/30)
 
 scobe_lvl <- scoreb_yrs(wkDF2,timeName = timeName)$res$sco_level
 # select subset of time
-estrattore <- scobe_lvl[,timeName] >= ptime_0  & scobe_lvl[,timeName] <= ptime_t  
+estrattore <- scobe_lvl[[timeName]] >= ptime_0  & scobe_lvl[[timeName]] <= ptime_t  
 scobelvl <- scobe_lvl[estrattore,]
 # conversion
 curCountries <- setdiff(names(scobelvl),timeName)
@@ -789,7 +768,7 @@ curCountries <- setdiff(names(scobelvl),timeName)
 for(aux in curCountries){
   scobelvl[,aux] <- c(-1,-0.5,0,0.5,1)[unlist(scobelvl[,aux])]
 }
-final_TB <- tidyr::gather(scobelvl, key="Country",value="Level",curCountries)
+final_TB <- tidyr::gather(scobelvl, key="Country",value="Level",all_of(curCountries))
 ```
 
 
@@ -850,7 +829,7 @@ altezzIG0 <- 3+7*(length(curCountries)/30)
 
 ```{r,echo=FALSE,fig.width=8,fig.height=altezzIG0}
 # select subset of time
-estrattore <- obe_lvl[,timeName] >= ptime_0  & obe_lvl[,timeName] <= ptime_t  
+estrattore <- obe_lvl[[timeName]] >= ptime_0  & obe_lvl[[timeName]] <= ptime_t  
 scobelvl <- obe_lvl[estrattore,c(timeName,curCountries)]
 
 my_MS <- ms_dynam( scobelvl,

@@ -12,11 +12,12 @@ vignette: >
   %\VignetteEncoding{UTF-8}
   \usepackage[utf8]{inputenc}
   %\VignetteEngine{knitr::rmarkdown}
+  % \VignetteDepends{ggplot2,dplyr,tidyverse,eurostat,purrr,tibble,tidyr,formattable,kableExtra,caTools,gridExtra,knitr,magrittr,readr,readxl}
 editor_options:
   chunk_output_type: console
 ---
   
- 
+  
 
 
 
@@ -32,7 +33,6 @@ require(eurostat)
 require(purrr)
 require(tibble)
 require(tidyr)
-require(ggplot2)
 require(formattable) 
 require(kableExtra)
 require(caTools)
@@ -79,13 +79,6 @@ on the fly, upon necessity from this package.
 
 Some datasets are accessible from package  *convergEU* 
 using the R function *data()*, for example :
-```{r,eval=FALSE}
-library(convergEU)
-data("emp_20_64")
-head(emp_20_64)
-```
-Alternatively, a dataframe obtained by  reshaping raw data into a time by countries
-table is also available and typically more usefull:
 ```{r,eval=FALSE}
 data("emp_20_64_MS",package = "convergEU")
 head(emp_20_64_MS)
@@ -209,7 +202,7 @@ possibly a warning.
 The third component, *err*, is
 an error message or a list of errors
 when a result is not computed.
-Below this behaviour is illustrated
+Below this behavior is illustrated
 for function *check_data*.
 
 
@@ -221,7 +214,7 @@ The following function check for such features:
 check_data(emp_20_64_MS)
 ```
 where the list component *res* is TRUE,
-that is all cheks are passed.
+that is all checks are passed.
 
 
 In case of qualitative variable or missing data
@@ -266,16 +259,17 @@ sapply(myTB$res,function(vx)sum(is.na(vx)))
 thus we introduce some missing values and  take further years for testing purposes:
 ```{r}
 myTB2 <- dplyr::bind_rows(myTB,myTB,myTB)
-myTB2$time[1:3] <- c(1975,1980,1985)
-myTB2$time[4:6] <- c(1990,1995,2000)
+myTB2[["time"]][1:3] <- c(1975,1980,1985)
+myTB2[["time"]][4:6] <- c(1990,1995,2000)
 
-myTB2[1:3,3:14] <-  myTB2[1:3,3:14] + matrix(runif(36,-2.5,2.5),nrow=3)
-myTB2[4:6,3:14] <-  myTB2[4:6,3:14] + matrix(runif(36,-2.5,2.5),nrow=3)
+for(aux in 3:14){
+  myTB2[[aux]][c(1:3,4:6)] <-   myTB2[[aux]][c(1:3,4:6)] + runif(6,-2.5,2.5)
+}
 
-myTB2$BE[1:2] <-  NA
-myTB2$DE[8:9] <-  NA
-myTB2$IT[c(3,4, 6,7,8)] <-  NA
-myTB2$DK[6] <-  NA
+myTB2[["BE"]][1:2] <-  NA
+myTB2[["DE"]][8:9] <-  NA
+myTB2[["IT"]][c(3,4, 6,7,8)] <-  NA
+myTB2[["DK"]][6] <-  NA
 myTB2
 ```
 
@@ -288,13 +282,11 @@ toBeProcessed <- c( "IT","BE", "DE", "DK","UK")
 # debug(impute_dataset)
 
 impute_dataset(myTB2, countries=toBeProcessed,
-                            #deltaTime=5,
                             timeName = "time",
                             tailMiss = c("cut", "constant")[1],
                             headMiss = c("cut", "constant")[1]) 
 
 impute_dataset(myTB2, countries=toBeProcessed,
-                            #deltaTime=5,
                             timeName = "time",
                             tailMiss = c("cut", "constant")[2],
                             headMiss = c("cut", "constant")[1]) 
@@ -326,7 +318,7 @@ $$
 $$
 where $m$ represent the member state of EU (country), $i$ refers to an indicator
 of interest, $t$ is the reference time and $\tau \in \{1,2,\ldots\}$
-the lenght of the time window (typically $1$ or more years).
+the length of the time window (typically $1$ or more years).
 
 In the simplest case, just two time values are considered, $t$ and $t+\tau$,
 while in a more  general setup all observed times in set
@@ -460,7 +452,7 @@ within the interval $(-1,1)$ and above $+1$.
 Details  on the contribution of each MS to the variance 
 at a given time $t$ is evaluate by the square of the difference
 $(Y_{m,i,t} - \overline{Y}_{EU27,i,t})^2$ 
-bewteen the indicator $i$ of country $m$ at time $t$
+between the indicator $i$ of country $m$ at time $t$
 and the unweighted average over member states, say EU27:
 ```{r}
 res$res$squaredContrib
@@ -485,7 +477,6 @@ thus each row adds to $100$.
 It is possible  to produce a graphical output about the
 main features of country time series, as shown below:
 ```{r,eval=T,fig.width=7,fig.height=9}
-# debug(graph_departure)
 myGG <- graph_departure(res$res$departures,
                 timeName = "time",
                 displace = 0.25,
@@ -506,7 +497,7 @@ myGG
 Any selection of countries is feasible:
 ```{r,eval=T}
 #myWW1<- warnings()
-myGG <- graph_departure(res$res$departures[,1:10],
+myGG <- graph_departure(res$res$departures[1:10],
                 timeName = "time",
                 displace = 0.25,
                 displaceh = 0.45,
@@ -566,7 +557,6 @@ $$
 
 The measure of  gamma-convergence is obtained with the following function:
 ```{r}
-#wwTB
 gamma_conv(emp_20_64_MS,2002,2016)
 ```
 
@@ -607,7 +597,7 @@ and changing reference year:
 ```
 
 
-Now we permutate values and calculate gamma-convergence:
+Now we exchange values and calculate gamma-convergence:
 ```{r}
 timeCounTB2 <- timeCounTB
 timeCounTB2[2,2:4] <-  timeCounTB[2,4:2]
@@ -618,8 +608,10 @@ gamma_conv(timeCounTB2,last=2005,ref=2000, timeName = "time",printRanks = T)
 ```
 and after random permutation:
 ```{r}
-timeCounTB3 <- cbind(timeCounTB[,1],t(apply(timeCounTB,1,
+timeCounTB3 <- cbind(timeCounTB[1],t(apply(timeCounTB,1,
                                         function(vet)vet[sample(2:4,3)])))
+
+
 timeCounTB3
 (gamma_conv(timeCounTB3,last=2005,ref=2000, timeName = "time",printRanks = T))
 ```
@@ -821,7 +813,7 @@ Here we go with calculating the sigma-convergence:
 mysigmares<-sigma_conv(wwTB)
 #mysigmares
 ```
-It is also possible to obtain a graphical representation of the standard deviation and the coefficient of variation obtained for the Sigma convergence by invoking the *sigma_conv_graph* fucntion as follows:
+It is also possible to obtain a graphical representation of the standard deviation and the coefficient of variation obtained for the Sigma convergence by invoking the *sigma_conv_graph* function as follows:
 
 ```{r,fig.width=5,fig.height=4,out.width="65%"}
 mysigmaplot<-sigma_conv_graph(sigmaconvOut=mysigmares, 
@@ -871,7 +863,7 @@ tmpRes <- gamma_conv(wDFI$res,ref=2007,last=2011,timeName = "time")
 ```
 
 
-Indeed there is the possbility of performing calculation
+Indeed there is the possibility of performing calculation
 for each pair of subsequent years in the dataset,
 that is, each year is the reference of the subsequent year:
 ```{r}
@@ -1113,7 +1105,7 @@ indicator $i$ at time $t$ with the weighted average
 $$\check{y}_{m,i,t}  = y_{m,i,t-1} ~ (1-w)/2   +w ~y_{m,i,t} +y_{m,i,t+1} ~(1-w)/2$$
 where $0< w \leq 1$. The special case $w=1$ corresponds to no smoothing.
 In case of missing values an NA is returned. If the weight is outside
-the intervel $(0,1]$ then a NA is returned.
+the interval $(0,1]$ then a NA is returned.
 The first and last values are smoothed using weights $w$ and $1-w$.
 
 After loading data, imputation takes place and finally smoothing is performed.
@@ -1194,7 +1186,7 @@ cuTB <- dplyr::tibble(ITori =emp_20_64_MS$IT)
 cuTB <- dplyr::mutate(cuTB,time =emp_20_64_MS$time)
 ```
 
-At the begining and end of this series values are averages on
+At the beginning and end of this series values are averages on
 smaller and smaller number of observations on the tails:
 ```{r}
 
@@ -1277,7 +1269,7 @@ The time serie is so short that at $k=7$ a lot of observations are smoothed with
 different number of observations (shorter at start and end).
 
 
-The above calulcations are performed by a function in the *convergEU* package:
+The above calculations are performed by a function in the *convergEU* package:
 ```{r}
 cuTB <-  emp_20_64_MS[,c("time","IT","DE")]
 
@@ -1343,7 +1335,7 @@ outSig <- sigma_conv(emp_20_64_MS, timeName = timeName,
            time_0=2002,time_t=2016)
 miniY <- min(emp_20_64_MS[,- which(names(emp_20_64_MS) == timeName )])
 maxiY <-  max(emp_20_64_MS[,- which(names(emp_20_64_MS) == timeName )])
-estrattore<-  emp_20_64_MS[,timeName] >= 2002  &  emp_20_64_MS[,timeName] <= 2016
+estrattore<-  emp_20_64_MS[[timeName]] >= 2002  &  emp_20_64_MS[[timeName]] <= 2016
 ttmp <- cbind(outSig$res, dplyr::select(emp_20_64_MS[estrattore,], -contains(timeName)))
 
 myG2 <- 
@@ -1378,7 +1370,7 @@ defined partition:
 ```{r,fig.height=11}
 obe_lvl <- scoreb_yrs(emp_20_64_MS,timeName = timeName)$res$sco_level_num
 # select subset of time
-estrattore <- obe_lvl[,timeName] >= 2009 & obe_lvl[,timeName] <= 2016  
+estrattore <- obe_lvl[[timeName]] >= 2009 & obe_lvl[[timeName]] <= 2016  
 scobelvl <- obe_lvl[estrattore,]
 
 my_MSstd <- ms_dynam( scobelvl,
@@ -1443,7 +1435,7 @@ go_ms_fish(
     dataNow=  Sys.time(),
     author = 'A.Student',
     outFile = 'Germany-up2-2016', 
-    outDir = "/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish",
+    outDir = "tt-fish",
     indiName= 'emp_20_64_MS'
 )
   
@@ -1464,7 +1456,7 @@ Of particular importance the argument *outFile* that
 can be a string indicating the name of the output file.
 Similarly *outDir* is the path (unit and folders) in which the
 final compiled html will be  stored. 
-The sintax of the path depend on the operating system;
+The syntax of the path depend on the operating system;
 for example *outDir='F:/analysis/IT2018'*  indicates that
 in the usb disk called 'F', within the folder 'analysis'
 is located folder 'IT2018' where R will write the country fiche.
@@ -1489,7 +1481,7 @@ subsequent use in other technical reports.
 An auxiliary function *go_indica_fish()*
 is provided in the  R package  *convergEU*
 to produce an indicator fiches, where the output is an html file.
-At this purpose, an output directory must be also specifed.
+At this purpose, an output directory must be also specified.
 Note that some arguments are passed as strings instead of objects,
 as described in the last section above.   
 
@@ -1511,7 +1503,7 @@ go_indica_fish(
     auth = 'A.Student',
     dataNow =  '2019/05/16',
     outFile = "test_IT-emp_20_64_MS",
-    outDir = "/media/fred/STORE/PRJ/2018-TENDER-EU/STEP-1/bitbucketed/tt-fish"
+    outDir = "tt-fish"
   )
 ```
 
