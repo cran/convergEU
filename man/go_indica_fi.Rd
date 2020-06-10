@@ -20,7 +20,8 @@ go_indica_fi(
   outFile = NA,
   outDir = NA,
   pdf_out = FALSE,
-  workTB = NULL
+  workTB = NULL,
+  selfContained = FALSE
 )
 }
 \arguments{
@@ -59,7 +60,9 @@ current time.}
 
 \item{pdf_out}{should the output be saved as PDF file? The default is  FALSE.}
 
-\item{workTB}{tibble containing data, optional, as alternative to a global object}
+\item{workTB}{a tibble containing data.}
+
+\item{selfContained}{TRUE if just one file is desired}
 }
 \description{
 An auxiliary function to compile a rmarkdown file to produce the indicator fiche in
@@ -74,66 +77,6 @@ Furthermore, the dataset must be complete, that is without missing values.
 Note also that Internet connection should be available when invoking the function
 to properly rendering the results in the html file. The fiches have been tested with
 the browsers Mozilla Firefox and Google Chrome.
-}
-\examples{
-
-\donttest{
-# highBest indicator:
-     go_indica_fi(
-     time_0 = 2004,
-     time_t = 2014,
-     timeName = 'time',
-     workDF = 'emp_20_64_MS' ,
-     indicaT = 'emp_20_64',
-     indiType = c('highBest','lowBest')[1],
-     seleMeasure = 'all',
-     seleAggre = 'EU27',
-     x_angle =  45,
-     data_res_download =  FALSE,
-     auth = 'A.Student',
-     dataNow =  '2019/01/31',
-     outFile = "test_indica-fi-emp_20_64_MS",
-     outDir = tempdir()
-     )
-
-# lowBest indicator
- go_indica_fi(
-    time_0 = 2004,
-    time_t = 2014,
-    timeName = 'time',
-    workDF = 'emp_20_64_MS' ,
-    indicaT = 'emp_20_64',
-    indiType = c('highBest','lowBest')[2],
-    seleMeasure = 'all',
-    seleAggre = 'EU27',
-    x_angle =  45,
-    data_res_download =  FALSE,
-    auth = 'A.Student',
-    dataNow =  '2019/01/31',
-    outFile = "test_indica-fi-emp_20_64_MS",
-    outDir = tempdir()
-    )
-
-# Select beta and gamma convergence measures only:
- go_indica_fi(
-    time_0 = 2002,
-    time_t = 2010,
-    timeName = 'time',
-    workDF = 'emp_20_64_MS' ,
-    indicaT = 'emp_20_64',
-    indiType = 'highBest',
-    seleMeasure = c('beta','sigma'),
-    seleAggre = 'EU27',
-    x_angle =  45,
-    data_res_download =  FALSE,
-    auth = 'A.Student',
-    dataNow =  '2019/05/16',
-    outFile = "newtest_IT-emp_20_64_MS",
-    outDir = tempdir()
-    )
-}
-
-
 }
 \references{
 {\url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}

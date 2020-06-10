@@ -3,11 +3,6 @@ context("Indicator fiche")
 
 
 
-library(convergEU)
-require(tibble)
-require(devtools)
-
-
 #  undebug(go_indica_fi)
 
 
@@ -36,14 +31,34 @@ testest <- function(){
     outDir = tempdir(),
     workTB = emp_20_64_MS
     )
-     
+
     # browseURL( file.path(tempdir(),'test_indica-fi-emp_20_64_MS.html'))
 
 
+  tmp <- go_indica_fi(
+    workDF = NA,#'emp_20_64_MS' ,
+    time_0 = 2004,
+    time_t = 2018,
+    timeName = 'time',
+    indicaT = 'emp_20_64',
+    indiType = c('highBest','lowBest')[1],
+    seleMeasure = 'all',
+    seleAggre = 'EU28',
+    x_angle =  45,
+    data_res_download =  FALSE,
+    auth = 'A.Student',
+    dataNow =  '2019/01/31',
+    outFile = "test_indica-fi-emp_20_64_MS_ONE",
+    outDir = tempdir(),
+    workTB = emp_20_64_MS,
+    selfContained = TRUE
+  )
+
+  # browseURL( file.path(tempdir(),'test_indica-fi-emp_20_64_MS.html'))
 
 
 
-   
+
   folder_tmp <- tempdir()
 
   go_indica_fi(
@@ -66,7 +81,7 @@ testest <- function(){
   browseURL(file.path(folder_tmp,'test_indica-fi-emp_20_64_MS.html'))
 
 
- 
+
 
   go_indica_fi(
     time_0 = 2002,
@@ -94,11 +109,6 @@ testest <- function(){
 
 
 
-
-
-
-
-  ## ISSUE da Chiara Litardi  25 Giugno 2019
 
 
 
@@ -214,7 +224,6 @@ browseURL(file.path(folder_tmp,'newtest_IT-emp_20_64_MS.html'))
     outFile = "indica_custom",
     outDir = tempdir()
   )
-
 
 
 

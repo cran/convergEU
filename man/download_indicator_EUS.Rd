@@ -53,60 +53,6 @@ From the Eurostat web site, a dataset is created whose structure is
 years by countries, possibly conditioned to  gender, age class and other
 variables.
 }
-\examples{
-\donttest{
-myDF1 <- download_indicator_EUS(
-         indicator_code = "lfsa_ergaed",
-         fromTime = 2005,
-         toTime = 2015,
-         gender=  "F",
-         ageInterv = NA,
-         countries =  c("BE", "DK", "FR", "DE", "EL", "IE", "IT", "LU", "NL", "PT",
-              "ES", "UK", "AT", "FI", "SE", "CY", "CZ", "EE", "HU", "LV", "LT",
-              "MT", "PL", "SK", "SI", "BG", "RO", "HR"),
-         rawDump=FALSE,
-         uniqueIdentif = 1)
-
-
-myDF2 <- download_indicator_EUS(indicator_code = "lfsa_ergaed",
-                                fromTime = 2005,
-                                toTime = 2015,
-                                gender=  "F",
-                                ageInterv = NA,
-                                countries =  convergEU_glb()$EU27$memberStates$codeMS,
-                                rawDump=FALSE,
-                                uniqueIdentif = 1)
-
-myDF3 <- download_indicator_EUS(indicator_code = "lfsa_ergaed",
-                                fromTime = 2005,
-                                toTime = 2015,
-                                gender=  "F",
-                                ageInterv = "Y15-39",
-                                countries =  c("BE", "DK",  "RO", "HR"),
-                                rawDump=FALSE,
-                                uniqueIdentif = 1)
-
-myDF4 <- download_indicator_EUS(indicator_code = "earn_nt_net",
-                                fromTime = 2005,
-                                toTime = 2015,
-                                gender=  "F",
-                                ageInterv = "Y15-39",
-                                countries =  c("DE", "EL",  "IT", "FR"),
-                                rawDump=FALSE,
-                                uniqueIdentif = 1)
-
-myDF5 <- download_indicator_EUS(indicator_code = "earn_nt_net",
-                                fromTime = 2005,
-                                toTime = 2015,
-                                gender=  "F",
-                                ageInterv = "Y15-39",
-                                countries =  c("DE", "EL",  "IT", "FR"),
-                                rawDump=FALSE,
-                                uniqueIdentif = 5)
-}
-
-
-}
 \references{
 {\url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}
 }

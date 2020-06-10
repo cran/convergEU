@@ -1,8 +1,6 @@
 
 context("Test the presence of countries in a dataset")
-library(convergEU)
-require(tibble)
-require(devtools)
+
 
 
 

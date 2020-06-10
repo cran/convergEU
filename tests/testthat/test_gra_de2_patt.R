@@ -1,9 +1,6 @@
 
 context("Basic computation gradient for patterns")
 
-library(convergEU)
-require(tibble)
-require(devtools)
 
 
 #  debug(gra_de2_patt)

@@ -1,9 +1,5 @@
 
 context("Imputation of a dataset.")
-require(devtools)
-library(convergEU)
-library(tibble)
-
 
 
 # debug(impute_dataset )
@@ -46,7 +42,7 @@ class = "data.frame", row.names = c(NA, -9L))
 
 
 test_that("Simplest Imputation using option cut", {
-  myTB2  <- as_tibble(startDF)
+  myTB2  <- tibble::as_tibble(startDF)
   # myTB2[["IT"]]
   toBeProcessed <- c( "IT","BE","DK")
   resImpu <- impute_dataset(myTB2, countries=toBeProcessed,
@@ -64,7 +60,7 @@ test_that("Simplest Imputation using option cut", {
 
 
 test_that("Imputation using option constant", {
-  myTB2  <- as_tibble(startDF)
+  myTB2  <- tibble::as_tibble(startDF)
   toBeProcessed <- c( "IT","BE", "DE", "DK","UK")
   resImpu <- impute_dataset(myTB2, countries=toBeProcessed,
                             #deltaTime=5,
@@ -90,7 +86,7 @@ test_that("Imputation using option constant", {
 
 
 test_that("Imputation into a chunk of missing", {
-  myTB2  <- as_tibble(startDF)
+  myTB2  <- tibble::as_tibble(startDF)
   toBeProcessed <- c( "IT","BE", "DE", "DK","UK")
   resImpu <- impute_dataset(myTB2, countries=toBeProcessed,
                             #deltaTime=5,
@@ -131,7 +127,7 @@ test_that("Imputation into a chunk of missing", {
 
 
 test_that("Imputation into a chunk with delta time  equal to 1", {
-  myTB2  <- as_tibble(startDF)[,c("time","IT","DK")]
+  myTB2  <- tibble::as_tibble(startDF)[,c("time","IT","DK")]
   myTB2$time <- 2000:2008
   resImpu <- impute_dataset(myTB2, countries=c("IT","DK"),
                  #deltaTime=1,
@@ -167,7 +163,7 @@ test_that("Imputation into a chunk with delta time  equal to 1", {
 
 
 test_that("Imputation into chunk  missing, timeName not standard", {
-  myTB2  <- as_tibble(startDF)
+  myTB2  <- tibble::as_tibble(startDF)
   toBeProcessed <- names(myTB2)[-c(1:2)]#c( "IT","BE", "DE", "DK","UK")
   resImpu1 <- impute_dataset(myTB2, countries=toBeProcessed,
                             #deltaTime=5,

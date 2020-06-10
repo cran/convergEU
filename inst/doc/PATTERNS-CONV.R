@@ -1,16 +1,18 @@
 ## ----setup,include = FALSE----------------------------------------------------
-require(ggplot2)
-require(dplyr)
-require(tidyverse)
-require(convergEU)
-require(eurostat)
-require(purrr)
-require(tibble)
-require(tidyr)
-require(ggplot2)
-require(formattable) 
-require(kableExtra)
-require(caTools)
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(eurostat)
+library(purrr)
+library(tibble)
+library(tidyr)
+library(ggplot2)
+library(formattable) 
+library(kableExtra)
+library(caTools)
+library(readxl)
+
+library(convergEU)
 
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -71,7 +73,7 @@ gFR
 
 
 ## ---- echo=TRUE---------------------------------------------------------------
-require(readxl)
+# library(readxl)
 file_name <- system.file("vign/une_educ_a.xls", package = "convergEU")
 myxls2<-read_excel(file_name,
                    sheet="Data",range = "A12:AP22", na=":")

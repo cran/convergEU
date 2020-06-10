@@ -1,7 +1,7 @@
 ---
-output:
-    html_document:
-      css: EUF.css 
+output: 
+  html_document:
+    css: EUF.css
 params:
       dataNow: "3/03/2020"
       workingDF: NA
@@ -20,8 +20,6 @@ params:
       pdf_out: FALSE
       workTB: !r iris
 ---
-
-
  
 
 ```{r setup, include=FALSE,eval=TRUE}
@@ -59,6 +57,30 @@ knitr::opts_chunk$set(
  
 
 
+```{r chunk1,eval=F}
+
+# input parameters
+params <- list()
+params$dataNow <- Sys.Date()
+params$time_0 <- 2005
+params$time_t <- 2010
+params$timeName  <- 'time'
+params$workingDF  <- 'emp_20_64_MS'
+params$indicaT <- 'emp_20_64_MS'
+params$indiType<- 'lowBest' # highBest
+params$seleMeasure <- 'all'
+params$seleAggre <- 'custom' ##'EU12'
+params$x_angle<- 45
+params$data_res_download <- TRUE
+params$auth <- 'A.P.Student'
+params$outFile <- "test_indica-fi-cust"
+#params$outDir <-
+params$outDir <-   "../tt-fish"
+params$pdf_out <- TRUE
+params$workTB <- iris
+```
+
+
 
 
 <br>
@@ -86,12 +108,11 @@ This fiche shows the investigation of upward convergence of Member States in the
 
    
 Today: `r params$dataNow`     
-R Package: **convergEU** -  link to CRAN    
+R Package: <a href='https://cran.r-project.org/package=convergEU'> **convergEU** </a>  
 Indicator: *`r params$indicaT`*  
 Indicator type: *`r params$indiType`*  
 Measures of convergence: *`r if(is.null(params$seleMeasure)){"none"}else{params$seleMeasure}`*   
 Aggregation: *`r params$seleAggre`*    
-Dataset: *`r params$workingDF`*    
 Time window: *`r  params$timeName`*  from *`r as.numeric(params$time_0)`*  to *`r as.numeric(params$time_t)`*  
 Author: *`r params$auth`* 
 
@@ -119,7 +140,6 @@ out_packed_name <- file.path(params$outDir,
                                     '-workspace.RData'))
 
  
-
 wkDF <- params$workTB
  
 # wkDF
@@ -516,9 +536,9 @@ Legend:
   *  boxes height: first and third quartile (hinges)  
   *  bold black horizontal segment: median
   *  upper whisker: $min(max(x), Q_3 + 1.5 * IQR)$  
-  *  lower whisker: $max(min(x), Q_1 – 1.5 * IQR)$  
+  *  lower whisker: $max(min(x), Q_1 - 1.5 * IQR)$  
   
-where $IQR = Q_3 – Q_1$ is the box length, that is the third quartile
+where $IQR = Q_3 - Q_1$ is the box length, that is the third quartile
 minus the first quartile. Overlaid  jittered points are shown in red.
  
  

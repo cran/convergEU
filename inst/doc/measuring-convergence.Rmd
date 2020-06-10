@@ -8,11 +8,11 @@ output:
     toc: true
     number_sections: true
 vignette: >
-  %\VignetteIndexEntry{Convergence-monitoring}
+  %\VignetteIndexEntry{Convergence monitoring}
   %\VignetteEncoding{UTF-8}
   \usepackage[utf8]{inputenc}
+  % \VignetteDepends{ggplot2,dplyr,tidyverse,eurostat,purrr,tibble,tidyr,formattable,kableExtra,caTools,gridExtra,knitr,magrittr,readr,readxl,utf8}
   %\VignetteEngine{knitr::rmarkdown}
-  % \VignetteDepends{ggplot2,dplyr,tidyverse,eurostat,purrr,tibble,tidyr,formattable,kableExtra,caTools,gridExtra,knitr,magrittr,readr,readxl}
 editor_options:
   chunk_output_type: console
 ---
@@ -25,17 +25,18 @@ editor_options:
 
 
 ```{r setup, include = FALSE}
-require(ggplot2)
-require(dplyr)
-require(tidyverse)
-require(convergEU)
-require(eurostat)
-require(purrr)
-require(tibble)
-require(tidyr)
-require(formattable) 
-require(kableExtra)
-require(caTools)
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(eurostat)
+library(purrr)
+library(tibble)
+library(tidyr)
+library(formattable) 
+library(kableExtra)
+library(caTools)
+
+library(convergEU)
 
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -96,11 +97,11 @@ A description of the above data is available
 by the R help, for example:
 ```{r,eval=FALSE}
 help(emp_20_64_MS)
+
 ```
 
 Eurofond local data are considered below:
 ```{r}
-require(convergEU)
 data(dbEurofound)
 head(dbEurofound)
 ```
@@ -256,16 +257,19 @@ where missing value are  absent
 ```{r}
 sapply(myTB$res,function(vx)sum(is.na(vx)))
 ```
-thus we introduce some missing values and  take further years for testing purposes:
+thus an artificial dataset is built by  introducing
+some missing values and  by taking further years for testing purposes:
 ```{r}
-myTB2 <- dplyr::bind_rows(myTB,myTB,myTB)
-myTB2[["time"]][1:3] <- c(1975,1980,1985)
-myTB2[["time"]][4:6] <- c(1990,1995,2000)
-
+set.seed(1999)
+myTB2 <- dplyr::bind_rows(myTB$res,myTB$res,myTB$res)
+myTB2 <- dplyr::mutate(myTB2, time= seq(1975,2015,5))
 for(aux in 3:14){
-  myTB2[[aux]][c(1:3,4:6)] <-   myTB2[[aux]][c(1:3,4:6)] + runif(6,-2.5,2.5)
+  myTB2[[aux]] <-   myTB2[[aux]] + c(runif(6,-2.5,2.5),0,0,0)
 }
+```
 
+
+```{r}
 myTB2[["BE"]][1:2] <-  NA
 myTB2[["DE"]][8:9] <-  NA
 myTB2[["IT"]][c(3,4, 6,7,8)] <-  NA
@@ -347,9 +351,9 @@ might be of some interest, but it is not implemented.
 
 Below an example on how to invoke the function:
 ```{r}
-require(ggplot2)
-require(dplyr)
-require(tibble)
+#library(ggplot2)
+#library(dplyr)
+#library(tibble)
 
 testTB <- tribble(
   ~time, ~countryA ,  ~countryB,  ~countryC,
@@ -1123,7 +1127,8 @@ resSM
 ```
 and for a comparison:
 ```{r}
-compaTB <- select(bind_cols(workTB, select(resSM,-time)), time,IT,IT1,DE,DE1)
+tmpSM <- dplyr::rename(dplyr::select(resSM,-time),IT1=IT,DE1=DE)
+compaTB <- dplyr::select(bind_cols(workTB, tmpSM), time,IT,IT1,DE,DE1)
 compaTB
 ```
 
@@ -1148,8 +1153,11 @@ qplot(time,DE,data=compaTB) +
 
 A weight equal to 1 leaves data unchanged:
 ```{r,out.width="70%"}
-resSM <- smoo_dataset(select(workTB,-time), leadW = 1, timeTB= select(workTB,time))
-compaTB <- select(bind_cols(workTB, select(resSM,-time)), time,IT,IT1,DE,DE1)
+resSM <- smoo_dataset(dplyr::select(workTB,-time), leadW = 1,
+                      timeTB= dplyr::select(workTB,time))
+resSM <- dplyr::rename(resSM,IT1=IT, DE1=DE)
+compaTB <- dplyr::select(dplyr::bind_cols(workTB, 
+                     dplyr::select(resSM,-time)), time,IT,IT1,DE,DE1)
 qplot(time,IT,data=compaTB) + 
   geom_line(colour="navyblue") +
   geom_line(aes(x=time,y=IT1),colour="red") +
@@ -1190,17 +1198,17 @@ At the beginning and end of this series values are averages on
 smaller and smaller number of observations on the tails:
 ```{r}
 
-cuTB <-  dplyr:: mutate(cuTB, IT_k_3= runmean(emp_20_64_MS$IT, k=3, 
+cuTB <-  dplyr:: mutate(cuTB, IT_k_3= caTools::runmean(emp_20_64_MS$IT, k=3, 
         alg=c("C", "R", "fast", "exact")[4],
         endrule=c("mean", "NA", "trim", "keep", "constant", "func")[4],
         align = c("center", "left", "right")[1]))
 
-cuTB <-  dplyr:: mutate(cuTB, IT_k_5= runmean(emp_20_64_MS$IT, k=5, 
+cuTB <-  dplyr:: mutate(cuTB, IT_k_5= caTools::runmean(emp_20_64_MS$IT, k=5, 
         alg=c("C", "R", "fast", "exact")[4],
         endrule=c("mean", "NA", "trim", "keep", "constant", "func")[4],
         align = c("center", "left", "right")[1]))
 
-cuTB <-  dplyr:: mutate(cuTB, IT_k_7= runmean(emp_20_64_MS$IT, k=7, 
+cuTB <-  dplyr:: mutate(cuTB, IT_k_7= caTools::runmean(emp_20_64_MS$IT, k=7, 
         alg=c("C", "R", "fast", "exact")[4],
         endrule=c("mean", "NA", "trim", "keep", "constant", "func")[4],
         align = c("center", "left", "right")[1]))
@@ -1325,8 +1333,8 @@ For the comparison of a country with the EU average,
 the following steps are recommended, from raw data:
 
 ```{r}
-# require(ggplot2)
-# data(emp_20_64_MS)
+# library(ggplot2)
+data(emp_20_64_MS)
 selectedCountry <- "IT"
 timeName <-  "time"
 myx_angle <-  45

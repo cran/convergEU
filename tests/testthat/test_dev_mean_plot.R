@@ -1,9 +1,6 @@
 
 context("Plot of sum of deviations from the mean")
 
-library(convergEU)
-require(tibble)
-require(devtools)
 
 
 #  debug(dev_mean_plot)

@@ -83,13 +83,12 @@ policy objective together with a decrease in disparities among them.
 ### Fiche info 
    
 Today: `r params$dataNow`    
-R Package: **convergEU** -  link to CRAN    
+R Package: <a href='https://cran.r-project.org/package=convergEU'> **convergEU** </a>   
 Indicator: *`r params$indiName`*  
 Indicator type: *`r params$indiType`*  
 Country of reference: *`r params$country`*      
 Other selected countries: *`r paste(eval(parse(text=params$otherCountries)),collapse=", ")`*  
 Aggregation: *`r params$aggregation`*  
-Dataset: *`r params$workingDF`*     
 Time window:  *`r params$timeName`* from *`r as.numeric(params$time_0)`* to *`r as.numeric(params$time_t)`*   
 Author: *`r params$auth`*      
 
@@ -247,7 +246,7 @@ myG2 <-  ggplot(ttmp) +
                                y= .data[["serieMax"]],
                                colour = "blue" 
                                ),linetype="dashed") +
-        ggplot2::annotate("text",  
+        ggplot2::annotate("text",
                         x = .data[["time"]], 
                         y = .data[["serieMax"]], 
                         label = paste(.data[[eticheMax]],"    "),
@@ -604,7 +603,7 @@ my_MS <- ms_dynam( scobelvl,
                 timeName = "time",
                 displace = 0.25,
                 displaceh = 0.45,
-                dimeFontNum = 5,
+                dimeFontNum = 3,#5
                 myfont_scale = 1.35,
                 x_angle = 45,
                 axis_name_y = "Countries",

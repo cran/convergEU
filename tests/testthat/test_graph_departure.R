@@ -1,8 +1,5 @@
 
 context("Graphical representation from sigma convergence.")
-library(convergEU)
-require(tibble)
-require(devtools)
 
 
 # debug(graph_departure)

@@ -1,9 +1,7 @@
 
 context("From time series to parameters of straight lines")
 
-library(convergEU)
-require(tibble)
-require(devtools)
+
 
 
 #  debug(ts_parlin)

@@ -87,13 +87,15 @@ average_clust <- function(myTB, timeName = "time", cluster="EU27"){
   posit <- which(names(myTB) == timeName)
   tmp <- myTB[,-posit]
   if(cluster != "all"){
-     MScorrente <- unlist(convergEU_glb()[[cluster]]$memberStates[,2])
+     ##MScorrente <- unlist(convergEU_glb()[[cluster]]$memberStates[,2])
+     MScorrente <-convergEU_glb()[[cluster]]$memberStates[["codeMS"]]
   }else{
     MScorrente <-     names(myTB)[-posit]
   }
-  tmp2 <- tmp[,MScorrente]
+  tmp2 <- dplyr::select(tmp,MScorrente)#tmp[,MScorrente]
   media <- apply(tmp2,1,mean)
-  myTB[,cluster] <- media
+  ##myTB[,cluster] <- media
+  myTB <- dplyr::mutate(myTB,!!cluster := media)
   out_obj$res <- myTB
   return(out_obj)
 }

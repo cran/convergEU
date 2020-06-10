@@ -1,8 +1,5 @@
 
 context("Extraction of a indicator dataset from Eurofound database.")
-library(convergEU)
-require(tibble)
-require(devtools)
 
 
 

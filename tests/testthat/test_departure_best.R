@@ -1,9 +1,5 @@
 
 context("Departure of an  indicator from the best performer")
-library(convergEU)
-require(tibble)
-require(devtools)
-
 
 
 # debug( )

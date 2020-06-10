@@ -1,8 +1,5 @@
 
 context("Scoreboard numerical calculations")
-library(convergEU)
-require(tibble)
-require(devtools)
 
 
 

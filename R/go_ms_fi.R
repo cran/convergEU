@@ -9,7 +9,8 @@
 #' instead of workDF=myTB as one may expect.
 #' Furthermore, the dataset must be complete, that is without missing values.
 #' Note also that connection to Internet should be available when invoking the
-#' function to properly rendering the results in the html file
+#' function to properly rendering the results in the html file. A tibble object
+#' containing data can be passed with the argument workTB instead of a string.
 #'
 #'
 #' @param workDF name (string) of the dataset  with all countries
@@ -32,80 +33,7 @@
 #'
 #' @references{\url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}
 #'
-#' @examples
 #'
-#' \donttest{
-#' go_ms_fi(
-#'      workDF ='emp_20_64_MS',
-#'      countryRef ='DE',
-#'      otherCountries = "c('IT','ES','FR','BE','AT')",
-#'      time_0 = 2003,
-#'      time_t = 2014,
-#'      tName = 'time',
-#'      indiType = "highBest",
-#'      aggregation= 'EU27',
-#'      x_angle=  45,
-#'      dataNow=  Sys.time(),
-#'      author = 'A.Student',
-#'      outFile = 'Counfic-DE-2015',
-#'      outDir = tempdir(),
-#'      indiName= "testindi"
-#'      )
-#'
-#' go_ms_fi(
-#'      workDF ='emp_20_64_MS',
-#'      countryRef ='IT',
-#'      otherCountries = 'c("DE","FR")',
-#'      time_0 = 2005,
-#'      time_t = 2015,
-#'      tName = 'time',
-#'      indiType =  "highBest",
-#'      aggregation= 'EU27',
-#'      x_angle=  45,
-#'      dataNow=  Sys.time(),
-#'      author = 'A.Student',
-#'      outFile = 'Counfic-IT-2015',
-#'      outDir = tempdir(),
-#'      indiName= "testindi"
-#'      )
-#'
-#' go_ms_fi(
-#'      workDF ='emp_20_64_MS',
-#'      countryRef ='DE',
-#'      otherCountries = "c('IT','FR','BE','PT')",
-#'      time_0 = 2003,
-#'      time_t = 2014,
-#'      tName = 'time',
-#'      indiType =  "highBest",
-#'      aggregation= 'EU12',
-#'      x_angle=  45,
-#'      dataNow=  Sys.time(),
-#'      author = 'A.Student',
-#'      outFile = 'Counfic-DE-2015',
-#'      outDir = tempdir(),
-#'      indiName= "testindi"
-#'      )
-#'
-#' # artificially created dataset
-#' myTTB <- emp_20_64_MS
-#' names(myTTB) <- c("time",paste("PP",1:28,sep="-"))
-#' go_ms_fi(
-#'        workDF ='myTTB',
-#'        indiName= "testindi",
-#'        countryRef ='PP-21',
-#'        otherCountries = "c('PP-1','PP-24','PP-11','PP-28','PP-13')",
-#'        time_0 = 2005,
-#'        time_t = 2010,
-#'        tName = 'time',
-#'        indiType =  "highBest",
-#'        aggregation= 'custom',
-#'        x_angle=  45,
-#'        dataNow=  Sys.time(),
-#'        author = 'A.Student',
-#'        outFile = 'country-test-custom',
-#'        outDir = tempdir()
-#'      )
-#'}
 #'
 #' @export
 go_ms_fi <-  function(
@@ -191,7 +119,7 @@ go_ms_fi <-  function(
   rmarkdown::render(input=sourcePF1,
                     output_format="html_document",
                     params = list(
-                      workingDF=workDF,
+                      workingDF= NA,
                       time_0= time_0,
                       time_t= time_t,
                       timeName= tName,

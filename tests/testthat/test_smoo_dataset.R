@@ -1,10 +1,5 @@
 
 context("Smoother of raw data")
-library(convergEU)
-require(tibble)
-require(devtools)
-
-
 
 
 # debug(smoo_dataset)
@@ -74,7 +69,7 @@ test_that("Smoothing: tibble in output?", {
     DE = c(10,11,12,9,14,17,23,29,26,23)
   )
   res <- smoo_dataset(oriDat[,-1], leadW=.5,timeTB= dplyr::select(oriDat,time))
-  expect_true(is_tibble(res))
+  expect_true(tibble::is_tibble(res))
   res <- smoo_dataset(oriDat[,-1], leadW=.5)
   expect_true(is.matrix(res))
 })

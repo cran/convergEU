@@ -8,9 +8,10 @@ output:
     toc: true
     number_sections: true
 vignette: >
-  %\VignetteIndexEntry{pattern-conv}
+  %\VignetteIndexEntry{Patterns of convergence and divergence within the *convergEU* package}
   %\VignetteEncoding{UTF-8}
   \usepackage[utf8]{inputenc}
+  % \VignetteDepends{ggplot2,dplyr,tidyverse,eurostat,purrr,tibble,tidyr,formattable,kableExtra,caTools,gridExtra,knitr,magrittr,readr,readxl,utf8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options:
   chunk_output_type: console
@@ -19,18 +20,20 @@ editor_options:
 
 
 ```{r setup,include = FALSE}
-require(ggplot2)
-require(dplyr)
-require(tidyverse)
-require(convergEU)
-require(eurostat)
-require(purrr)
-require(tibble)
-require(tidyr)
-require(ggplot2)
-require(formattable) 
-require(kableExtra)
-require(caTools)
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(eurostat)
+library(purrr)
+library(tibble)
+library(tidyr)
+library(ggplot2)
+library(formattable) 
+library(kableExtra)
+library(caTools)
+library(readxl)
+
+library(convergEU)
 
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -45,17 +48,7 @@ knitr::opts_chunk$set(
 ```
 
 
-<!--
-`fig.cap = "Your figure caption."` in **knitr**.
 
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
- {r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-
--->
  
 
 <br><br>
@@ -165,7 +158,7 @@ To this end, let's consider the indicator Unemployment rate by sex, age and educ
 ```
 
 ```{r, echo=TRUE}
-require(readxl)
+# library(readxl)
 file_name <- system.file("vign/une_educ_a.xls", package = "convergEU")
 myxls2<-read_excel(file_name,
                    sheet="Data",range = "A12:AP22", na=":")
@@ -304,7 +297,7 @@ Empconv$res$declaration_weak
 ```{r}
 Empconv$res$declaration_split$names_incre
 ```
-* a list of the member states labels for which the differences for a given idicator between the target time and the reference time are smaller than zero :
+* a list of the member states labels for which the differences for a given indicator between the target time and the reference time are smaller than zero :
 ```{r}
 Empconv$res$declaration_split$names_decre
 ```

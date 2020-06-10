@@ -349,25 +349,25 @@ unique(myES2lab$)
 estrattore <- which(convergEU_glb()$metaEUStat$Official_code_purified == "gov_10a_exp"  )
 convergEU_glb()$metaEUStat[estrattore,]
 ## diverse vars dentro un dataset
-# 1 gov_10a_exp   expspr_p         General government expenditure in social protect…
-# 2 gov_10a_exp   expedu_p         General government expenditure in education as p…
-# 3 gov_10a_exp   exphlth_p        General government expenditure in health as perc…
+# 1 gov_10a_exp   expspr_p         General government expenditure in social protect 
+# 2 gov_10a_exp   expedu_p         General government expenditure in education as p 
+# 3 gov_10a_exp   exphlth_p        General government expenditure in health as perc 
 # 4 gov_10a_exp   exppubserv_p
 
 estrattore <- which(convergEU_glb()$metaEUStat$Official_code_purified == "lfsa_esgan"  )
 convergEU_glb()$metaEUStat[estrattore,]
-#   Official_code     Code_in_database indicator     Official_code_pu… subSelection
+#   Official_code     Code_in_database indicator     Official_code_pu  subSelection
 #   <chr>             <chr>            <chr>         <chr>             <chr>
-# 1 Own calculation.… selfemp_p        Self employm… lfsa_esgan        NA
-# 2 Own calculation.… selfempwe_p      Self employm… lfsa_esgan        NA
+# 1 Own calculation.  selfemp_p        Self employm  lfsa_esgan        NA
+# 2 Own calculation.  selfempwe_p      Self employm  lfsa_esgan        NA
 
 estrattore <- which(convergEU_glb()$metaEUStat$Official_code_purified == "nama_10_lp_ulc"  )
 convergEU_glb()$metaEUStat$Code_in_database[estrattore]
-#   Official_code  Code_in_database indicator         Official_code_p… subSelection
+#   Official_code  Code_in_database indicator         Official_code_p  subSelection
 #   <chr>          <chr>            <chr>             <chr>            <chr>
-# 1 nama_10_lp_ulc labourcost_i     Nominal unit lab… nama_10_lp_ulc   NA
-# 2 nama_10_lp_ulc labourprod_i     Real labour prod… nama_10_lp_ulc   NA
-# 3 nama_10_lp_ulc compemp_pps      Compensation per… nama_10_lp_ulc   NA
+# 1 nama_10_lp_ulc labourcost_i     Nominal unit lab  nama_10_lp_ulc   NA
+# 2 nama_10_lp_ulc labourprod_i     Real labour prod  nama_10_lp_ulc   NA
+# 3 nama_10_lp_ulc compemp_pps      Compensation per  nama_10_lp_ulc   NA
 
 unique(myES2$age)
 unique(myES2$time)

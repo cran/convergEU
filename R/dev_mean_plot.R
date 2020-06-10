@@ -11,7 +11,7 @@
 #' @param indiType  the type of indicator  "highBest" or "lowBest"
 #' @param displace graphical displacement
 #' @param axis_name_y  name of the axis
-#' @param val_alpha  trasparency value in (0,1].
+#' @param val_alpha  transparency value in (0,1].
 #' @param debug  a flag to get debug information as msg component
 #' @return a list with ggplot2 graphical object within res component
 #'

@@ -320,27 +320,27 @@ convergEU_glb <- function(){
   oriMetaEUStat <- dplyr::mutate(oriMetaEUStat, subSelection = rep(NA, nrow(oriMetaEUStat)))
   oriMetaEUStat <- dplyr::mutate(oriMetaEUStat, selectorUser = rep(NA, nrow(oriMetaEUStat)))
   ## different   vars within   dataset
-  # 1 gov_10a_exp   expspr_p         General government expenditure in social protect…
-  # 2 gov_10a_exp   expedu_p         General government expenditure in education as p…
-  # 3 gov_10a_exp   exphlth_p        General government expenditure in health as perc…
+  # 1 gov_10a_exp   expspr_p         General government expenditure in social protect
+  # 2 gov_10a_exp   expedu_p         General government expenditure in education as
+  # 3 gov_10a_exp   exphlth_p        General government expenditure in health as
   # 4 gov_10a_exp   exppubserv_p
   estraSub <- which(oriMetaEUStat$Official_code_purified  == "gov_10a_exp")
   oriMetaEUStat$subSelection[ estraSub ] <- c("expspr_p", "expedu_p","exphlth_p","exppubserv_p")
   #
   estraSub <- which(oriMetaEUStat$Official_code_purified == "lfsa_esgan"  )
   oriMetaEUStat$subSelection[ estraSub ] <- c("selfemp_p","selfempwe_p")
-  #   Official_code     Code_in_database indicator     Official_code_pu… subSelection
+  #   Official_code     Code_in_database indicator     Official_code   subSelection
   #   <chr>             <chr>            <chr>         <chr>             <chr>
-  # 1 Own calculation.… selfemp_p        Self employm… lfsa_esgan        NA
-  # 2 Own calculation.… selfempwe_p      Self employm… lfsa_esgan        NA
+  # 1 Own calculation. selfemp_p        Self employm lfsa_esgan        NA
+  # 2 Own calculation. selfempwe_p      Self employm lfsa_esgan        NA
   #
   estraSub <- which(oriMetaEUStat$Official_code_purified == "nama_10_lp_ulc"  )
   oriMetaEUStat$subSelection[ estraSub ] <- c("labourcost_i","labourprod_i","compemp_pps" )
-  #   Official_code  Code_in_database indicator         Official_code_p… subSelection
+  #   Official_code  Code_in_database indicator         Official_code_p subSelection
   #   <chr>          <chr>            <chr>             <chr>            <chr>
-  # 1 nama_10_lp_ulc labourcost_i     Nominal unit lab… nama_10_lp_ulc   NA
-  # 2 nama_10_lp_ulc labourprod_i     Real labour prod… nama_10_lp_ulc   NA
-  # 3 nama_10_lp_ulc compemp_pps      Compensation per… nama_10_lp_ulc   NA
+  # 1 nama_10_lp_ulc labourcost_i     Nominal unit lab  nama_10_lp_ulc   NA
+  # 2 nama_10_lp_ulc labourprod_i     Real labour prod  nama_10_lp_ulc   NA
+  # 3 nama_10_lp_ulc compemp_pps      Compensation per  nama_10_lp_ulc   NA
   #
   # the user has to exploit this "SelectorUser"
   oriMetaEUStat$selectorUser <- oriMetaEUStat$Official_code_purified

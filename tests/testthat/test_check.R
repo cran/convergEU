@@ -1,8 +1,3 @@
-library(convergEU)
-require(tibble)
-require(devtools)
-
-
 
 context("Checking function for dataframes and tibbles")
 

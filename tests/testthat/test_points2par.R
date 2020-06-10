@@ -1,15 +1,12 @@
 
 context("From two points to line straight line parameters")
-library(convergEU)
-require(tibble)
-require(devtools)
 
 
 
 
 
 test_that("Convert", {
-  myTB <- tribble(
+  myTB <- dplyr::tribble(
     ~time , ~indic,
     1    ,   25,
     10   ,   5,

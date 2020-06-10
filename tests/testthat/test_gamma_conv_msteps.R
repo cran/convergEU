@@ -1,9 +1,5 @@
 
 context("Gamma convergence iterated over pairs of years")
-library(convergEU)
-require(tibble)
-require(devtools)
-
 
 
 # debug(gamma_conv_msteps)

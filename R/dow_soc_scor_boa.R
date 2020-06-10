@@ -18,17 +18,7 @@
 #'
 #' @references{ \url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}
 #'
-#' @examples
 #'
-#' \donttest{
-#' dow_soc_scor_boa(fromTime = 1999 , toTime = 2018)
-#'
-#' dow_soc_scor_boa(fromTime = 2015, toTime = 2018)
-#'
-#' dow_soc_scor_boa(fromTime = 2010, toTime = 2015)
-#'
-#' dow_soc_scor_boa(fromTime = 2007, toTime = 2017)
-#' }
 #'
 #' @export
 #'

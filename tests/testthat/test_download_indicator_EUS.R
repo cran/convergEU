@@ -1,8 +1,5 @@
 
 context("Download data from Eurostat.")
-library(convergEU)
-require(tibble)
-require(devtools)
 
 
 

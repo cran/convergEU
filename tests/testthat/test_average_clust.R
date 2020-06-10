@@ -1,16 +1,11 @@
 
 context("Unweighted averaging over a cluster of countries")
-library(convergEU)
-require(tibble)
-require(devtools)
-require(dplyr)
 
 
-
-
+# debug(average_clust)
 
 test_that("Check the average value", {
-  testTB <- tibble(TrueTime =2002:2011)
+  testTB <- tibble::tibble(TrueTime =2002:2011)
   valo <- 1
   for(aux in convergEU_glb()$EUcodes$paeS)testTB[,aux] <-  1
   for(aux in 1:10)testTB[aux,-1] <-  aux
@@ -23,7 +18,7 @@ test_that("Check the average value", {
 
 
 test_that("Test if checking works", {
-  testTB<- tibble(TrueTime =2002:2011)
+  testTB<- tibble::tibble(TrueTime =2002:2011)
   valo <- 1
   for(aux in convergEU_glb()$EUcodes$paeS)testTB[,aux] <-  1
   for(aux in 1:10)testTB[aux,-1] <-  aux

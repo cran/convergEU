@@ -32,68 +32,11 @@
 #' @param outFile name of the output file (without path), without extension.
 #' @param outDir  output directory, eventually not existing (only one level allowed).
 #' @param pdf_out should the output be saved as PDF file? The default is  FALSE.
-#' @param workTB  tibble containing data, optional, as alternative to a global object
+#' @param workTB   a tibble containing data.
+#' @param selfContained  TRUE if just one file is desired
 #'
 #' @references{\url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}
 #'
-#'
-#' @examples
-#'
-#'\donttest{
-#' # highBest indicator:
-#'      go_indica_fi(
-#'      time_0 = 2004,
-#'      time_t = 2014,
-#'      timeName = 'time',
-#'      workDF = 'emp_20_64_MS' ,
-#'      indicaT = 'emp_20_64',
-#'      indiType = c('highBest','lowBest')[1],
-#'      seleMeasure = 'all',
-#'      seleAggre = 'EU27',
-#'      x_angle =  45,
-#'      data_res_download =  FALSE,
-#'      auth = 'A.Student',
-#'      dataNow =  '2019/01/31',
-#'      outFile = "test_indica-fi-emp_20_64_MS",
-#'      outDir = tempdir()
-#'      )
-#'
-#' # lowBest indicator
-#'  go_indica_fi(
-#'     time_0 = 2004,
-#'     time_t = 2014,
-#'     timeName = 'time',
-#'     workDF = 'emp_20_64_MS' ,
-#'     indicaT = 'emp_20_64',
-#'     indiType = c('highBest','lowBest')[2],
-#'     seleMeasure = 'all',
-#'     seleAggre = 'EU27',
-#'     x_angle =  45,
-#'     data_res_download =  FALSE,
-#'     auth = 'A.Student',
-#'     dataNow =  '2019/01/31',
-#'     outFile = "test_indica-fi-emp_20_64_MS",
-#'     outDir = tempdir()
-#'     )
-#'
-#' # Select beta and gamma convergence measures only:
-#'  go_indica_fi(
-#'     time_0 = 2002,
-#'     time_t = 2010,
-#'     timeName = 'time',
-#'     workDF = 'emp_20_64_MS' ,
-#'     indicaT = 'emp_20_64',
-#'     indiType = 'highBest',
-#'     seleMeasure = c('beta','sigma'),
-#'     seleAggre = 'EU27',
-#'     x_angle =  45,
-#'     data_res_download =  FALSE,
-#'     auth = 'A.Student',
-#'     dataNow =  '2019/05/16',
-#'     outFile = "newtest_IT-emp_20_64_MS",
-#'     outDir = tempdir()
-#'     )
-#'}
 #'
 #'
 #' @export
@@ -115,7 +58,8 @@ go_indica_fi <-  function(
   outFile = NA,
   outDir = NA,
   pdf_out = FALSE,
-  workTB = NULL
+  workTB = NULL,
+  selfContained = FALSE
 ){
   if(is.na(workDF) & (!is.null(workTB))){
     curTB <-  workTB
@@ -207,6 +151,14 @@ go_indica_fi <-  function(
               overwrite = TRUE,
               recursive = FALSE,
               copy.mode = TRUE, copy.date = FALSE);
+  #
+  if(selfContained){
+     myOutOpt <- list(self_contained = TRUE,
+                      mathjax ="default")
+  }else{
+    myOutOpt <- list(self_contained = FALSE,
+         mathjax = 'local')
+  }
   # go with rendering
   rmarkdown::render(sourcePF1,
                     params = list(
@@ -227,8 +179,7 @@ go_indica_fi <-  function(
                       pdf_out = FALSE,
                       workTB = workTB
                     ),
-                    output_options = list(self_contained = FALSE,
-                              mathjax = 'local'),
+                    output_options = myOutOpt,
                     output_file = outPF,
                     encoding = "UTF-8")
 }

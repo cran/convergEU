@@ -1,9 +1,6 @@
 
 context("Country ranking based on levels")
 
-library(convergEU)
-require(tibble)
-require(devtools)
 
 
 #  debug(country_ranking)

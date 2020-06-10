@@ -1,10 +1,5 @@
-library(convergEU)
-require(tibble)
-require(devtools)
 
 
-
-##########################################################################
 context("Check calculations of convergence: beta.")
 
 # debug(beta_conv)

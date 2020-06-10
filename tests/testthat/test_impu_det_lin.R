@@ -1,8 +1,6 @@
 
 context("Imputation of missing values")
-require(devtools)
-library(convergEU)
-library(tibble)
+
 
 
 

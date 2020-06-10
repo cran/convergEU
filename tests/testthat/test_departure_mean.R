@@ -1,8 +1,5 @@
 
 context("Departure of an  indicator from a given average")
-library(convergEU)
-require(tibble)
-require(devtools)
 
 
 

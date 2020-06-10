@@ -1,9 +1,6 @@
 
 context("Basic computation")
 
-library(convergEU)
-require(tibble)
-require(devtools)
 
 
 #  debug(demea_change)

@@ -1,8 +1,5 @@
 
 context("Smoother of raw data based on moving average")
-library(convergEU)
-require(tibble)
-require(devtools)
 
 
 

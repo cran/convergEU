@@ -1,9 +1,6 @@
 
 context("Overall convergence")
 
-library(convergEU)
-require(tibble)
-require(devtools)
 
 
 #  debug(upDo_CoDi)

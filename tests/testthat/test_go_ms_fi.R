@@ -3,10 +3,6 @@ context("Scoreboard numerical calculations")
 
 
 
-library(convergEU)
-require(tibble)
-require(devtools)
-
 
 #  undebug(go_ms_fish)
 #  debug(go_ms_fish)
@@ -17,7 +13,7 @@ test_that("Basic operation", {
 
 testest <- function(){
 
-  
+
   myOutDir <- tempdir()
 
 
@@ -69,7 +65,7 @@ testest <- function(){
 
 
 
-   
+
   go_ms_fi(
     workDF ='emp_20_64_MS',
     countryRef ='IT',
@@ -130,7 +126,6 @@ testest <- function(){
         indiName= 'lifeAsRun'
        )
 
-      
 
 
 
@@ -166,7 +161,6 @@ testest <- function(){
 
 
 
-
        myTTB <- emp_20_64_MS
        dim(myTTB)
        names(myTTB)<- c("time",paste("PP",1:28,sep="@"))
@@ -191,10 +185,34 @@ testest <- function(){
          outDir = myOutDir
        )
 
-   
+
+       myTTB <- emp_20_64_MS
+       dim(myTTB)
+       names(myTTB)<- c("time",paste("PP",1:28,sep="@"))
+
+         go_ms_fi(
+           #workDF ='',
+           indiName= "lifesatisf",
+           countryRef ='PP@21',
+           otherCountries = "c('PP@1','PP@24','PP@11','PP@28','PP@13')",
+           #otherCountries = "c(NA,NA)",
+           time_0 = 2005,#2002,
+           time_t = 2010,#2015,
+           tName = 'time',
+           indiType =  "highBest",
+           #indiType =  "highBest",#"lowBest",
+           #aggregation= 'EU12',
+           aggregation= 'custom',
+           x_angle=  45,
+           dataNow=  Sys.time(),
+           author = 'A.Student',
+           outFile = 'country-test-custom',
+           outDir = myOutDir,
+           workTB = myTTB
+         )
 
 
-} #
+} # incapsulator
 
   expect_equal(1, 1)
 

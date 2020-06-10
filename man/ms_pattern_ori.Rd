@@ -32,36 +32,6 @@ This is the reference implementation as described  by the Eurofound  report
 "Monitoring convergence in the European Union
 Upward convergence in the EU: Concepts, measurements and indicators", 2018.
 }
-\examples{
-
-# Example 1
-# Dataset in the format time by countries:
-require(tibble)
-testTB <- dplyr::tribble(
-   ~time, ~countryA ,  ~countryB,  ~countryC,
-   2000,     0.8,   2.7,    3.9,
-   2001,     1.2,   3.2,    4.2,
-   2002,     0.9,   2.9,    4.1,
-   2003,     1.3,   2.9,    4.0,
-   2004,     1.2,   3.1,    4.1,
-   2005,     1.2,   3.0,    4.0
-   )
-resT1 <- ms_pattern_ori(testTB,"time","lowBest")
-resT2 <- ms_pattern_ori(testTB,"time","highBest")
-
-# Example 2
-# Patterns for the emp_20_64_MS Eurofound dataset:
-data("emp_20_64_MS")
-
-# Patterns according to the 'highBetter' indicator:
-resPATThigh <-ms_pattern_ori(emp_20_64_MS, "time")
-
-# Patterns according to the 'lowBetter' indicator:
-resPATTlow <-ms_pattern_ori(emp_20_64_MS, "time","lowBest")
-
-
-
-}
 \references{
 {\url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}
 }

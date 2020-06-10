@@ -1,8 +1,5 @@
 
 context("Tagging patterns with labels and numbers, original algorithm")
-library(convergEU)
-require(tibble)
-require(devtools)
 
 
 
