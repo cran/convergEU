@@ -1,7 +1,7 @@
 Package: convergEU
 Type: Package
 Title: Monitoring Convergence of EU Countries
-Version: 0.4.6
+Version: 0.4.7
 Depends: R (>= 3.6.0)
 Authors@R: c(
            person("Federico M.", "Stefanini", 
@@ -33,11 +33,11 @@ LazyData: true
 RoxygenNote: 7.1.0
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2020-06-10 06:58:10 UTC; fred
+Packaged: 2020-06-11 09:42:02 UTC; fred
 Author: Federico M. Stefanini [arc, aut, cre],
   Massimiliano Mascherini [arc],
   Eleonora Peruffo [ctb],
   Nedka Nikiforova [ctb],
   Chiara Litardi [ctb]
 Repository: CRAN
-Date/Publication: 2020-06-10 07:20:02 UTC
+Date/Publication: 2020-06-11 19:00:02 UTC

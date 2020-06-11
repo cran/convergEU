@@ -1,6 +1,6 @@
-205a523937ad717c566f033b91a68d9d *DESCRIPTION
+7560d4ecaa177970866fd8b5b4063fef *DESCRIPTION
 eae46b3f43afdcdbf89d896f8a47b266 *NAMESPACE
-a6030600913587cda08f3314f68299c1 *NEWS.md
+46fa483f8a2bc5d712a63bcfb830e225 *NEWS.md
 881cf643d17d2cdcc04a1bff4c95c192 *R/abso_change.R
 dc9188143c565c2fe25957adf8e04f81 *R/average_clust.R
 6c5604bf89a904e707589dda81363c20 *R/beta_conv.R
@@ -57,10 +57,10 @@ b969ac4e57e5bb4d14229375c6cf646d *inst/EUstat_download/Eurostat_data.Rmd
 71f234ea4d7057daed004f4873c923e7 *inst/EUstat_download/toRevise.txt
 5e0c414454b84a40be99dccb13bca94f *inst/doc/PATTERNS-CONV.R
 97a5a0cd05b19d15be4b36cd132e4506 *inst/doc/PATTERNS-CONV.Rmd
-aa3d281c24f68ee309c7852cc12ca46b *inst/doc/PATTERNS-CONV.html
+7827e45369469937ba83dc779bb17033 *inst/doc/PATTERNS-CONV.html
 f49495e5a6e913dc6a6ea9911d6b0666 *inst/doc/measuring-convergence.R
 29d53bd488e0229348726b81b8366392 *inst/doc/measuring-convergence.Rmd
-5640c7c45852342c72a7e43e95dedbdd *inst/doc/measuring-convergence.html
+1083a43a24e700b8b30b3954d4367fc6 *inst/doc/measuring-convergence.html
 71dae85ff17abcd72f544e766945e275 *inst/extdata/EUF.css
 65ddd58705b78a84d414917db2054bd1 *inst/extdata/country_fi_2.Rmd
 66bc02bfd4db467ac5ae947c610197c0 *inst/extdata/css.txt

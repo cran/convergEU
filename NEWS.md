@@ -1,4 +1,4 @@
-convergEU 0.4.6 (Release date: 2020-06-04)
+convergEU 0.4.7 (Release date: 2020-06-04)
 ================
 
 The aim of this patch is to fix minor issues. 
@@ -10,11 +10,15 @@ Changes:
   *  non-ASCII characters removed.   
   *  Packages specification corrected.
   * The dependence on  packages has been reduced by moving those required by
-    vignettes under the heading "Suggests:".     
+    vignettes under the heading "Suggests:".  
+    
+    
+convergEU 0.4.6 (Release date: 2020-05-08)
+================
+
+    
   * tibbles are now also passed to fiche compilers as objects.
    
-
-
 
 
 convergEU 0.4.4 (Release date: 2020-05-08)
