@@ -26,21 +26,21 @@ editor_options:
 
 ```{r setup, include=FALSE,eval=TRUE}
 
-require(convergEU)
-require(knitr)
-require(tibble)
-require(devtools)
-require(tidyverse)
-require(gridExtra)
-require(eurostat)
-require(purrr)
-require(ggplot2)
-require(dplyr)
-require(tidyr)
-require(ggplot2)
-require(kableExtra)
-require(caTools)
-require(broom)
+library(convergEU)
+library(knitr)
+library(tibble)
+library(devtools)
+library(tidyverse)
+library(gridExtra)
+library(eurostat)
+library(purrr)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(kableExtra)
+library(caTools)
+library(broom)
 
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -1028,9 +1028,9 @@ if(nrow(tmpRR) > 2){
   matPosFinal <- rbind(tmpRR[-1,])
   dimnames(matPosFinal)  <- list(dimnames(tmpRR)[[1]][2],NULL)
 }
-kable(matPosFinal,"html",col.names =linebreak(c(tmpRR[1,]),align="c" )) %>% 
-  kable_styling(c("striped","bordered"), full_width = F, position="left") %>%
-  row_spec(0, angle = -60)
+kable(matPosFinal,"html",col.names = kableExtra::linebreak(c(tmpRR[1,]),align="c" )) %>% 
+  kableExtra::kable_styling(c("striped","bordered"), full_width = F, position="left") %>%
+  kableExtra::row_spec(0, angle = -60)
 
 ```
 

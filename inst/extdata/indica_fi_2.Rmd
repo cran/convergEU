@@ -24,21 +24,21 @@ params:
 
 ```{r setup, include=FALSE,eval=TRUE}
 
-require(convergEU)
-require(knitr)
-require(tibble)
-require(devtools)
-require(tidyverse)
-require(eurostat)
-require(purrr)
-require(ggplot2)
-require(dplyr)
-require(tidyr)
-require(ggplot2)
-require(kableExtra)
-require(caTools)
-require(broom)
-require(gridExtra)
+library(convergEU)
+library(knitr)
+library(tibble)
+library(devtools)
+library(tidyverse)
+library(eurostat)
+library(purrr)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(kableExtra)
+library(caTools)
+library(broom)
+library(gridExtra)
  
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -231,7 +231,7 @@ print(out_packed_name)
 ```{r sigmaconvCalculations,echo = FALSE}
 ##
 ##
-## Sigma convergence calculated alaways wheter printed or not
+## Sigma convergence calculated always whether printed or not
 ## 2019-12-12
 ##
 
@@ -649,8 +649,13 @@ if( (diffeAve > 0 )  &  (params$indiType =="lowBest")){
 # Pre-processing for beta convergence when null or negative values 
 #     are present 
 
+wkDF2bis <- dplyr::filter(wkDF2, .data[[timeName]] == ptime_0 | 
+                                 .data[[timeName]] == ptime_t)[sele_soli_ms];  
+             
+
 semaforo[["nega_val_indi"]] <- FALSE
-nega_val <- any(wkDF2[, sele_soli_ms] < 0)
+#nega_val <- any(wkDF2[, sele_soli_ms] < 0)# check too many values instead of ptime_t & ptime_0
+nega_val <- any(wkDF2bis < 0)
 
 if(nega_val & semaforo[["beta"]] ){
   semaforo[["nega_val_indi"]] <- TRUE

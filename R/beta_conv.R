@@ -114,13 +114,10 @@ beta_conv <- function(tavDes,time_0, time_t, all_within=FALSE,
     obj_out$err <- "Error: at least 2 rows and 4 columns needed in the dataframe."
     return(obj_out)
     }
-  # All non negative values? Needed because log(indicator) taken
-  if( sum(dplyr::select(tavDes, -timeName)  <= 0) > 0){
-    obj_out$err  <- "Error: negative values in the indicator."
-    return(obj_out)
-  }
   # extract and sort
-  timeRaw <- unlist(tavDes[,timeName])
+  tavDes <- dplyr::arrange_at(tavDes,timeName)
+  #timeRaw <- unlist(tavDes[,timeName])
+  timeRaw <- tavDes[[timeName]]
   pos_t0 <- which(timeRaw == time_0)
   pos_tt <- which(timeRaw == time_t)
   pos_all <- which( (timeRaw >= time_0) & (timeRaw <= time_t) )
@@ -139,6 +136,11 @@ beta_conv <- function(tavDes,time_0, time_t, all_within=FALSE,
       resTB <- tavDes[c(pos_t0,pos_tt),]
       };
   # now it it sure the reference is in the first row
+  # Non negative values? Needed because log(indicator) taken
+  if( sum(dplyr::select(resTB, -timeName)  <= 0) > 0){
+    obj_out$err  <- "Error: negative values in the indicator."
+    return(obj_out)
+  }
   # log-transform, already checked positivity
   reslogTB <- log(dplyr::select(resTB, -timeName))
   ## wTB <- cbind(dplyr::select(resTB, timeName),reslogTB)

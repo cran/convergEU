@@ -1,4 +1,19 @@
-convergEU 0.4.7 (Release date: 2020-06-04)
+convergEU 0.5.0 (Release date: 2020-08-01)
+================
+
+Minor issues have been fixed. 
+
+Changes:
+
+  *  An Eurofound Report is now cited where details about convergence are described.  
+  *  A  link is now provided to a working paper available (file DESCRIPTION, tag URL).     
+  *  Plot of delta convergence in the indicator fiche now properly recognizes the type
+     of indicator "highBest"" or "lowbest".          
+  *  The Beta convergence is now calculated also when negative values of the indicator
+     are present outside the pair of years selected for calculating this measure.   
+
+
+convergEU 0.4.8 (Release date: 2020-06-04)
 ================
 
 The aim of this patch is to fix minor issues. 

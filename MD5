@@ -1,9 +1,9 @@
-7560d4ecaa177970866fd8b5b4063fef *DESCRIPTION
+17ae2c793104aa64c305f41266475a42 *DESCRIPTION
 eae46b3f43afdcdbf89d896f8a47b266 *NAMESPACE
-46fa483f8a2bc5d712a63bcfb830e225 *NEWS.md
+d92ce34eeb3eb331114292c741084e65 *NEWS.md
 881cf643d17d2cdcc04a1bff4c95c192 *R/abso_change.R
 dc9188143c565c2fe25957adf8e04f81 *R/average_clust.R
-6c5604bf89a904e707589dda81363c20 *R/beta_conv.R
+733c5529f0cde1b3d4a04c6034a800ed *R/beta_conv.R
 70684326f8f7a14455f7f9c0d6c0e3c5 *R/beta_conv_graph.R
 6f69e0bd5e53fd00240bc508fdb94dc3 *R/check_country.R
 f1421eb6f3b285982f3dab42aff135bd *R/check_data.R
@@ -47,7 +47,7 @@ c835d11bc78e8226577757c9d59f3278 *R/not_in.R
 6672ef1f141d3bdc56da3d1ce3ef6b03 *R/ts_parlin.R
 f9d3bcc01dbbae0b51350ed5206eb5b1 *R/upDo_CoDi.R
 b6a832b8d1aa03413467283e99ddcdd6 *README.md
-3c24e1edc4a6e34718f67006299eec78 *build/vignette.rds
+afaf7748207aa1c61ae78da78bca31f6 *build/vignette.rds
 12e9529d42d0b31e87029411d25f9bea *data/dbEUF2018meta.RData
 17d78b45f3025682a61a903f3050d0b9 *data/dbEurofound.RData
 4d8b3b32c36cc00c16a8390dbf8b1564 *data/dbMetaEUStat.RData
@@ -57,12 +57,12 @@ b969ac4e57e5bb4d14229375c6cf646d *inst/EUstat_download/Eurostat_data.Rmd
 71f234ea4d7057daed004f4873c923e7 *inst/EUstat_download/toRevise.txt
 5e0c414454b84a40be99dccb13bca94f *inst/doc/PATTERNS-CONV.R
 97a5a0cd05b19d15be4b36cd132e4506 *inst/doc/PATTERNS-CONV.Rmd
-7827e45369469937ba83dc779bb17033 *inst/doc/PATTERNS-CONV.html
+76e5882e27e91f1d055b384103847386 *inst/doc/PATTERNS-CONV.html
 f49495e5a6e913dc6a6ea9911d6b0666 *inst/doc/measuring-convergence.R
 29d53bd488e0229348726b81b8366392 *inst/doc/measuring-convergence.Rmd
-1083a43a24e700b8b30b3954d4367fc6 *inst/doc/measuring-convergence.html
+5f72dc410daa7234f9cce35097f54133 *inst/doc/measuring-convergence.html
 71dae85ff17abcd72f544e766945e275 *inst/extdata/EUF.css
-65ddd58705b78a84d414917db2054bd1 *inst/extdata/country_fi_2.Rmd
+7ea85fa1ff96828f8495e5356e3dd4d9 *inst/extdata/country_fi_2.Rmd
 66bc02bfd4db467ac5ae947c610197c0 *inst/extdata/css.txt
 826f1b27b53f589bbaa72e1ea95dd9bd *inst/extdata/ddTB1.RData
 8f47ab92b5716748b2092ca69574a505 *inst/extdata/ddTB2.RData
@@ -70,9 +70,9 @@ a76e66cc6e2aa000f9f16e822e3f14b6 *inst/extdata/ddTB3.RData
 c830aa4376f23cedf98edd3d97df82fe *inst/extdata/ddTB4.RData
 707c31bd8168399435d28fbd27069cf9 *inst/extdata/default.css
 82a945127e409328a6b8d993474a3e62 *inst/extdata/eurofound.jpg
-d5352e9dedd64f673e457ef51428ef20 *inst/extdata/indica_fi_2.Rmd
+968181c21fcbc98edfa3b8e93a29a7e5 *inst/extdata/indica_fi_2.Rmd
 081fb70d66cdd27930bea4df71735736 *inst/extdata/indica_fi_2_beta.Rmd
-ffc38b41c3fe7aeca1c34e0f4c3b80a3 *inst/extdata/indica_fi_2_delta.Rmd
+b609a498ce9b49637b84d6f1aed8003d *inst/extdata/indica_fi_2_delta.Rmd
 ef0dda1101afb1221bbd6dd1b01a8b24 *inst/extdata/indica_fi_2_gamma.Rmd
 a8816d25d2378c217a780fee9d4c4c67 *inst/extdata/indica_fi_2_nobeta.Rmd
 297476c6004477ed9109d38cdc5645e1 *inst/extdata/indica_fi_2_sigma.Rmd
@@ -137,7 +137,7 @@ cfa9ba64eaf2457521250efbd7af10bf *tests/testthat/test_abso_change.R
 68918d783588cc07d4f012678d2a2797 *tests/testthat/test_average_clust.R
 19219206e4d2a61c748638da5b55c366 *tests/testthat/test_check.R
 9f0d9b876ed30b4f0765b7e75855c83b *tests/testthat/test_check_country.R
-5dbd4e148ae984fdbfe945552f9b47f7 *tests/testthat/test_convergence.R
+4ec5b11bd268ac606bdbeda7e309be55 *tests/testthat/test_convergence.R
 60d8b3ea2fb48c9358290095f98da245 *tests/testthat/test_country_ranking.R
 37bb2a4544bda97795e3642ea12ad67e *tests/testthat/test_demea_change.R
 49d7221087532a7e320ba704346fe92e *tests/testthat/test_departure_best.R
@@ -146,7 +146,7 @@ fb7b0e7a76326392e4acfe1290b6e011 *tests/testthat/test_dev_mean_plot.R
 3c557b0adab371fdf87eaabb089216ed *tests/testthat/test_download_indicator_EUS.R
 7f00ad225e949e0a4d650fa741bc30b5 *tests/testthat/test_extract_indicator_EUF.R
 9a9dd52799674bb2152bf3bbc6cd06b8 *tests/testthat/test_gamma_conv_msteps.R
-7a145947a5610ef79a96c3d883d98cea *tests/testthat/test_go_indica_fi.R
+ecd994d6b87e4cd7c2ff3146e45c526d *tests/testthat/test_go_indica_fi.R
 51f3dc5d579d71a0e1f4e92ddaf7a782 *tests/testthat/test_go_ms_fi.R
 8e1cca870ac1ff2f822f51d38398fb13 *tests/testthat/test_gra_de2_patt.R
 c4efe70b62ef86a78af118fd4f5d6e31 *tests/testthat/test_graph_departure.R

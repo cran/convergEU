@@ -42,7 +42,7 @@ the amplitude on the took place.
 ## already set at start
 resDelta <-   delta_conv(wkDF2,
                          timeName = timeName,
-                         indiType="highBest", #params$indiType
+                         indiType = params$indiType,# "highBest","lowBest", #params$indiType
                          time_0 = NA,
                          time_t = NA,
                          extended = TRUE) 
@@ -59,18 +59,16 @@ plot2de <- qplot( resDelta$res$delta_conv$time, resDelta$res$delta_conv$delta,
        labels = seq(ptime_0,ptime_t)) +
   ggplot2::theme( 
          axis.text.x=ggplot2::element_text(
-         angle = 45 ,
+         angle = 45,
          vjust = 1,
-         hjust=1))
+         hjust = 1))
 
 delta_gr1 <-  grid.arrange(
-  plot2de, ncol=1)
+                    plot2de, ncol=1)
 # export
 out_packed_list$delta_gr1 <-  delta_gr1
 
 invisible(delta_gr1) 
-
-
 
 ```
 
