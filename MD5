@@ -1,6 +1,6 @@
-17ae2c793104aa64c305f41266475a42 *DESCRIPTION
+6ff3f345497e6b3c5ea846c6a4076d8b *DESCRIPTION
 eae46b3f43afdcdbf89d896f8a47b266 *NAMESPACE
-d92ce34eeb3eb331114292c741084e65 *NEWS.md
+263a6c779c63318f604d9060d299d05f *NEWS.md
 881cf643d17d2cdcc04a1bff4c95c192 *R/abso_change.R
 dc9188143c565c2fe25957adf8e04f81 *R/average_clust.R
 733c5529f0cde1b3d4a04c6034a800ed *R/beta_conv.R
@@ -46,8 +46,8 @@ c835d11bc78e8226577757c9d59f3278 *R/not_in.R
 52a04670a9ea1fee6bd8b9718472cce2 *R/smoo_dataset.R
 6672ef1f141d3bdc56da3d1ce3ef6b03 *R/ts_parlin.R
 f9d3bcc01dbbae0b51350ed5206eb5b1 *R/upDo_CoDi.R
-b6a832b8d1aa03413467283e99ddcdd6 *README.md
-afaf7748207aa1c61ae78da78bca31f6 *build/vignette.rds
+775edc5cc136b50063bce6ddb588e38d *README.md
+84c4a3b12cf966cc7cd0b21bedddfc59 *build/vignette.rds
 12e9529d42d0b31e87029411d25f9bea *data/dbEUF2018meta.RData
 17d78b45f3025682a61a903f3050d0b9 *data/dbEurofound.RData
 4d8b3b32c36cc00c16a8390dbf8b1564 *data/dbMetaEUStat.RData
@@ -57,10 +57,10 @@ b969ac4e57e5bb4d14229375c6cf646d *inst/EUstat_download/Eurostat_data.Rmd
 71f234ea4d7057daed004f4873c923e7 *inst/EUstat_download/toRevise.txt
 5e0c414454b84a40be99dccb13bca94f *inst/doc/PATTERNS-CONV.R
 97a5a0cd05b19d15be4b36cd132e4506 *inst/doc/PATTERNS-CONV.Rmd
-76e5882e27e91f1d055b384103847386 *inst/doc/PATTERNS-CONV.html
+c538d9f3fa50de6097c9d23eaeb3ef02 *inst/doc/PATTERNS-CONV.html
 f49495e5a6e913dc6a6ea9911d6b0666 *inst/doc/measuring-convergence.R
 29d53bd488e0229348726b81b8366392 *inst/doc/measuring-convergence.Rmd
-5f72dc410daa7234f9cce35097f54133 *inst/doc/measuring-convergence.html
+0e631d57d47b61e3a5df0f4d02770f9d *inst/doc/measuring-convergence.html
 71dae85ff17abcd72f544e766945e275 *inst/extdata/EUF.css
 7ea85fa1ff96828f8495e5356e3dd4d9 *inst/extdata/country_fi_2.Rmd
 66bc02bfd4db467ac5ae947c610197c0 *inst/extdata/css.txt

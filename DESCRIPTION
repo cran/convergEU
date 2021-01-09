@@ -1,19 +1,23 @@
 Package: convergEU
 Type: Package
 Title: Monitoring Convergence of EU Countries
-Version: 0.5.0
+Version: 0.5.1
 Depends: R (>= 3.6.0)
-Authors@R: c(
-           person("Federico M.", "Stefanini", 
-                  email = "federico.stefanini@unifi.it",
-                  role  = c("arc","aut", "cre")),
-           person("Massimiliano","Mascherini",
-                  email = "massimiliano.mascherini@eurofound.europa.eu",    
-                  role  = c("arc")),
-           person("Eleonora Peruffo", role = c("ctb")),        
-           person("Nedka Nikiforova", role = c("ctb")),       
-           person("Chiara Litardi", role = c("ctb"))  
-           )
+Authors@R: 
+    c(person(given = "Federico M.",
+             family = "Stefanini",
+             role = c("arc", "aut", "cre"),
+             email = "federico.stefanini@unifi.it"),
+      person(given = "Massimiliano",
+             family = "Mascherini",
+             role = "arc",
+             email = "massimiliano.mascherini@eurofound.europa.eu"),
+      person(given = "Eleonora Peruffo",
+             role = "ctb"),
+      person(given = "Nedka Nikiforova",
+             role = "ctb"),
+      person(given = "Chiara Litardi",
+             role = "ctb"))
 Maintainer: Federico M. Stefanini <federico.stefanini@unifi.it>
 URL:
         https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html,
@@ -38,11 +42,11 @@ LazyData: true
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2020-08-31 07:25:22 UTC; fred
+Packaged: 2021-01-08 19:14:06 UTC; fred
 Author: Federico M. Stefanini [arc, aut, cre],
   Massimiliano Mascherini [arc],
   Eleonora Peruffo [ctb],
   Nedka Nikiforova [ctb],
   Chiara Litardi [ctb]
 Repository: CRAN
-Date/Publication: 2020-08-31 08:30:10 UTC
+Date/Publication: 2021-01-09 13:50:06 UTC

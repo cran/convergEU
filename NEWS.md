@@ -1,3 +1,8 @@
+convergEU 0.5.1 (Release date: 2020-12-18)
+================
+
+     * Just a resubmission after a dependency was back on CRAN.   
+
 convergEU 0.5.0 (Release date: 2020-08-01)
 ================
 
