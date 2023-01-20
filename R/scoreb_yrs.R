@@ -21,7 +21,7 @@
 #'          up to the value 5 that means an indicator value above m + 1 s.
 #'
 #'
-#' @references{\url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}
+#' @references{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
 #'
 #'
 #' @examples

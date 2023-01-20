@@ -34,8 +34,8 @@
 #' @param pdf_out should the output be saved as PDF file? The default is  FALSE.
 #' @param workTB   a tibble containing data.
 #' @param selfContained  TRUE if just one file is desired
-#'
-#' @references{\url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}
+#' @return No return value, called for side effects.
+#' @references{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
 #'
 #'
 #'
@@ -94,12 +94,12 @@ go_indica_fi <-  function(
     outFile2 <- paste0(outFile,".html")
   }
   if (is.na(outDir)) {
-    outDir <- file.path(getwd(),"out_dir_counvergEU")
-  }
+    stop("Output directory not defined!")
+     }
   # check
   resDE <- dir.exists(outDir)
   if (!resDE) {
-    dir.create(outDir, FALSE)
+    stop("Output directory does not exist!")
   }
   # full path
   outPF <- file.path(outDir,outFile2)

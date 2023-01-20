@@ -55,6 +55,9 @@ if not pre-coded)}
 
 \item{workTB}{tibble containing data, optional, as alternative to a global object.}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 An auxiliary function to compile a rmarkdown file to produce a country fiche in
 html format within the output directory.
@@ -70,5 +73,5 @@ function to properly rendering the results in the html file. A tibble object
 containing data can be passed with the argument workTB instead of a string.
 }
 \references{
-{\url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}
+{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
 }

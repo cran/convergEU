@@ -36,7 +36,7 @@
 #' \item{exposdiscr_p}{ Exposition_to_discrimination }
 #' }
 #'
-#' @references{\url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}
+#' @references{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
 #'
 #'@examples
 #' data("dbEurofound")

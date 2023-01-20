@@ -4,7 +4,7 @@
 \alias{gamma_conv}
 \title{Gamma convergence}
 \usage{
-gamma_conv(rawDat, ref = NA, last = NA, timeName = "time", printRanks = F)
+gamma_conv(rawDat, ref = NA, last = NA, timeName = "time", printRanks = FALSE)
 }
 \arguments{
 \item{rawDat}{the tibble made by  times and countries.}
@@ -64,5 +64,5 @@ resGamma4<-gamma_conv(emp_20_64_MS,ref=2002,last=2018,printRanks=TRUE)
 
 }
 \references{
-{ \url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}
+{ \url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
 }

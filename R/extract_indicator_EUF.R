@@ -11,7 +11,7 @@
 #'                   in the standard two letters format
 #' @return  a dataset (tibble) years by countries, possibly conditioned to gender
 #'
-#' @references{\url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}
+#' @references{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
 #'
 #'
 #' @examples

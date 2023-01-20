@@ -30,8 +30,9 @@
 #' @param outDir  output directory, eventually not existing (only one level allowed)
 #' @param indiName  name of the considered indicator
 #' @param workTB  tibble containing data, optional, as alternative to a global object.
-#'
-#' @references{\url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}
+#' @return No return value, called for side effects.
+#'          
+#' @references{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
 #'
 #'
 #'
@@ -86,12 +87,12 @@ go_ms_fi <-  function(
     outFile2 <- paste0(outFile,".html")
   }
   if( is.na(outDir)) {
-    outDir <- file.path(getwd(),"out_dir_counvergEU")
+    stop("Output directory not defined!")
   }
   # check
   resDE <- dir.exists(outDir)
   if (!resDE) {
-    dir.create(outDir, FALSE)
+    stop("Output directory does not exist!")
   }
   # full path
   outFcss <- file.path(outDir,"EUF.css")

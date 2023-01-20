@@ -368,8 +368,8 @@ The following reference may be consulted to find further details on convergence:
   
   * Nedka D. Nikiforova, Federico M. Stefanini, Chiara Litardi, Eleonora Peruffo and Massimiliano Mascherini (2020) Tutorial: analysis of convergence with the convergEU package.
   Package vignette
-  URL https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html  
-  
+  URL https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu
+   
   
 
 <br><br>  

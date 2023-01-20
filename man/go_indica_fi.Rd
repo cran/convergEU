@@ -64,6 +64,9 @@ current time.}
 
 \item{selfContained}{TRUE if just one file is desired}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 An auxiliary function to compile a rmarkdown file to produce the indicator fiche in
 html format within the output directory.
@@ -79,5 +82,5 @@ to properly rendering the results in the html file. The fiches have been tested 
 the browsers Mozilla Firefox and Google Chrome.
 }
 \references{
-{\url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}
+{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
 }

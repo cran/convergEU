@@ -5,18 +5,6 @@ context("Overall convergence")
 
 #  debug(upDo_CoDi)
 
-myhete1999 <<-  function(vettore){
-  sd(vettore)*100/mean(vettore)
-}
-
-diffQQmu <<-  function(vettore){
-  (quantile(vettore,0.75)-quantile(vettore,0.25))/mean(vettore)
-  }
-
-
-# debug(upDo_CoDi)
-
-
 test_that("Basic calculations", {
 
   res <-   upDo_CoDi(emp_20_64_MS,
@@ -356,6 +344,5 @@ test_that("Declarations for lowBest", {
 })
 
 
-rm(diffQQmu,envir=.GlobalEnv)
-rm(myhete1999,envir=.GlobalEnv)
+
 

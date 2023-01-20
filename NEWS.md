@@ -1,7 +1,18 @@
+convergEU 0.5.3 (Release date: 2022-12-11)
+================
+
+     * Email change.  
+     * New link to the convergEU tutorial.   
+     * Some "don't run" tags  replaced by "don't test".     
+     * go_indica_fi  now requires an existing directory.     
+     * go_ms_fi  now requires an existing directory.  
+     * two functions for testing now moved to R code but not exported.  
+
+
 convergEU 0.5.1 (Release date: 2020-12-18)
 ================
 
-     * Just a resubmission after a dependency was back on CRAN.   
+     * Just a resubmission after a dependency was back on CRAN and an email updated   
 
 convergEU 0.5.0 (Release date: 2020-08-01)
 ================

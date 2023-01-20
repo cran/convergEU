@@ -12,7 +12,7 @@
 #' @param printRanks logical flag for printing ranks based on data.
 #' @return  gamma convergence  (indicated as KIt in Eurofound 2018 paper).
 #'
-#' @references{ \url{https://local.disia.unifi.it/stefanini/RESEARCH/coneu/tutorial-conv.html}}
+#' @references{ \url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
 #'
 #' @examples
 #'
@@ -54,7 +54,7 @@
 #' @export
 #'
 #'
-gamma_conv <- function(rawDat, ref=NA, last=NA, timeName = "time",printRanks=F){
+gamma_conv <- function(rawDat, ref=NA, last=NA, timeName = "time", printRanks=FALSE){
   # Make standard cheks on the dataframe
   obj_out <- check_data(rawDat)
   if(!is.null(obj_out$err)){

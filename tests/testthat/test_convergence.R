@@ -9,7 +9,7 @@ test_that("Beta convergence,  scrambled time and  different name, two times.", {
   #   c(88,   1201, 868, 578,
   #     89,   1150, 978, 682,
   #     90,   998,  1250, 332,
-  #     91,  1600,  1350, 802),ncol=4,byrow=T
+  #     91,  1600,  1350, 802),ncol=4,byrow=TRUE
   # )
   # scrambled data
   myTB2  <- tibble::tribble(
@@ -41,8 +41,7 @@ test_that("Beta convergence,  scrambled time and  different name, two times.", {
   beta1 <- as.numeric(lm( risposte ~ xval)$coeff[2])
   expect_equal(as.numeric(res_sigori$res$model$coefficients[2]),
                beta1)
-  #expect_equal(res_sigori$res$model$coefficients[2],
-  #             beta1)
+  
 
 })
 
@@ -408,7 +407,7 @@ test_that("Delta convergence,  highBest  extended.", {
                             indiType = "highBest",
                             time_0=88,
                             time_t=90,
-                            extended=T)
+                            extended=TRUE)
 
   expect_true(!res_deltaLB$res$strict_conv_ini_last)
   expect_true(!res_deltaLB$res$converg_ini_last)
@@ -432,13 +431,13 @@ test_that("Delta convergence,  check  not extended.", {
                             indiType = "highBest",
                             time_0=89,
                             time_t=90,
-                            extended=F)
+                            extended=FALSE)
   res_delta2  <- delta_conv(myTB,
                            timeName="time",
                            indiType = "lowBest",
                            time_0=89,
                            time_t=90,
-                           extended=F)
+                           extended=FALSE)
   expect_equal(res_delta$res$delta , c(640,1170))
   expect_equal(res_delta2$res$delta,c(sum(c(1150, 978)- 682),
                                       sum(c(998,  1250)- 332)))
@@ -463,7 +462,7 @@ test_that("Delta convergence,  highBest   extended.", {
                            indiType = "highBest",
                            time_0=88,
                            time_t=90,
-                           extended=T)
+                           extended=TRUE)
 
 
   expect_true(res_delta$res$converg_ini_last)
@@ -487,7 +486,7 @@ test_that("Delta convergence,  lowBest   extended.", {
                            indiType = "lowBest",
                            time_0=88,
                            time_t=90,
-                           extended=T)
+                           extended=TRUE)
 
 
   expect_true(res_delta$res$converg_ini_last)
@@ -505,7 +504,7 @@ test_that("Delta convergence,  lowBest   extended.", {
                            indiType = "lowBest",
                            time_0=88,
                            time_t=90,
-                           extended=T)
+                           extended=TRUE)
   expect_true(res_delta2$res$converg_ini_last)
   expect_false(res_delta2$res$strict_conv_ini_last)
 })
@@ -524,7 +523,7 @@ test_that("Delta convergence,  constant   extended.", {
                             indiType = "lowBest",
                             time_0=88,
                             time_t=90,
-                            extended=T)
+                            extended=TRUE)
   expect_false(res_delta3$res$converg_ini_last)
   expect_false(res_delta3$res$strict_conv_ini_last)
 
@@ -533,7 +532,7 @@ test_that("Delta convergence,  constant   extended.", {
                             indiType = "highBest",
                             time_0=88,
                             time_t=90,
-                            extended=T)
+                            extended=TRUE)
   expect_false(res_delta3$res$converg_ini_last)
   expect_false(res_delta3$res$strict_conv_ini_last)
 })
@@ -682,7 +681,7 @@ test_that("Gamma convergence,  scrambled time and  different name.", {
      c(88,   rank(c(1201, 868, 578)),
        89,   rank(c(1150, 978, 682)),
        90,   rank(c(998,  1250, 332)),
-       91,  rank(c(1600,  1350, 802))),ncol=4,byrow=T
+       91,  rank(c(1600,  1350, 802))),ncol=4,byrow=TRUE
    )
    sumRan <- apply(soDat[,-1],2,sum)
    numerator <- pop_var(sumRan)$popvar
@@ -711,7 +710,7 @@ test_that("Gamma convergence,  regular time  different reference time and last."
       89,   rank(c(1150, 978, 682)),
       90,   rank(c(998,  1250, 332))
       #91,  rank(c(1600,  1350, 802))
-      ),ncol=4,byrow=T
+      ),ncol=4,byrow=TRUE
   )
   sumRan <- apply(soDat[,-1],2,sum)
   numerator <- pop_var(sumRan)$popvar
