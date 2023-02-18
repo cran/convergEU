@@ -11,7 +11,7 @@ vignette: >
   %\VignetteIndexEntry{Convergence monitoring}
   %\VignetteEncoding{UTF-8}
   \usepackage[utf8]{inputenc}
-  % \VignetteDepends{ggplot2,dplyr,tidyverse,eurostat,purrr,tibble,tidyr,formattable,kableExtra,caTools,gridExtra,knitr,magrittr,readr,readxl,utf8}
+  % \VignetteDepends{ggplot2,dplyr,eurostat,purrr,tibble,tidyr,formattable,kableExtra,caTools,gridExtra,knitr,magrittr,readr,readxl,utf8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options:
   chunk_output_type: console
@@ -27,7 +27,7 @@ editor_options:
 ```{r setup, include = FALSE}
 library(ggplot2)
 library(dplyr)
-library(tidyverse)
+#library(tidyverse)
 library(eurostat)
 library(purrr)
 library(tibble)

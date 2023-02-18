@@ -116,7 +116,6 @@ beta_conv <- function(tavDes,time_0, time_t, all_within=FALSE,
     }
   # extract and sort
   tavDes <- dplyr::arrange_at(tavDes,timeName)
-  #timeRaw <- unlist(tavDes[,timeName])
   timeRaw <- tavDes[[timeName]]
   pos_t0 <- which(timeRaw == time_0)
   pos_tt <- which(timeRaw == time_t)
@@ -137,13 +136,20 @@ beta_conv <- function(tavDes,time_0, time_t, all_within=FALSE,
       };
   # now it it sure the reference is in the first row
   # Non negative values? Needed because log(indicator) taken
-  if( sum(dplyr::select(resTB, -timeName)  <= 0) > 0){
-    obj_out$err  <- "Error: negative values in the indicator."
+  check_negative <- dplyr::select(resTB,
+                tidyselect::all_of(
+                   setdiff(
+                     names(resTB),
+                     timeName)))
+  if( sum(check_negative  <= 0) > 0){
+      obj_out$err  <- "Error: negative values in the indicator."
     return(obj_out)
   }
   # log-transform, already checked positivity
-  reslogTB <- log(dplyr::select(resTB, -timeName))
-  ## wTB <- cbind(dplyr::select(resTB, timeName),reslogTB)
+  reslogTB <- log(dplyr::select(resTB,
+                                tidyselect::all_of(
+                                  setdiff(
+                                    names(resTB),timeName))))
   ## Should we divide the ordinates by number of elapsed years? YES, possibly
   workTB <- dplyr::tibble(
         deltaIndic = as.numeric(reslogTB[2,] - reslogTB[1,]),
@@ -151,7 +157,8 @@ beta_conv <- function(tavDes,time_0, time_t, all_within=FALSE,
         countries = names(reslogTB))
   if(useTau){
     # divide by elapsed time
-    workTB <- dplyr::mutate(workTB, deltaIndic = .data$deltaIndic / delta_time);
+     tmp_DIDT<- workTB$deltaIndic/delta_time
+    workTB <- dplyr::mutate(workTB, deltaIndic = tmp_DIDT);
     }
   #
   if(nrow(reslogTB) > 2){# several years besides time_t and time_0
@@ -163,7 +170,8 @@ beta_conv <- function(tavDes,time_0, time_t, all_within=FALSE,
        # tau?
        if(useTau){
          # divide by elapsed time
-         tmpTB <- dplyr::mutate(tmpTB, deltaIndic = .data$deltaIndic / delta_time);
+         tmpTB_DIDT <- tmpTB$deltaIndic/delta_time
+         tmpTB <- dplyr::mutate(tmpTB, deltaIndic = tmpTB_DIDT);
          }
         workTB <- rbind(workTB,tmpTB)# end add_row
     };

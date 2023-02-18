@@ -1,7 +1,7 @@
 ## ----setup,include = FALSE----------------------------------------------------
 library(ggplot2)
 library(dplyr)
-library(tidyverse)
+#library(tidyverse)
 library(eurostat)
 library(purrr)
 library(tibble)

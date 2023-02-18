@@ -106,14 +106,18 @@ upDo_CoDi <- function(myTB,
     outRes$err <- "Error: wrong  time window selected."
     return(outRes)
   }
-  workTB <- dplyr::filter(myTB, .data[[timeName]] == time_t |
-                            .data[[timeName]] == time_0 )
+  workTB <- dplyr::filter(myTB, 
+                (myTB[[timeName]] == time_t)  | 
+                (myTB[[timeName]] == time_0))
  if(workTB[[timeName]][1] > workTB[[timeName]][2]){
    workTB <- workTB[c(2,1),]
  }
  # now they are properly sorted anyway
  # remove time and calculate
-  wTB <- dplyr::select(workTB, - .data[[timeName]])
+  wTB <- dplyr::select(workTB,
+                       tidyselect::all_of(
+                            setdiff(
+                              names(workTB),timeName)));
   averages <- apply(wTB,1,mean)
   aver_diffe <- averages[2] - averages[1]
   ## summarize dispersion

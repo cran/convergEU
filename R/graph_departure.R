@@ -136,11 +136,15 @@ graph_departure <- function( myTB,
     breaks_x <- seq(miniT,maxiT,length=nrow(myTB))
     etichY  <-  names(myTB)[-c(1,2,3,4,5)]
     names(etichY) <-  etichY
-    myTB2 <- tidyr::gather(myTB[-c(2,3,4,5)], key = "MS",
-                           value = "profile",etichY)
+    #
+    tmp1<- names(myTB)[-c(2,3,4,5)]
+    myTB2 <- tidyr::gather(dplyr::select(myTB,
+                                         tidyselect::all_of(tmp1)), 
+                  key = "MS",
+                  value = "profile",
+                  tidyselect::all_of(etichY))
     myTB2 <- dplyr::mutate(myTB2, position = rep(1:length(etichY),
                                              each=nrow(myTB)))
-
     # make a plot
     myG <- ggplot2::ggplot(myTB2,
                 ggplot2::aes(x = `time`, y = `position`)) +
@@ -163,11 +167,6 @@ graph_departure <- function( myTB,
       ggplot2::scale_fill_manual(values = color_rect) +
       ggplot2::geom_rect(data = myTB2,
                 mapping = ggplot2::aes(
-                        # xmin = myTB2$`time` - displaceh,
-                        # xmax = myTB2$`time` + displaceh,
-                        # ymin = myTB2$`position` - displace,
-                        # ymax = myTB2$`position` + displace,
-                        # fill = factor(myTB2$`profile`)
                         xmin = `time` - displaceh,
                         xmax = `time` + displaceh,
                         ymin = `position` - displace,
@@ -180,11 +179,6 @@ graph_departure <- function( myTB,
                          labels = breaks_x) +
       ggplot2::xlab(axis_name_x) +
       ggplot2::guides(fill = "none") +
-      # ggplot2::geom_text(data=myTB2,
-      #                    ggplot2::aes(x = myTB2$`time`,
-      #                                 y = myTB2$`position`,
-      #                                 label = myTB2$`profile`),
-      #           size = dimeFontNum, colour = "black")
       ggplot2::geom_text(data=myTB2,
                         ggplot2::aes(x = `time`,
                                      y = `position`,

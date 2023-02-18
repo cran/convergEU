@@ -1,3 +1,11 @@
+convergEU 0.5.4 (Release date: 2023-02-17)
+================
+
+     * Section Import does not contain "tidyverse" anymore.  
+     * Further small changes to eliminate deprecated code.  
+
+
+
 convergEU 0.5.3 (Release date: 2022-12-11)
 ================
 
