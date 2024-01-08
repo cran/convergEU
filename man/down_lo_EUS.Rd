@@ -68,23 +68,6 @@ myDF2 <- down_lo_EUS(indicator_code = "lfsa_ergaed",
                     rawDump=FALSE,
                     uniqueIdentif = 3)
 
-
-myDF3 <- down_lo_EUS(indicator_code = "t2020_rk310",
-                     fromTime = 2005,
-                     toTime = 2015,
-                     gender=  "F",
-                     ageInterv = NA,
-                     rawDump=FALSE,
-                     uniqueIdentif = 1)
-
-myDF4 <- down_lo_EUS(indicator_code = "t2020_rk310",
-                     fromTime = 2005,
-                     toTime = 2015,
-                     gender=  "F",
-                     ageInterv = "Y15-39",
-                     rawDump=FALSE,
-                     uniqueIdentif = 1)
-
 }
 }
 \references{

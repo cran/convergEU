@@ -25,17 +25,17 @@ knitr::opts_chunk$set(
 )
 
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  help(ms_pattern_ori)
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  help(patt_legend)
 
-## ---- fig.width = 6, fig.height = 5,out.width="100%"--------------------------
+## ----fig.width = 6, fig.height = 5,out.width="100%"---------------------------
 highind<-patt_legend(indiType="highBest")
 highind
 
-## ---- fig.width = 6, fig.height = 5,out.width="100%"--------------------------
+## ----fig.width = 6, fig.height = 5,out.width="100%"---------------------------
 lowhind<-patt_legend(indiType="lowBest")
 lowhind
 
@@ -72,14 +72,14 @@ gFR
 ## ----echo=F-------------------------------------------------------------------
 
 
-## ---- echo=TRUE---------------------------------------------------------------
+## ----echo=TRUE----------------------------------------------------------------
 # library(readxl)
 file_name <- system.file("vign/une_educ_a.xls", package = "convergEU")
 myxls2<-read_excel(file_name,
                    sheet="Data",range = "A12:AP22", na=":")
 myxls2 <- dplyr::mutate(myxls2, `TIME/GEO` = as.numeric(`TIME/GEO`))
 
-## ---- echo=TRUE---------------------------------------------------------------
+## ----echo=TRUE----------------------------------------------------------------
 EU27estr<-convergEU_glb()$EU27_2020$memberStates$codeMS
 myxls<- dplyr::select(myxls2,`TIME/GEO`,all_of(EU27estr))
 check_data(myxls)
@@ -143,7 +143,7 @@ glt<-ggplot() + geom_point(aes(x=EUavemph1$time,y=EUavemph1$EUavempp),color='bla
   theme(axis.text.x=element_blank())
 glt
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  help(upDo_CoDi)
 
 ## -----------------------------------------------------------------------------

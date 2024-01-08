@@ -10,8 +10,8 @@
 #' "_eur" euros, "_pps"	purchasing power standards,
 #' "_y"	years.
 #'
-#'
-#' @source \url{https://www.eurofound.europa.eu/surveys/about-eurofound-surveys/data-availability#datasets}
+#' 
+#' @source \url{https://www.eurofound.europa.eu/en/surveys}
 #' @docType data
 #' @keywords datasets
 #' @name dbEUF2018meta

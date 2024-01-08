@@ -301,7 +301,7 @@ Empconv$res$declaration_split$names_incre
 ```{r}
 Empconv$res$declaration_split$names_decre
 ```
-* a list of the differences for a given idicator between the target time and the reference time for each member state:
+* a list of the differences for a given indicator between the target time and the reference time for each member state:
 ```{r}
 Empconv$res$diffe_MS
 ```

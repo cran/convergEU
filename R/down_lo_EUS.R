@@ -48,23 +48,6 @@
 #'                     rawDump=FALSE,
 #'                     uniqueIdentif = 3)
 #'
-#'
-#' myDF3 <- down_lo_EUS(indicator_code = "t2020_rk310",
-#'                      fromTime = 2005,
-#'                      toTime = 2015,
-#'                      gender=  "F",
-#'                      ageInterv = NA,
-#'                      rawDump=FALSE,
-#'                      uniqueIdentif = 1)
-#'
-#' myDF4 <- down_lo_EUS(indicator_code = "t2020_rk310",
-#'                      fromTime = 2005,
-#'                      toTime = 2015,
-#'                      gender=  "F",
-#'                      ageInterv = "Y15-39",
-#'                      rawDump=FALSE,
-#'                      uniqueIdentif = 1)
-#'
 #' }
 #' @export
 #'
@@ -112,6 +95,9 @@ down_lo_EUS <- function(
   ## OK data downloaded
   # early return for bulk data
   if(rawDump) return(downTB)
+  #
+  # init flags to extract data
+  estrattore <- rep(TRUE,nrow(downTB))
   ## check if time present
   isTime <- "time" %in% names(downTB)
   if(isTime){

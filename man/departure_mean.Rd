@@ -14,7 +14,7 @@ departure_mean(oriTB, sigmaTB, timeName = "time")
 \item{timeName}{string with the name of the time variable in oriTB.}
 }
 \value{
-list of tibbles containing  labelled departures from the mean, square difference from the mean,
+list of tibbles containing  labeled departures from the mean, square difference from the mean,
          and percentage of deviance.
 }
 \description{
@@ -52,7 +52,7 @@ mySC <- sigma_conv(emp_20_64_MS)
 # Calculate departures from the mean for each country:
 resDMeur <- departure_mean(oriTB = emp_20_64_MS, sigmaTB = mySC$res)
 
-# Results for labelled departures from the mean:
+# Results for labeled departures from the mean:
 resDMeur$res$departures
 
 # Results for square difference from the mean:

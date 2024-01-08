@@ -52,15 +52,15 @@ Note that the following convention is adopted where the colour of labels changes
 i.e. "lowBest" or "highBest":
 }
 \details{
-* (-Inf, m -1 s] is labelled as -1; it is coloured in dark green for "lowBest" type of indicator
+* (-Inf, m -1 s] is labeled as -1; it is coloured in dark green for "lowBest" type of indicator
    and in red for "highBest" type of indicator;
-* (m -1 s, m -0.5 s] is labelled as -0.5; it is coloured in pale green for "lowBest" type of indicator
+* (m -1 s, m -0.5 s] is labeled as -0.5; it is coloured in pale green for "lowBest" type of indicator
    and in yellow (ocra) for "highBest" type of indicator;
-* (m -0.5 s,m +0.5 s ] is labelled as 0; it is coloured in pale yellow for both "lowBest" and "highBest
+* (m -0.5 s,m +0.5 s ] is labeled as 0; it is coloured in pale yellow for both "lowBest" and "highBest
    types of indicators;
-* (m +0.5 s, m +1 s] is labelled as 0.5; it is coloured in  yellow (ocra) for "lowBest" type of indicator
+* (m +0.5 s, m +1 s] is labeled as 0.5; it is coloured in  yellow (ocra) for "lowBest" type of indicator
   and in pale green for "highBest" type of indicator;
-* (m +1 s, Inf] is labelled as 1; it is coloured in red for "lowBest" type of indicator
+* (m +1 s, Inf] is labeled as 1; it is coloured in red for "lowBest" type of indicator
    and in dark green for "highBest" type of indicator.
 }
 \examples{

@@ -1,3 +1,14 @@
+convergEU 0.5.5 (Release date: 2024-01-04)
+================
+
+     * Fixed equations in the documentation.  
+     * Fixed broken links to web sites and docs.
+     * Added a reference to a published paper.
+     * Removed an example because data are not yet available for download.
+     * Fixed a missing  initialization.
+     * Fixed typos.
+
+
 convergEU 0.5.4 (Release date: 2023-02-17)
 ================
 

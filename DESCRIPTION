@@ -1,7 +1,7 @@
 Package: convergEU
 Type: Package
 Title: Monitoring Convergence of EU Countries
-Version: 0.5.4
+Version: 0.5.5
 Depends: R (>= 3.6.0)
 Authors@R: 
     c(person(given = "Federico M.",
@@ -21,8 +21,9 @@ Authors@R:
 Maintainer: Federico M. Stefanini <federico.stefanini@unimi.it>
 URL:
         https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu
-        https://www.eurofound.europa.eu/sites/default/files/wpef20008.pdf,
-        https://www.eurofound.europa.eu/sites/default/files/ef_publication/field_ef_document/ef18003en.pdf
+        https://air.unimi.it/retrieve/dfa8b9a6-d15c-748b-e053-3a05fe0a3a96/2020EUROFOUND_WP_wpef20008.pdf,
+        https://www.eurofound.europa.eu/system/files/2018-12/ef18003en.pdf,
+        https://www.ajs.or.at/index.php/ajs/article/view/1468
 Description: Indicators and measures by country and time describe
     what happens at economic and social levels. This package provides
     functions to calculate several measures of convergence after imputing
@@ -42,11 +43,11 @@ LazyData: true
 RoxygenNote: 7.2.3
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2023-02-18 07:43:50 UTC; fred
+Packaged: 2024-01-08 07:15:55 UTC; fmstef
 Author: Federico M. Stefanini [arc, aut, cre],
   Massimiliano Mascherini [arc],
   Eleonora Peruffo [ctb],
   Nedka Nikiforova [ctb],
   Chiara Litardi [ctb]
 Repository: CRAN
-Date/Publication: 2023-02-18 08:50:02 UTC
+Date/Publication: 2024-01-08 15:30:13 UTC
