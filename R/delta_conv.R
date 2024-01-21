@@ -19,7 +19,7 @@
 #' @return  a tibble with the value of delta-conv (called delta) along time,
 #'          which is called 'time'.
 #'
-#' @references{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
+#' @references{\url{https://www.eurofound.europa.eu/system/files/2022-04/introduction-to-the-convergeu-package-0.6.4-tutorial-v2-apr2022.pdf}}
 #'
 #' @examples
 #'
@@ -105,10 +105,8 @@ delta_conv <- function(tavDes,
             return(obj_out)
           };
         # eliminate time variables
-        myDes2 <- dplyr::select(myDes1,
-                                tidyselect::all_of(
-                        setdiff(
-                          names(myDes1),timeName)));
+        
+        myDes2 <- myDes1[, -which(names(myDes1) == timeName)]
     }else{
         obj_out$err <- "Error: declared time variable absent."
         return(obj_out)

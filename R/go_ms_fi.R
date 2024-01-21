@@ -30,9 +30,8 @@
 #' @param outDir  output directory, eventually not existing (only one level allowed)
 #' @param indiName  name of the considered indicator
 #' @param workTB  tibble containing data, optional, as alternative to a global object.
-#' @return No return value, called for side effects.
-#'          
-#' @references{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
+#'
+#' @references{\url{https://www.eurofound.europa.eu/system/files/2022-04/introduction-to-the-convergeu-package-0.6.4-tutorial-v2-apr2022.pdf}}
 #'
 #'
 #'
@@ -80,6 +79,9 @@ go_ms_fi <-  function(
   sourceFilecss <- system.file("extdata", "EUF.css", package = "convergEU")
   sourceFile1 <- system.file("extdata", "country_fi_2.Rmd", package = "convergEU")
   sourceFile2 <- system.file("extdata", "eurofound.jpg", package = "convergEU")
+  sourceFilePatt1 <- system.file("extdata", "gg_patt_conv_annotated.png", package = "convergEU")
+  sourceFilePatt2 <- system.file("extdata", "gg_patt_div_annotated.png", package = "convergEU")
+  sourceFilePatt3 <- system.file("extdata", "gg_patt_same_annotated.png", package = "convergEU")
   if( is.na(outFile)) {
     outFile2 <- paste0("country-fiche-", countryRef, "-", time_0,"-",time_t, ".html")
     outFile <- paste0("country-fiche-", countryRef, "-", time_0,"-",time_t)
@@ -87,18 +89,21 @@ go_ms_fi <-  function(
     outFile2 <- paste0(outFile,".html")
   }
   if( is.na(outDir)) {
-    stop("Output directory not defined!")
+    outDir <- file.path(getwd(),"out_dir_counvergEU")
   }
   # check
   resDE <- dir.exists(outDir)
   if (!resDE) {
-    stop("Output directory does not exist!")
+    dir.create(outDir, FALSE)
   }
   # full path
   outFcss <- file.path(outDir,"EUF.css")
   outPF <- file.path(outDir,outFile2)
   sourcePF1 <- file.path(outDir,"country_fi_2.Rmd")
   sourcePF2 <- file.path(outDir,"eurofound.jpg")
+  sourcePFP1 <- file.path(outDir,"gg_patt_conv_annotated.png")
+  sourcePFP2 <- file.path(outDir,"gg_patt_div_annotated.png")
+  sourcePFP3 <- file.path(outDir,"gg_patt_same_annotated.png")
   # copy them
     file.copy(from = sourceFile1,
               to = sourcePF1,
@@ -107,6 +112,21 @@ go_ms_fi <-  function(
               copy.mode = TRUE, copy.date = FALSE);
     file.copy(from = sourceFile2,
               to = sourcePF2,
+              overwrite = TRUE,
+              recursive = FALSE,
+              copy.mode = TRUE, copy.date = FALSE);
+    file.copy(from = sourceFilePatt1,
+              to = sourcePFP1,
+              overwrite = TRUE,
+              recursive = FALSE,
+              copy.mode = TRUE, copy.date = FALSE);
+    file.copy(from = sourceFilePatt2,
+              to = sourcePFP2,
+              overwrite = TRUE,
+              recursive = FALSE,
+              copy.mode = TRUE, copy.date = FALSE);
+    file.copy(from = sourceFilePatt3,
+              to = sourcePFP3,
               overwrite = TRUE,
               recursive = FALSE,
               copy.mode = TRUE, copy.date = FALSE);
@@ -137,4 +157,6 @@ go_ms_fi <-  function(
                       workTB = workTB
                     ),
                     output_file = outPF)
+  rmarkdown::pandoc_convert(outPF, output = paste0(outFile,".pdf"),
+                            options=c("-V geometry:margin=0.1in -V geometry:paperwidth=7in"))
 }

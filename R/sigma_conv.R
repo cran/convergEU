@@ -16,7 +16,7 @@
 #'           along time, where the original *timeName* is preserved.
 #'
 #'
-#' @references{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
+#' @references{\url{https://www.eurofound.europa.eu/system/files/2022-04/introduction-to-the-convergeu-package-0.6.4-tutorial-v2-apr2022.pdf}}
 #'
 #'
 #' @examples
@@ -80,10 +80,7 @@ sigma_conv <- function(tavDes, timeName = "time", time_0 = NA, time_t=NA){
           }
         }else{};
     # eliminate time variables
-    myDes2 <- dplyr::select(myDes1,
-                            tidyselect::all_of(
-                              setdiff(
-                                names(myDes1),timeName)));
+    myDes2 <- myDes1[, -which(names(myDes1) == timeName)] ####dplyr::select(myDes1, -timeName)
   }else{
     tmp <- convergEU_glb()$tmpl_out
     tmp$err <- "Error: declared time variable absent."

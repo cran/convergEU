@@ -34,8 +34,11 @@
 #' @param pdf_out should the output be saved as PDF file? The default is  FALSE.
 #' @param workTB   a tibble containing data.
 #' @param selfContained  TRUE if just one file is desired
-#' @return No return value, called for side effects.
-#' @references{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
+#' @param eige_layout TRUE if the EIGE layout is desired
+#' @param memStates Member States visualizations, default is set as quintiles.
+#'
+#'
+#' @references{\url{https://www.eurofound.europa.eu/system/files/2022-04/introduction-to-the-convergeu-package-0.6.4-tutorial-v2-apr2022.pdf}}
 #'
 #'
 #'
@@ -59,7 +62,9 @@ go_indica_fi <-  function(
   outDir = NA,
   pdf_out = FALSE,
   workTB = NULL,
-  selfContained = FALSE
+  selfContained = FALSE,
+  eige_layout = FALSE,
+  memStates = 'quintiles'# ('quintiles', 'default', 'custom', 'NUTS2')
 ){
   if(is.na(workDF) & (!is.null(workTB))){
     curTB <-  workTB
@@ -77,9 +82,36 @@ go_indica_fi <-  function(
     return(obj_out)
   }
   #
+  EUst <- c('EU27', 'EU28', 'EU27_2019', 'EU27', 'EU25', 'EU19', 'EU12', 'EU15')
   sourceFilecss <- system.file("extdata", "EUF.css", package = "convergEU")
-  sourceFile1 <- system.file("extdata", "indica_fi_2.Rmd", package = "convergEU")
+  if(eige_layout){
+     sourceFile1 <- system.file("extdata", "indica_fi_2_eige.Rmd", package = "convergEU")
+  }else{
+    if(memStates == 'quintiles' && seleAggre %in% EUst)
+    {
+      sourceFile1 <- system.file("extdata", "indica_fi_3.Rmd", package = "convergEU")
+    }else if(memStates == 'default' && seleAggre %in% EUst)
+    {
+      sourceFile1 <- system.file("extdata", "indica_fi_21.Rmd", package = "convergEU")
+    }else if(memStates == 'custom')
+    {
+      sourceFile1 <- system.file("extdata", "indica_fi_4.Rmd", package = "convergEU")
+    }else if(memStates == 'NUTS2')
+    {
+      sourceFile1 <- system.file("extdata", "indica_fi_NUTS2.Rmd", package = "convergEU")
+    }
+  }
   sourceFile2 <- system.file("extdata", "eurofound.jpg", package = "convergEU")
+  formula1 <- system.file("extdata", "beta_convergence.png", package = "convergEU")
+  formula2 <- system.file("extdata", "coef_of_variation.png", package = "convergEU")
+  formula3 <- system.file("extdata", "delta_convergence.png", package = "convergEU")
+  formula4 <- system.file("extdata", "standard_deviation.png", package = "convergEU")
+  formula5 <- system.file("extdata", "legend.png", package = "convergEU")
+  sourceFilePatt1 <- system.file("extdata", "gg_patt_conv_annotated.png", package = "convergEU")
+  sourceFilePatt2 <- system.file("extdata", "gg_patt_div_annotated.png", package = "convergEU")
+  sourceFilePatt3 <- system.file("extdata", "gg_patt_same_annotated.png", package = "convergEU")
+  sourceFile2eige <- system.file("extdata", "eige_logo-share.jpg", package = "convergEU")
+  sourceFile3eige <- system.file("extdata", "white_rectangle.png", package = "convergEU")
   # conditional files
   sourceFile71 <- system.file("extdata", "indica_fi_2_sigma.Rmd", package = "convergEU")
   sourceFile72 <- system.file("extdata", "indica_fi_2_beta.Rmd", package = "convergEU")
@@ -94,18 +126,41 @@ go_indica_fi <-  function(
     outFile2 <- paste0(outFile,".html")
   }
   if (is.na(outDir)) {
-    stop("Output directory not defined!")
-     }
+    outDir <- file.path(getwd(),"out_dir_counvergEU")
+  }
   # check
   resDE <- dir.exists(outDir)
   if (!resDE) {
-    stop("Output directory does not exist!")
+    dir.create(outDir, FALSE)
   }
   # full path
   outPF <- file.path(outDir,outFile2)
   outFcss <- file.path(outDir,"EUF.css")
-  sourcePF1 <- file.path(outDir,"indica_fi_2.Rmd")
+  if(memStates == 'quintiles' || seleAggre %in% EUst)
+  {
+    sourcePF1 <- file.path(outDir,"indica_fi_3.Rmd")
+  }else if(memStates == 'default')
+  {
+    sourcePF1 <- file.path(outDir,"indica_fi_21.Rmd")
+  }else if(memStates == 'custom')
+  {
+    sourcePF1 <- file.path(outDir,"indica_fi_4.Rmd")
+  }else if(memStates == 'NUTS2')
+  {
+    sourcePF1 <- file.path(outDir,"indica_fi_NUTS2.Rmd")
+  }
   sourcePF2 <- file.path(outDir,"eurofound.jpg")
+  sourceF1 <- file.path(outDir,"beta_convergence.png")
+  sourceF2 <- file.path(outDir,"coef_of_variation.png")
+  sourceF3 <- file.path(outDir,"delta_convergence.png")
+  sourceF4 <- file.path(outDir,"standard_deviation.png")
+  sourceF5 <- file.path(outDir,"legend.png")
+  sourcePFP1 <- file.path(outDir,"gg_patt_conv_annotated.png")
+  sourcePFP2 <- file.path(outDir,"gg_patt_div_annotated.png")
+  sourcePFP3 <- file.path(outDir,"gg_patt_same_annotated.png")
+  sourcePF2eige   <- file.path(outDir,"eige_logo-share.jpg")
+  sourcePF2eige_wt   <- file.path(outDir,"white_rectangle.png")
+  #
   sourcePF71 <- file.path(outDir,"indica_fi_2_sigma.Rmd")
   sourcePF72 <- file.path(outDir,"indica_fi_2_beta.Rmd")
   sourcePF73 <- file.path(outDir,"indica_fi_2_nobeta.Rmd")
@@ -118,6 +173,56 @@ go_indica_fi <-  function(
               copy.mode = TRUE, copy.date = FALSE);
     file.copy(from = sourceFile2,
               to = sourcePF2,
+              overwrite = TRUE,
+              recursive = FALSE,
+              copy.mode = TRUE, copy.date = FALSE);
+    file.copy(from = formula1,
+              to = sourceF1,
+              overwrite = TRUE,
+              recursive = FALSE,
+              copy.mode = TRUE, copy.date = FALSE);
+    file.copy(from = formula2,
+              to = sourceF2,
+              overwrite = TRUE,
+              recursive = FALSE,
+              copy.mode = TRUE, copy.date = FALSE);
+    file.copy(from = formula3,
+              to = sourceF3,
+              overwrite = TRUE,
+              recursive = FALSE,
+              copy.mode = TRUE, copy.date = FALSE);
+    file.copy(from = formula4,
+              to = sourceF4,
+              overwrite = TRUE,
+              recursive = FALSE,
+              copy.mode = TRUE, copy.date = FALSE);
+    file.copy(from = formula5,
+              to = sourceF5,
+              overwrite = TRUE,
+              recursive = FALSE,
+              copy.mode = TRUE, copy.date = FALSE);
+    file.copy(from = sourceFilePatt1,
+              to = sourcePFP1,
+              overwrite = TRUE,
+              recursive = FALSE,
+              copy.mode = TRUE, copy.date = FALSE);
+    file.copy(from = sourceFilePatt2,
+              to = sourcePFP2,
+              overwrite = TRUE,
+              recursive = FALSE,
+              copy.mode = TRUE, copy.date = FALSE);
+    file.copy(from = sourceFilePatt3,
+              to = sourcePFP3,
+              overwrite = TRUE,
+              recursive = FALSE,
+              copy.mode = TRUE, copy.date = FALSE);
+    file.copy(from = sourceFile2eige,
+              to = sourcePF2eige,
+              overwrite = TRUE,
+              recursive = FALSE,
+              copy.mode = TRUE, copy.date = FALSE);
+    file.copy(from = sourceFile3eige,
+              to = sourcePF2eige_wt,
               overwrite = TRUE,
               recursive = FALSE,
               copy.mode = TRUE, copy.date = FALSE);
@@ -177,10 +282,13 @@ go_indica_fi <-  function(
                       outFile = outFile,
                       outDir = outDir,
                       pdf_out = FALSE,
-                      workTB = workTB
+                      workTB = workTB,
+                      memStates = memStates
                     ),
                     output_options = myOutOpt,
                     output_file = outPF,
                     encoding = "UTF-8")
+  rmarkdown::pandoc_convert(outPF, output = paste0(outFile2,".pdf"),
+                            options=c("-V geometry:margin=0.1in -V geometry:paperwidth=7in"))
 }
 

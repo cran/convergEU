@@ -20,7 +20,7 @@ hideTests <- function(){
       gender= c(NA,"T","F","M")[3],#c("Total","Females","Males")
       ageInterv = NA,
       countries =  convergEU_glb()$EU28$memberStates$codeMS,
-      rawDump=FALSE)
+      rawDump=F)
 
     eleDBvars[[indicaName]]<- names(scaricati)
   }
@@ -58,7 +58,7 @@ hideTests <- function(){
     gender= c(NA,"T","F","M")[1],#c("Total","Females","Males")
     ageInterv = NA,
     countries =  convergEU_glb()$EU28$memberStates$codeMS,
-    rawDump=FALSE,
+    rawDump=F,
     uniqueIdentif=1)
  # ttmp2
 
@@ -69,7 +69,7 @@ hideTests <- function(){
     gender= c(NA,"T","F","M")[1],#c("Total","Females","Males")
     ageInterv = NA,
     #countries =  convergEU_glb()$EU28$memberStates$codeMS,
-    rawDump=FALSE,
+    rawDump=F,
     uniqueIdentif=26)
  # ttmp2
 
@@ -130,7 +130,7 @@ hideTests <- function(){
       gender= c(NA,"T","F","M")[1],#c("Total","Females","Males")
       ageInterv = "Y16-64",
       countries =  NA,
-      rawDump=FALSE
+      rawDump=F
     )
 
 ttmp <- down_lo_EUS(
@@ -140,7 +140,7 @@ ttmp <- down_lo_EUS(
       gender= c(NA,"T","F","M")[1],#c("Total","Females","Males")
       ageInterv = "Y16-64",
       countries =  NA,
-      rawDump=FALSE,
+      rawDump=F,
       uniqueIdentif = 3
     )
 

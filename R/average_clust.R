@@ -19,7 +19,7 @@
 #'                "Eurozone","EA", "all" (for all countries in the dataset).
 #' @return  The dataset with the average of clustered countries.
 #'
-#' @references{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
+#' @references{ \url{https://www.eurofound.europa.eu/system/files/2022-04/introduction-to-the-convergeu-package-0.6.4-tutorial-v2-apr2022.pdf}}
 #'
 #' @examples
 #'
@@ -87,12 +87,14 @@ average_clust <- function(myTB, timeName = "time", cluster="EU27"){
   posit <- which(names(myTB) == timeName)
   tmp <- myTB[,-posit]
   if(cluster != "all"){
+     ##MScorrente <- unlist(convergEU_glb()[[cluster]]$memberStates[,2])
      MScorrente <-convergEU_glb()[[cluster]]$memberStates[["codeMS"]]
   }else{
     MScorrente <-     names(myTB)[-posit]
   }
-  tmp2 <- dplyr::select(tmp,tidyselect::all_of(MScorrente))
+  tmp2 <- dplyr::select(tmp,all_of(MScorrente))#tmp[,MScorrente]
   media <- apply(tmp2,1,mean)
+  ##myTB[,cluster] <- media
   myTB <- dplyr::mutate(myTB,!!cluster := media)
   out_obj$res <- myTB
   return(out_obj)

@@ -1,28 +1,30 @@
 Package: convergEU
 Type: Package
 Title: Monitoring Convergence of EU Countries
-Version: 0.5.5
-Depends: R (>= 3.6.0)
-Authors@R: 
-    c(person(given = "Federico M.",
-             family = "Stefanini",
-             role = c("arc", "aut", "cre"),
-             email = "federico.stefanini@unimi.it"),
-      person(given = "Massimiliano",
-             family = "Mascherini",
-             role = "arc",
-             email = "massimiliano.mascherini@eurofound.europa.eu"),
-      person(given = "Eleonora Peruffo",
-             role = "ctb"),
-      person(given = "Nedka Nikiforova",
-             role = "ctb"),
-      person(given = "Chiara Litardi",
-             role = "ctb"))
-Maintainer: Federico M. Stefanini <federico.stefanini@unimi.it>
+Version: 0.7.3.2
+Depends: R (>= 4.0.0)
+Authors@R: c(
+           person("Federico M.", "Stefanini", 
+                  email = "federico.stefanini@unimi.it",
+                  role  = c("arc","aut")),
+           person("Massimiliano","Mascherini",
+                  email = "massimiliano.mascherini@eurofound.europa.eu",    
+                  role  = c("arc")),
+           person("Eleonora Peruffo",
+           email="eleonora.peruffo@eurofound.europa.eu",
+           role = c("cre")),        
+           person("Nedka Nikiforova", role = c("ctb")),       
+           person("Chiara Litardi", role = c("ctb")),
+           person("Berta Mizsei", role= c("ctb")),
+           person("Ricardo Simon-Carbajo", role= c("ctb")),
+           person("Romila Ghosh", role= c("ctb")),
+           person("Andres Suarez-Cetrulo", role= c("ctb"))
+           )
+Maintainer: Eleonora Peruffo <eleonora.peruffo@eurofound.europa.eu>
 URL:
-        https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu
-        https://air.unimi.it/retrieve/dfa8b9a6-d15c-748b-e053-3a05fe0a3a96/2020EUROFOUND_WP_wpef20008.pdf,
-        https://www.eurofound.europa.eu/system/files/2018-12/ef18003en.pdf,
+        https://www.eurofound.europa.eu/system/files/2022-04/introduction-to-the-convergeu-package-0.6.4-tutorial-v2-apr2022.pdf,
+        https://www.eurofound.europa.eu/en/publications/eurofound-paper/2020/monitoring-upward-convergence-eu-r-convergeu-package,
+        https://www.eurofound.europa.eu/en/publications/2018/upward-convergence-eu-concepts-measurements-and-indicators,
         https://www.ajs.or.at/index.php/ajs/article/view/1468
 Description: Indicators and measures by country and time describe
     what happens at economic and social levels. This package provides
@@ -34,20 +36,24 @@ Description: Indicators and measures by country and time describe
     "Upward convergence in the EU: Concepts, measurements and indicators", 
     2018, is a detailed  presentation of  convergence.
 Imports: dplyr, tibble, ggplot2, eurostat, tidyr, rlang, utils, purrr,
-        caTools, broom, stringr, rmarkdown, ggpubr,stats,tidyselect
+        caTools, broom, stringr, rmarkdown, ggpubr, leaflet, tidyselect
 Suggests: devtools, formattable, gridExtra, knitr, kableExtra,
-        magrittr, readr, readxl, rvest, testthat, utf8
-License: GPL-3
+        magrittr, readr, readxl, tidyverse, rvest, testthat, utf8
+License: GPL-3 | BSD_3_clause + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.0
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2024-01-08 07:15:55 UTC; fmstef
-Author: Federico M. Stefanini [arc, aut, cre],
+Packaged: 2024-01-21 17:41:31 UTC; epe
+Author: Federico M. Stefanini [arc, aut],
   Massimiliano Mascherini [arc],
-  Eleonora Peruffo [ctb],
+  Eleonora Peruffo [cre],
   Nedka Nikiforova [ctb],
-  Chiara Litardi [ctb]
+  Chiara Litardi [ctb],
+  Berta Mizsei [ctb],
+  Ricardo Simon-Carbajo [ctb],
+  Romila Ghosh [ctb],
+  Andres Suarez-Cetrulo [ctb]
 Repository: CRAN
-Date/Publication: 2024-01-08 15:30:13 UTC
+Date/Publication: 2024-01-21 22:12:54 UTC

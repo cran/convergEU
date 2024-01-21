@@ -13,9 +13,9 @@ test_that("Simplest test", {
     time2 = c(2000,2001,2002,2003,2004,2005),
     time3 = c(2000,2001,2002,2003,2004,2005),
     time4 = c(2000,2001,2002,2003,2004,2005),
-    IT =  base::sample(c(-1,0,1),6,rep=TRUE),
-    DE = base::sample(c(-1,0,1),6,rep=TRUE),
-    UK = base::sample(c(-1,0,1),6,rep=TRUE)
+    IT =  base::sample(c(-1,0,1),6,rep=T),
+    DE = base::sample(c(-1,0,1),6,rep=T),
+    UK = base::sample(c(-1,0,1),6,rep=T)
   )
 
   # myTB <- tidyr::gather(myDF,key="MS", value= profile, IT,DE,UK)

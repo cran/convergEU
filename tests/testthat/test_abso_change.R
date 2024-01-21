@@ -67,9 +67,9 @@ test_that("Tests for failures in absolute change.", {
                        timeName = "years")
   expect_null(mySTB$res)
   #
-  mySTB2 <- abso_change(testTB,2000,2005, FALSE,"ttiimmee")
+  mySTB2 <- abso_change(testTB,2000,2005, F,"ttiimmee")
   expect_null(mySTB2$res)
-  mySTB2 <- abso_change(testTB,2004,2001, FALSE,"years")
+  mySTB2 <- abso_change(testTB,2004,2001, F,"years")
   expect_equal(mySTB2$err, "Error: wrong selected time window.")
 
 })

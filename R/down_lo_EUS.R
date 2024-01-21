@@ -28,10 +28,10 @@
 #' @importFrom rlang :=
 #'
 #'
-#' @references{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
+#' @references{\url{https://www.eurofound.europa.eu/system/files/2022-04/introduction-to-the-convergeu-package-0.6.4-tutorial-v2-apr2022.pdf}}
 #'
 #'@examples
-#'\donttest{
+#'\dontrun{
 #' myDF1 <- down_lo_EUS(indicator_code = "lfsa_ergaed",
 #'                     fromTime = 2005,
 #'                     toTime = 2015,
@@ -93,11 +93,12 @@ down_lo_EUS <- function(
     return(out_obj)
   }
   ## OK data downloaded
+  if ("TIME_PERIOD" %in% names(downTB))  # 12-01-2024 Eurostat changed the variable time to TIME_PERIOD
+      names(downTB)[names(downTB) == 'TIME_PERIOD'] <- 'time'
   # early return for bulk data
   if(rawDump) return(downTB)
-  #
   # init flags to extract data
-  estrattore <- rep(TRUE,nrow(downTB))
+  estrattore <- rep(TRUE,nrow(downTB)) #Edit suggested by Federico Stefanini
   ## check if time present
   isTime <- "time" %in% names(downTB)
   if(isTime){

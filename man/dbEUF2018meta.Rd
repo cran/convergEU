@@ -8,7 +8,7 @@
 A dataset  with 13 rows and 10 columns
 }
 \source{
-\url{https://www.eurofound.europa.eu/en/surveys}
+\url{https://www.eurofound.europa.eu/en/surveys/about-eurofounds-surveys/data-availability}
 }
 \usage{
 data(dbEUF2018meta)
@@ -29,6 +29,9 @@ The following convention holds for names of variables:
 data(dbEUF2018meta)
 names(dbEUF2018meta)
 
+\dontrun{
+View(dbEUF2018meta)
+}
 
 # Visualize metainformation on the indicators stored in the dataset:
 dbEUF2018meta$INDICATOR
@@ -42,6 +45,6 @@ dbEUF2018meta$Official_code
 
 }
 \references{
-{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
+{\url{https://www.eurofound.europa.eu/system/files/2022-04/introduction-to-the-convergeu-package-0.6.4-tutorial-v2-apr2022.pdf}}
 }
 \keyword{datasets}

@@ -27,7 +27,7 @@ A tibble dataset  with 17 columns
 }
 }
 \source{
-\url{https://www.eurofound.europa.eu/en/surveys}
+\url{https://www.eurofound.europa.eu/en/surveys/about-eurofounds-surveys/data-availability}
 }
 \usage{
 data(dbEurofound)
@@ -57,6 +57,6 @@ c(min(dbEurofound$time), max(dbEurofound$time))
 
 }
 \references{
-{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
+{\url{https://www.eurofound.europa.eu/system/files/2022-04/introduction-to-the-convergeu-package-0.6.4-tutorial-v2-apr2022.pdf}}
 }
 \keyword{datasets}

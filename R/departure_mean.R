@@ -8,10 +8,10 @@
 #' @param  oriTB  original dataset (tibble) with time by country values.
 #' @param  sigmaTB result from sigma_convergence called on oriTB.
 #' @param  timeName string with the name of the time variable in oriTB.
-#' @return  list of tibbles containing  labeled departures from the mean, square difference from the mean,
+#' @return  list of tibbles containing  labelled departures from the mean, square difference from the mean,
 #'          and percentage of deviance.
 #'
-#' @references{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
+#' @references{\url{https://www.eurofound.europa.eu/system/files/2022-04/introduction-to-the-convergeu-package-0.6.4-tutorial-v2-apr2022.pdf}}
 #'
 #' @examples
 #'
@@ -43,7 +43,7 @@
 #' # Calculate departures from the mean for each country:
 #' resDMeur <- departure_mean(oriTB = emp_20_64_MS, sigmaTB = mySC$res)
 #'
-#' # Results for labeled departures from the mean:
+#' # Results for labelled departures from the mean:
 #' resDMeur$res$departures
 #'
 #' # Results for square difference from the mean:

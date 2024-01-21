@@ -11,12 +11,12 @@ patt_legend(indiType = "highBest")
 to select a type of indicator.}
 }
 \value{
-a list of ggplot objects to be plotted using grid.arrange()
+a ggplot object to be plotted using grid.arrange()
         function.
 }
 \description{
-A 4 by 4 plot showing patterns of change along time is made
-and returned as a list of ggplot objects.
+A 5 by 4 plot showing patterns of change along time is made
+and returned a ggplot object.
 }
 \examples{
 
@@ -29,5 +29,5 @@ refGGpat3 <- patt_legend(indiType="highBest")
 
 }
 \references{
-{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
+{\url{https://www.eurofound.europa.eu/system/files/2022-04/introduction-to-the-convergeu-package-0.6.4-tutorial-v2-apr2022.pdf}}
 }

@@ -8,7 +8,7 @@
 #' @param indiName name of the  considered indicator as a string.
 #' @return  a ggplot object to be displayed of saved using ggsave.
 #'
-#' @references{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
+#' @references{ \url{https://www.eurofound.europa.eu/system/files/2022-04/introduction-to-the-convergeu-package-0.6.4-tutorial-v2-apr2022.pdf}}
 #'
 #' @examples
 #'
@@ -45,7 +45,7 @@ beta_conv_graph <- function(betaRes,
   beta_conv_gr1 <- ggplot2::qplot(betaRes$res$workTB$indic,
                          betaRes$res$workTB$deltaIndic,
                          xlab= paste("log ",indiName),
-                         ylab= paste("Log rate of growth:",ptime_0,"-",ptime_t)) +
+                         ylab= paste("Log growth:",ptime_0,"-",ptime_t)) +
     ggplot2::geom_abline(intercept = as.numeric(betaRes$res$summary[1,2]),
                 slope = as.numeric(betaRes$res$summary[2,2]),
                 colour = "red") +

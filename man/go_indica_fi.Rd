@@ -21,7 +21,9 @@ go_indica_fi(
   outDir = NA,
   pdf_out = FALSE,
   workTB = NULL,
-  selfContained = FALSE
+  selfContained = FALSE,
+  eige_layout = FALSE,
+  memStates = "quintiles"
 )
 }
 \arguments{
@@ -63,9 +65,10 @@ current time.}
 \item{workTB}{a tibble containing data.}
 
 \item{selfContained}{TRUE if just one file is desired}
-}
-\value{
-No return value, called for side effects.
+
+\item{eige_layout}{TRUE if the EIGE layout is desired}
+
+\item{memStates}{Member States visualizations, default is set as quintiles.}
 }
 \description{
 An auxiliary function to compile a rmarkdown file to produce the indicator fiche in
@@ -82,5 +85,5 @@ to properly rendering the results in the html file. The fiches have been tested 
 the browsers Mozilla Firefox and Google Chrome.
 }
 \references{
-{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
+{\url{https://www.eurofound.europa.eu/system/files/2022-04/introduction-to-the-convergeu-package-0.6.4-tutorial-v2-apr2022.pdf}}
 }

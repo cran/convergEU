@@ -12,7 +12,7 @@
 #' @param printRanks logical flag for printing ranks based on data.
 #' @return  gamma convergence  (indicated as KIt in Eurofound 2018 paper).
 #'
-#' @references{ \url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
+#' @references{ \url{https://www.eurofound.europa.eu/system/files/2022-04/introduction-to-the-convergeu-package-0.6.4-tutorial-v2-apr2022.pdf}}
 #'
 #' @examples
 #'
@@ -54,7 +54,7 @@
 #' @export
 #'
 #'
-gamma_conv <- function(rawDat, ref=NA, last=NA, timeName = "time", printRanks=FALSE){
+gamma_conv <- function(rawDat, ref=NA, last=NA, timeName = "time",printRanks=F){
   # Make standard cheks on the dataframe
   obj_out <- check_data(rawDat)
   if(!is.null(obj_out$err)){
@@ -83,10 +83,7 @@ gamma_conv <- function(rawDat, ref=NA, last=NA, timeName = "time", printRanks=FA
   # select ref
   posizRef <- which(rawDat[,timeName] == ref)
   # go with the index
-  myDat <- dplyr::select(rawDat,
-                         tidyselect::all_of(
-                            setdiff(
-                              names(rawDat),timeName)));
+  myDat <- rawDat[, -which(names(rawDat) == timeName)]    ######dplyr::select(rawDat,-timeName)
   myMat <- t(as.matrix(myDat))# countries by times
   myRanghi <- apply(myMat,2, function(vetto){rank(vetto)})
   if(printRanks){

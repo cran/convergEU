@@ -10,21 +10,24 @@
 #' "_eur" euros, "_pps"	purchasing power standards,
 #' "_y"	years.
 #'
-#' 
-#' @source \url{https://www.eurofound.europa.eu/en/surveys}
+#'
+#' @source \url{https://www.eurofound.europa.eu/en/surveys/about-eurofounds-surveys/data-availability}
 #' @docType data
 #' @keywords datasets
 #' @name dbEUF2018meta
 #' @usage data(dbEUF2018meta)
 #' @format A dataset  with 13 rows and 10 columns
 #'
-#' @references{\url{https://unimi2013-my.sharepoint.com/:u:/g/personal/federico_stefanini_unimi_it/EW0cVSIgbtZAvLPNbqcxdX8Bfn5VGSRHfAH88hQwc_RIEQ?e=MgtSZu}}
+#' @references{\url{https://www.eurofound.europa.eu/system/files/2022-04/introduction-to-the-convergeu-package-0.6.4-tutorial-v2-apr2022.pdf}}
 #'
 #' @examples
 #'
 #' data(dbEUF2018meta)
 #' names(dbEUF2018meta)
 #'
+#' \dontrun{
+#' View(dbEUF2018meta)
+#' }
 #'
 #' # Visualize metainformation on the indicators stored in the dataset:
 #' dbEUF2018meta$INDICATOR
